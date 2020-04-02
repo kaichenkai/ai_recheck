@@ -70,9 +70,9 @@ class alias(option_base):
 def format_alias(name, aliases):
     source, command = aliases[name]
     if source == config_file('global'):
-        source = '--global-config '
+        source = '--global-conf '
     elif source == config_file('user'):
-        source = '--user-config '
+        source = '--user-conf '
     elif source == config_file('local'):
         source = ''
     else:

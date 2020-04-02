@@ -1,5 +1,8 @@
 # -*- coding:utf-8 -*-
 import os
+# 本文件时间单位全为秒（s）
+DAY_UNIT = 24 * 60 * 60
+
 
 HOME_PATH = os.path.expanduser('~')
 SERVER_PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
@@ -30,12 +33,22 @@ MAX_IMAGE_NUM = 400000           # 日处理量最大 40w
 LIMIT_NUM = 80                   # 单次处理数
 THREAD_NUM = 6                   # 开启线程数
 SDK_API = "http://192.168.1.226:18183/recog/"    # SDK 地址
-# sdk request 时间间隔（s）
-H = 0
-M = 0
-S = 5
-img_counts = 0
-time_interval = S + M * 60 + H * 60 * 60
+
+
+# 识别数据上报相关
+# SERVICE_URL = "http://41.5.252.234:8898/pushData/writeBack"            # 上报地址
+SERVICE_URL = "http://10.10.19.250:8088/api/report/data"                 # test 上报地址
+REPORT_INTERVAL_TIME = 1 * 24 * 60 * 60             # 上报循环任务间隔时间
+# 上报数据状态记录
+SRC_STATUS = 0                                      # 默认状态
+REPORT_SUCCESS = 1                                  # 上报成功
+REPORT_FAILED = 2                                   # 上报失败
+QUERY_INTERVAL = 100                                # 一次查询的数据量
+
+
+# 数据清理相关
+CLEANING_RECORD_INTERVAL_TIME = 180 * 24 * 60 * 60   # 无效mysql记录的时间间隔
+DEL_INTERVAL = 10000                                 # 一次清理的数据量
 
 
 # 部门机关字典
@@ -66,6 +79,6 @@ SECTOR_MAP = {
     "4198": "河南省公安铁路交警支队",
     "4199": "河南省公安厅高速公路交通警察总队",
 
-    # 新增加
-    "0000": "测试公司"
+    # 公司名
+    "0000": "中裕广恒"
 }

@@ -1,5 +1,5 @@
 # encoding: utf-8
-"""Tests for IPython.utils.module_paths.py"""
+"""Tests for IPython.tools.module_paths.py"""
 
 #-----------------------------------------------------------------------------
 #  Copyright (C) 2008-2011  The IPython Development Team

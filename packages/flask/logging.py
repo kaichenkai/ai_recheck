@@ -86,7 +86,7 @@ def create_logger(app):
     """
     logger = logging.getLogger(app.name)
 
-    # 1.1.0 changes name of logger, warn if config is detected for old
+    # 1.1.0 changes name of logger, warn if conf is detected for old
     # name and not new name
     for old_name in ("flask.app", "flask"):
         old_logger = logging.getLogger(old_name)

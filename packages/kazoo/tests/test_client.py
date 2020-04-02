@@ -1202,7 +1202,7 @@ class TestReconfig(KazooTestCase):
                                        new_members=None)
         self.assertNotIn(joining, data)
 
-        # try to add it again, but a config number in the future
+        # try to add it again, but a conf number in the future
         curver = int(data.split('\n')[-1].split('=')[1], base=16)
         self.assertRaises(BadVersionError,
                           self.client.reconfig,

@@ -326,7 +326,7 @@ _contextmanager = decorator(ContextManager)
 
 
 def contextmanager(func):
-    # Enable Pylint config: contextmanager-decorators=decorator.contextmanager
+    # Enable Pylint conf: contextmanager-decorators=decorator.contextmanager
     return _contextmanager(func)
 
 

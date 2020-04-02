@@ -57,7 +57,7 @@ class ArgumentParser(argparse.ArgumentParser):
     print_help.__doc__ = argparse.ArgumentParser.print_help.__doc__
 
 #-----------------------------------------------------------------------------
-# Config class for holding config information
+# Config class for holding conf information
 #-----------------------------------------------------------------------------
 
 class LazyConfigValue(HasTraits):
@@ -180,7 +180,7 @@ class Config(dict):
         self.merge(other)
     
     def merge(self, other):
-        """merge another config object into this one"""
+        """merge another conf object into this one"""
         to_update = {}
         for k, v in other.items():
             if k not in self:
@@ -196,7 +196,7 @@ class Config(dict):
         self.update(to_update)
     
     def collisions(self, other):
-        """Check for collisions between two config objects.
+        """Check for collisions between two conf objects.
         
         Returns a dict of the form {"Class": {"trait": "collision message"}}`,
         indicating which values have been ignored.
@@ -216,7 +216,7 @@ class Config(dict):
         return collisions
     
     def __contains__(self, key):
-        # allow nested contains of the form `"Section.key" in config`
+        # allow nested contains of the form `"Section.key" in conf`
         if '.' in key:
             first, remainder = key.split('.', 1)
             if first not in self:
@@ -241,7 +241,7 @@ class Config(dict):
         new_config = type(self)()
         for key, value in self.items():
             if isinstance(value, (Config, LazyConfigValue)):
-                # deep copy config objects
+                # deep copy conf objects
                 value = copy.deepcopy(value, memo)
             elif type(value) in {dict, list, set, tuple}:
                 # shallow copy plain container traits
@@ -309,10 +309,10 @@ class ConfigLoader(object):
 
     Notes
     -----
-    A :class:`ConfigLoader` does one thing: load a config from a source
+    A :class:`ConfigLoader` does one thing: load a conf from a source
     (file, command line arguments) and returns the data as a :class:`Config` object.
     There are lots of things that :class:`ConfigLoader` does not do.  It does
-    not implement complex logic for finding config files.  It does not handle
+    not implement complex logic for finding conf files.  It does not handle
     default values or merge multiple configs.  These things need to be
     handled elsewhere.
     """
@@ -322,18 +322,18 @@ class ConfigLoader(object):
         return get_logger()
 
     def __init__(self, log=None):
-        """A base class for config loaders.
+        """A base class for conf loaders.
 
         log : instance of :class:`logging.Logger` to use.
-              By default loger of :meth:`traitlets.config.application.Application.instance()`
+              By default loger of :meth:`traitlets.conf.application.Application.instance()`
               will be used
 
         Examples
         --------
 
         >>> cl = ConfigLoader()
-        >>> config = cl.load_config()
-        >>> config
+        >>> conf = cl.load_config()
+        >>> conf
         {}
         """
         self.clear()
@@ -347,9 +347,9 @@ class ConfigLoader(object):
         self.config = Config()
 
     def load_config(self):
-        """Load a config from somewhere, return a :class:`Config` instance.
+        """Load a conf from somewhere, return a :class:`Config` instance.
 
-        Usually, this will cause self.config to be set and then returned.
+        Usually, this will cause self.conf to be set and then returned.
         However, in most cases, :meth:`ConfigLoader.clear` should be called
         to erase any previous state.
         """
@@ -360,19 +360,19 @@ class ConfigLoader(object):
 class FileConfigLoader(ConfigLoader):
     """A base class for file based configurations.
 
-    As we add more file based config loaders, the common logic should go
+    As we add more file based conf loaders, the common logic should go
     here.
     """
 
     def __init__(self, filename, path=None, **kw):
-        """Build a config loader for a filename and path.
+        """Build a conf loader for a filename and path.
 
         Parameters
         ----------
         filename : str
-            The file name of the config file.
+            The file name of the conf file.
         path : str, list, tuple
-            The path to search for the config file on, or a sequence of
+            The path to search for the conf file on, or a sequence of
             paths to try in order.
         """
         super(FileConfigLoader, self).__init__(**kw)
@@ -385,7 +385,7 @@ class FileConfigLoader(ConfigLoader):
         self.full_filename = filefind(self.filename, self.path)
 
 class JSONFileConfigLoader(FileConfigLoader):
-    """A JSON file loader for config
+    """A JSON file loader for conf
 
     Can also act as a context manager that rewrite the configuration file to disk on exit.
 
@@ -397,7 +397,7 @@ class JSONFileConfigLoader(FileConfigLoader):
     """
 
     def load_config(self):
-        """Load the config from a file and return it as a Config object."""
+        """Load the conf from a file and return it as a Config object."""
         self.clear()
         try:
             self._find_file()
@@ -420,7 +420,7 @@ class JSONFileConfigLoader(FileConfigLoader):
         if version == 1:
             return Config(dictionary)
         else:
-            raise ValueError('Unknown version of JSON config file: {version}'.format(version=version))
+            raise ValueError('Unknown version of JSON conf file: {version}'.format(version=version))
 
     def __enter__(self):
         self.load_config()
@@ -441,14 +441,14 @@ class JSONFileConfigLoader(FileConfigLoader):
 
 
 class PyFileConfigLoader(FileConfigLoader):
-    """A config loader for pure python files.
+    """A conf loader for pure python files.
 
-    This is responsible for locating a Python config file by filename and
+    This is responsible for locating a Python conf file by filename and
     path, then executing it to construct a Config object.
     """
 
     def load_config(self):
-        """Load the config from a file and return it as a Config object."""
+        """Load the conf from a file and return it as a Config object."""
         self.clear()
         try:
             self._find_file()
@@ -458,7 +458,7 @@ class PyFileConfigLoader(FileConfigLoader):
         return self.config
     
     def load_subconfig(self, fname, path=None):
-        """Injected into config file namespace as load_subconfig"""
+        """Injected into conf file namespace as load_subconfig"""
         if path is None:
             path = self.path
         
@@ -466,14 +466,14 @@ class PyFileConfigLoader(FileConfigLoader):
         try:
             sub_config = loader.load_config()
         except ConfigFileNotFound:
-            # Pass silently if the sub config is not there,
-            # treat it as an empty config file.
+            # Pass silently if the sub conf is not there,
+            # treat it as an empty conf file.
             pass
         else:
             self.config.merge(sub_config)
     
     def _read_file_as_dict(self):
-        """Load the config file into self.config, with recursive loading."""
+        """Load the conf file into self.conf, with recursive loading."""
         def get_config():
             """Unnecessary now, but a deprecation warning is more trouble than it's worth."""
             return self.config
@@ -490,14 +490,14 @@ class PyFileConfigLoader(FileConfigLoader):
 
 
 class CommandLineConfigLoader(ConfigLoader):
-    """A config loader for command line arguments.
+    """A conf loader for command line arguments.
 
     As we add more command line based loaders, the common logic should go
     here.
     """
 
     def _exec_config_str(self, lhs, rhs):
-        """execute self.config.<lhs> = <rhs>
+        """execute self.conf.<lhs> = <rhs>
         
         * expands ~ with expanduser
         * tries to assign with literal_eval, otherwise assigns with just the string,
@@ -514,13 +514,13 @@ class CommandLineConfigLoader(ConfigLoader):
             # This case happens if the rhs is a string.
             value = rhs
 
-        exec(u'self.config.%s = value' % lhs)
+        exec(u'self.conf.%s = value' % lhs)
 
     def _load_flag(self, cfg):
-        """update self.config from a flag, which can be a dict or Config"""
+        """update self.conf from a flag, which can be a dict or Config"""
         if isinstance(cfg, (dict, Config)):
-            # don't clobber whole config sections, update
-            # each section from config:
+            # don't clobber whole conf sections, update
+            # each section from conf:
             for sec,c in cfg.items():
                 self.config[sec].update(c)
         else:
@@ -545,7 +545,7 @@ kv_pattern = re.compile(r'\-\-[A-Za-z][\w\-]*(\.[\w\-]+)*\=.*')
 flag_pattern = re.compile(r'\-\-?\w+[\-\w]*$')
 
 class KeyValueConfigLoader(CommandLineConfigLoader):
-    """A config loader that loads key value pairs from the command line.
+    """A conf loader that loads key value pairs from the command line.
 
     This allows command line options to be gives in the following form::
 
@@ -553,7 +553,7 @@ class KeyValueConfigLoader(CommandLineConfigLoader):
     """
 
     def __init__(self, argv=None, aliases=None, flags=None, **kw):
-        """Create a key value pair config loader.
+        """Create a key value pair conf loader.
 
         Parameters
         ----------
@@ -568,17 +568,17 @@ class KeyValueConfigLoader(CommandLineConfigLoader):
         flags : dict
             A dict of flags, keyed by str name. Vaues can be Config objects,
             dicts, or "key=value" strings.  If Config or dict, when the flag
-            is triggered, The flag is loaded as `self.config.update(m)`.
+            is triggered, The flag is loaded as `self.conf.update(m)`.
 
         Returns
         -------
-        config : Config
+        conf : Config
             The resulting Config object.
 
         Examples
         --------
 
-            >>> from traitlets.config.loader import KeyValueConfigLoader
+            >>> from traitlets.conf.loader import KeyValueConfigLoader
             >>> cl = KeyValueConfigLoader()
             >>> d = cl.load_config(["--A.name='brian'","--B.number=0"])
             >>> sorted(d.items())
@@ -630,8 +630,8 @@ class KeyValueConfigLoader(CommandLineConfigLoader):
             Of the form: `{'alias' : 'Configurable.trait'}`
         flags : dict
             A dict of flags, keyed by str name. Values can be Config objects
-            or dicts.  When the flag is triggered, The config is loaded as
-            `self.config.update(cfg)`.
+            or dicts.  When the flag is triggered, The conf is loaded as
+            `self.conf.update(cfg)`.
         """
         self.clear()
         if argv is None:
@@ -689,7 +689,7 @@ class ArgParseConfigLoader(CommandLineConfigLoader):
     """A loader that uses the argparse module to load from the command line."""
 
     def __init__(self, argv=None, aliases=None, flags=None, log=None,  *parser_args, **parser_kw):
-        """Create a config loader for use with argparse.
+        """Create a conf loader for use with argparse.
 
         Parameters
         ----------
@@ -708,7 +708,7 @@ class ArgParseConfigLoader(CommandLineConfigLoader):
 
         Returns
         -------
-        config : Config
+        conf : Config
             The resulting Config object.
         """
         super(CommandLineConfigLoader, self).__init__(log=log)
@@ -768,15 +768,15 @@ class ArgParseConfigLoader(CommandLineConfigLoader):
         self.parsed_data, self.extra_args = self.parser.parse_known_args(uargs)
 
     def _convert_to_config(self):
-        """self.parsed_data->self.config"""
+        """self.parsed_data->self.conf"""
         for k, v in vars(self.parsed_data).items():
-            exec("self.config.%s = v"%k, locals(), globals())
+            exec("self.conf.%s = v"%k, locals(), globals())
 
 class KVArgParseConfigLoader(ArgParseConfigLoader):
-    """A config loader that loads aliases and flags with argparse,
+    """A conf loader that loads aliases and flags with argparse,
     but will use KVLoader for the rest.  This allows better parsing
     of common args, such as `ipython -c 'print 5'`, but still gets
-    arbitrary config with `ipython --InteractiveShell.use_readline=False`"""
+    arbitrary conf with `ipython --InteractiveShell.use_readline=False`"""
 
     def _add_arguments(self, aliases=None, flags=None):
         self.alias_flags = {}
@@ -807,7 +807,7 @@ class KVArgParseConfigLoader(ArgParseConfigLoader):
                 paa('--'+key, action='append_const', dest='_flags', const=value)
 
     def _convert_to_config(self):
-        """self.parsed_data->self.config, parse unrecognized extra args via KVLoader."""
+        """self.parsed_data->self.conf, parse unrecognized extra args via KVLoader."""
         # remove subconfigs list from namespace before transforming the Namespace
         if '_flags' in self.parsed_data:
             subcs = self.parsed_data._flags
@@ -834,14 +834,14 @@ class KVArgParseConfigLoader(ArgParseConfigLoader):
 
 
 def load_pyconfig_files(config_files, path):
-    """Load multiple Python config files, merging each of them in turn.
+    """Load multiple Python conf files, merging each of them in turn.
 
     Parameters
     ==========
     config_files : list of str
-        List of config files names to load and merge into the config.
+        List of conf files names to load and merge into the conf.
     path : unicode
-        The full path to the location of the config files.
+        The full path to the location of the conf files.
     """
     config = Config()
     for cf in config_files:

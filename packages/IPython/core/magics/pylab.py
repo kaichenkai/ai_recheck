@@ -29,7 +29,7 @@ magic_gui_arg = magic_arguments.argument(
         help="""Name of the matplotlib backend to use %s.
         If given, the corresponding matplotlib backend is used,
         otherwise it will be matplotlib's default
-        (which you can set in your matplotlib config file).
+        (which you can set in your matplotlib conf file).
         """ % str(tuple(sorted(backends.keys())))
 )
 
@@ -61,9 +61,9 @@ class PylabMagics(Magics):
         The default for inline figures sets `bbox_inches` to 'tight'. This can
         cause discrepancies between the displayed image and the identical
         image created using `savefig`. This behavior can be disabled using the
-        `%config` magic::
+        `%conf` magic::
             
-            In [3]: %config InlineBackend.print_figure_kwargs = {'bbox_inches':None}
+            In [3]: %conf InlineBackend.print_figure_kwargs = {'bbox_inches':None}
 
         In addition, see the docstring of
         `IPython.display.set_matplotlib_formats` and

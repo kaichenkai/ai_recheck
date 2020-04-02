@@ -33,15 +33,15 @@ class MultipleInstanceError(ConfigurableError):
 class Configurable(HasTraits):
 
     config = Instance(Config, (), {})
-    parent = Instance('traitlets.config.configurable.Configurable', allow_none=True)
+    parent = Instance('traitlets.conf.configurable.Configurable', allow_none=True)
 
     def __init__(self, **kwargs):
-        """Create a configurable given a config config.
+        """Create a configurable given a conf conf.
 
         Parameters
         ----------
         config : Config
-            If this is empty, default values are used. If config is a
+            If this is empty, default values are used. If conf is a
             :class:`Config` instance, it will be used to configure the
             instance.
         parent : Configurable instance, optional
@@ -54,40 +54,40 @@ class Configurable(HasTraits):
         :func:`super`::
 
             class MyConfigurable(Configurable):
-                def __init__(self, config=None):
-                    super(MyConfigurable, self).__init__(config=config)
+                def __init__(self, conf=None):
+                    super(MyConfigurable, self).__init__(conf=conf)
                     # Then any other code you need to finish initialization.
 
         This ensures that instances will be configured properly.
         """
         parent = kwargs.pop('parent', None)
         if parent is not None:
-            # config is implied from parent
-            if kwargs.get('config', None) is None:
-                kwargs['config'] = parent.config
+            # conf is implied from parent
+            if kwargs.get('conf', None) is None:
+                kwargs['conf'] = parent.config
             self.parent = parent
 
-        config = kwargs.pop('config', None)
+        config = kwargs.pop('conf', None)
 
-        # load kwarg traits, other than config
+        # load kwarg traits, other than conf
         super(Configurable, self).__init__(**kwargs)
 
-        # load config
+        # load conf
         if config is not None:
             # We used to deepcopy, but for now we are trying to just save
             # by reference.  This *could* have side effects as all components
-            # will share config. In fact, I did find such a side effect in
-            # _config_changed below. If a config attribute value was a mutable type
+            # will share conf. In fact, I did find such a side effect in
+            # _config_changed below. If a conf attribute value was a mutable type
             # all instances of a component were getting the same copy, effectively
             # making that a class attribute.
-            # self.config = deepcopy(config)
+            # self.conf = deepcopy(conf)
             self.config = config
         else:
             # allow _config_default to return something
             self._load_config(self.config)
 
-        # Ensure explicit kwargs are applied after loading config.
-        # This is usually redundant, but ensures config doesn't override
+        # Ensure explicit kwargs are applied after loading conf.
+        # This is usually redundant, but ensures conf doesn't override
         # explicitly assigned values.
         for key, value in kwargs.items():
             setattr(self, key, value)
@@ -104,13 +104,13 @@ class Configurable(HasTraits):
         ]
 
     def _find_my_config(self, cfg):
-        """extract my config from a global Config object
+        """extract my conf from a global Config object
 
-        will construct a Config object of only the config values that apply to me
+        will construct a Config object of only the conf values that apply to me
         based on my mro(), as well as those of my parent(s) if they exist.
 
         If I am Bar and my parent is Foo, and their parent is Tim,
-        this will return merge following config sections, in this order::
+        this will return merge following conf sections, in this order::
 
             [Bar, Foo.bar, Tim.Foo.Bar]
 
@@ -122,7 +122,7 @@ class Configurable(HasTraits):
         my_config = Config()
         for c in cfgs:
             for sname in self.section_names():
-                # Don't do a blind getattr as that would cause the config to
+                # Don't do a blind getattr as that would cause the conf to
                 # dynamically create the section with name Class.__name__.
                 if c._has_section(sname):
                     my_config.merge(c[sname])
@@ -138,7 +138,7 @@ class Configurable(HasTraits):
 
         my_config = self._find_my_config(cfg)
 
-        # hold trait notifications until after all config has been loaded
+        # hold trait notifications until after all conf has been loaded
         with self.hold_trait_notifications():
             for name, config_value in my_config.items():
                 if name in traits:
@@ -148,7 +148,7 @@ class Configurable(HasTraits):
                         initial = getattr(self, name)
                         config_value = config_value.get_value(initial)
                     # We have to do a deepcopy here if we don't deepcopy the entire
-                    # config object. If we don't, a mutable config_value will be
+                    # conf object. If we don't, a mutable config_value will be
                     # shared by all instances, effectively making it a class attribute.
                     setattr(self, name, deepcopy(config_value))
                 elif not _is_section_key(name) and not isinstance(config_value, Config):
@@ -167,36 +167,36 @@ class Configurable(HasTraits):
                         msg +="  Did you mean one of: `{matches}`?".format(matches=', '.join(sorted(matches)))
                     warn(msg)
 
-    @observe('config')
+    @observe('conf')
     @observe_compat
     def _config_changed(self, change):
-        """Update all the class traits having ``config=True`` in metadata.
+        """Update all the class traits having ``conf=True`` in metadata.
 
-        For any class trait with a ``config`` metadata attribute that is
+        For any class trait with a ``conf`` metadata attribute that is
         ``True``, we update the trait with the value of the corresponding
-        config entry.
+        conf entry.
         """
-        # Get all traits with a config metadata entry that is True
+        # Get all traits with a conf metadata entry that is True
         traits = self.traits(config=True)
 
-        # We auto-load config section for this class as well as any parent
+        # We auto-load conf section for this class as well as any parent
         # classes that are Configurable subclasses.  This starts with Configurable
-        # and works down the mro loading the config for each section.
+        # and works down the mro loading the conf for each section.
         section_names = self.section_names()
         self._load_config(change.new, traits=traits, section_names=section_names)
 
     def update_config(self, config):
-        """Update config and load the new values"""
-        # traitlets prior to 4.2 created a copy of self.config in order to trigger change events.
+        """Update conf and load the new values"""
+        # traitlets prior to 4.2 created a copy of self.conf in order to trigger change events.
         # Some projects (IPython < 5) relied upon one side effect of this,
-        # that self.config prior to update_config was not modified in-place.
-        # For backward-compatibility, we must ensure that self.config
+        # that self.conf prior to update_config was not modified in-place.
+        # For backward-compatibility, we must ensure that self.conf
         # is a new object and not modified in-place,
-        # but config consumers should not rely on this behavior.
+        # but conf consumers should not rely on this behavior.
         self.config = deepcopy(self.config)
-        # load config
+        # load conf
         self._load_config(config)
-        # merge it into self.config
+        # merge it into self.conf
         self.config.merge(config)
         # TODO: trigger change event if/when dict-update change events take place
         # DO NOT trigger full trait-change
@@ -256,7 +256,7 @@ class Configurable(HasTraits):
 
     @classmethod
     def class_config_section(cls):
-        """Get the config class config section"""
+        """Get the conf class conf section"""
         def c(s):
             """return a commented, wrapped block."""
             s = '\n\n'.join(wrap_paragraphs(s, 78))
@@ -287,7 +287,7 @@ class Configurable(HasTraits):
 
     @classmethod
     def class_config_rst_doc(cls):
-        """Generate rST documentation for this class' config options.
+        """Generate rST documentation for this class' conf options.
 
         Excludes traits defined on parent classes.
         """
@@ -393,7 +393,7 @@ class SingletonConfigurable(LoggingConfigurable):
 
         Create a singleton class using instance, and retrieve it::
 
-            >>> from traitlets.config.configurable import SingletonConfigurable
+            >>> from traitlets.conf.configurable import SingletonConfigurable
             >>> class Foo(SingletonConfigurable): pass
             >>> foo = Foo.instance()
             >>> foo == Foo.instance()

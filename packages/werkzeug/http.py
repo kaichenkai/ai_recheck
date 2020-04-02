@@ -9,7 +9,7 @@
     the response and request objects are not used.
 
     This covers some of the more HTTP centric features of WSGI, some other
-    utilities such as cookie handling are documented in the `werkzeug.utils`
+    utilities such as cookie handling are documented in the `werkzeug.tools`
     module.
 
 

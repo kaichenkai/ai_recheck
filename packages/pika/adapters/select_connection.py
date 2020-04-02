@@ -353,7 +353,7 @@ class IOLoop(AbstractSelectorIOLoop):
      `poll`, `epoll`, `kqueue`) to use based on platform.
 
      Implements the
-     `pika.adapters.utils.selector_ioloop_adapter.AbstractSelectorIOLoop`
+     `pika.adapters.tools.selector_ioloop_adapter.AbstractSelectorIOLoop`
      interface.
 
     """

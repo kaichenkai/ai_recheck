@@ -178,7 +178,7 @@ class ConfigOptionParser(CustomOptionParser):
                 yield key, val
 
     def _update_defaults(self, defaults):
-        """Updates the given defaults with values from the config files and
+        """Updates the given defaults with values from the conf files and
         the environ. Does a little special handling for certain types of
         options (lists)."""
 

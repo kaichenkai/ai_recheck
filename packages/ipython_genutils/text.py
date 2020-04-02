@@ -4,7 +4,7 @@ Utilities for working with strings and text.
 
 Inheritance diagram:
 
-.. inheritance-diagram:: IPython.utils.text
+.. inheritance-diagram:: IPython.tools.text
    :parts: 3
 """
 

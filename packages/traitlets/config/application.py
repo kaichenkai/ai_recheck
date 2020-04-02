@@ -76,9 +76,9 @@ else:
 
 @decorator
 def catch_config_error(method, app, *args, **kwargs):
-    """Method decorator for catching invalid config (Trait/ArgumentErrors) during init.
+    """Method decorator for catching invalid conf (Trait/ArgumentErrors) during init.
 
-    On a TraitError (generally caused by bad config), this will print the trait's
+    On a TraitError (generally caused by bad conf), this will print the trait's
     message, and exit the app.
 
     For use on init methods, to prevent invoking excepthook on invalid input.
@@ -87,7 +87,7 @@ def catch_config_error(method, app, *args, **kwargs):
         return method(app, *args, **kwargs)
     except (TraitError, ArgumentError) as e:
         app.print_help()
-        app.log.fatal("Bad config encountered during initialization:")
+        app.log.fatal("Bad conf encountered during initialization:")
         app.log.fatal(str(e))
         app.log.debug("Config at the time: %s", app.config)
         app.exit(1)
@@ -138,7 +138,7 @@ class Application(SingletonConfigurable):
     # The usage and example string that goes at the end of the help string.
     examples = Unicode()
 
-    # A sequence of Configurable subclasses whose config=True attributes will
+    # A sequence of Configurable subclasses whose conf=True attributes will
     # be exposed at the command line.
     classes = []
 
@@ -162,7 +162,7 @@ class Application(SingletonConfigurable):
     # the argv used to initialize the application
     argv = List()
 
-    # Whether failing to load config files should prevent startup
+    # Whether failing to load conf files should prevent startup
     raise_config_file_errors = Bool(TRAITLETS_APPLICATION_RAISE_CONFIG_FILE_ERROR)
 
     # The log level for the application
@@ -254,15 +254,15 @@ class Application(SingletonConfigurable):
     # and the second being the help string for the subcommand
     subcommands = Dict()
     # parse_command_line will initialize a subapp, if requested
-    subapp = Instance('traitlets.config.application.Application', allow_none=True)
+    subapp = Instance('traitlets.conf.application.Application', allow_none=True)
 
-    # extra command-line arguments that don't set config values
+    # extra command-line arguments that don't set conf values
     extra_args = List(Unicode())
 
     cli_config = Instance(Config, (), {},
         help="""The subset of our configuration that came from the command-line
 
-        We re-load this configuration after loading config files,
+        We re-load this configuration after loading conf files,
         to ensure that it maintains highest priority.
         """
     )
@@ -271,7 +271,7 @@ class Application(SingletonConfigurable):
     def __init__(self, **kwargs):
         SingletonConfigurable.__init__(self, **kwargs)
         # Ensure my class is in self.classes, so my attributes appear in command line
-        # options and config files.
+        # options and conf files.
         cls = self.__class__
         if cls not in self.classes:
             if self.classes is cls.classes:
@@ -280,7 +280,7 @@ class Application(SingletonConfigurable):
             else:
                 self.classes.insert(0, self.__class__)
 
-    @observe('config')
+    @observe('conf')
     @observe_compat
     def _config_changed(self, change):
         super(Application, self)._config_changed(change)
@@ -405,7 +405,7 @@ class Application(SingletonConfigurable):
         self.print_examples()
 
     def document_config_options(self):
-        """Generate rST format documentation for the config options this application
+        """Generate rST format documentation for the conf options this application
 
         Returns a multiline string.
         """
@@ -455,7 +455,7 @@ class Application(SingletonConfigurable):
         """flatten flags and aliases, so cl-args override as expected.
 
         This prevents issues such as an alias pointing to InteractiveShell,
-        but a config file setting the same trait in TerminalInteraciveShell
+        but a conf file setting the same trait in TerminalInteraciveShell
         getting inappropriate priority over the command-line arg.
 
         Only aliases with exactly one descendent in the class list
@@ -541,9 +541,9 @@ class Application(SingletonConfigurable):
 
     @classmethod
     def _load_config_files(cls, basefilename, path=None, log=None, raise_config_file_errors=False):
-        """Load config files (py,json) by filename and path.
+        """Load conf files (py,json) by filename and path.
 
-        yield each config object in turn.
+        yield each conf object in turn.
         """
 
         if not isinstance(path, list):
@@ -570,16 +570,16 @@ class Application(SingletonConfigurable):
                     if raise_config_file_errors:
                         raise
                     if log:
-                        log.error("Exception while loading config file %s",
+                        log.error("Exception while loading conf file %s",
                                 filename, exc_info=True)
                 else:
                     if log:
-                        log.debug("Loaded config file: %s", loader.full_filename)
+                        log.debug("Loaded conf file: %s", loader.full_filename)
                 if config:
                     for filename, earlier_config in zip(filenames, loaded):
                         collisions = earlier_config.collisions(config)
                         if collisions and log:
-                            log.warning("Collisions detected in {0} and {1} config files."
+                            log.warning("Collisions detected in {0} and {1} conf files."
                                 " {1} has higher priority: {2}".format(
                                 filename, loader.full_filename, json.dumps(collisions, indent=2),
                             ))
@@ -591,14 +591,14 @@ class Application(SingletonConfigurable):
 
     @catch_config_error
     def load_config_file(self, filename, path=None):
-        """Load config files by filename and path."""
+        """Load conf files by filename and path."""
         filename, ext = os.path.splitext(filename)
         new_config = Config()
         for config in self._load_config_files(filename, path=path, log=self.log,
             raise_config_file_errors=self.raise_config_file_errors,
         ):
             new_config.merge(config)
-        # add self.cli_config to preserve CLI config priority
+        # add self.cli_config to preserve CLI conf priority
         new_config.merge(self.cli_config)
         self.update_config(new_config)
 
@@ -607,7 +607,7 @@ class Application(SingletonConfigurable):
         """
         Yields only classes with own traits, and their subclasses.
 
-        Thus, produced sample config-file will contain all classes
+        Thus, produced sample conf-file will contain all classes
         on which a trait-value may be overridden:
 
         - either on the class owning the trait,
@@ -636,7 +636,7 @@ class Application(SingletonConfigurable):
                 yield cl
 
     def generate_config_file(self):
-        """generate default config file from Configurables"""
+        """generate default conf file from Configurables"""
         lines = ["# Configuration file for %s." % self.name]
         lines.append('')
         for cls in self._classes_in_config_sample():
@@ -695,9 +695,9 @@ def boolean_flag(name, configurable, set_help='', unset_help=''):
 
 
 def get_config():
-    """Get the config object for the global Application instance, if there is one
+    """Get the conf object for the global Application instance, if there is one
 
-    otherwise return an empty config object
+    otherwise return an empty conf object
     """
     if Application.initialized():
         return Application.instance().config

@@ -43,7 +43,7 @@ from IPython.testing.skipdoctest import skip_doctest
 
 prompt = 'ipdb> '
 
-#We have to check this directly from sys.argv, config struct not yet available
+#We have to check this directly from sys.argv, conf struct not yet available
 from pdb import Pdb as OldPdb
 
 # Allow the set_trace code to operate outside of an ipython instance, even if

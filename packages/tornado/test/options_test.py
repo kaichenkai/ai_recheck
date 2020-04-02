@@ -299,7 +299,7 @@ class OptionsTest(unittest.TestCase):
 
     def test_dash_underscore_file(self):
         # No matter how an option was defined, it can be set with underscores
-        # in a config file.
+        # in a conf file.
         for defined_name in ["foo-bar", "foo_bar"]:
             options = OptionParser()
             options.define(defined_name)

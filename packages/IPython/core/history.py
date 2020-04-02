@@ -214,7 +214,7 @@ class HistoryAccessor(HistoryAccessorBase):
         super(HistoryAccessor, self).__init__(**traits)
         # defer setting hist_file from kwarg until after init,
         # otherwise the default kwarg value would clobber any value
-        # set by config
+        # set by conf
         if hist_file:
             self.hist_file = hist_file
         

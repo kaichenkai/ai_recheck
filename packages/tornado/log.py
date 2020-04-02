@@ -100,7 +100,7 @@ class LogFormatter(logging.Formatter):
 
     .. versionchanged:: 4.5
        Added support for ``colorama``. Changed the constructor
-       signature to be compatible with `logging.config.dictConfig`.
+       signature to be compatible with `logging.conf.dictConfig`.
     """
 
     DEFAULT_FORMAT = "%(color)s[%(levelname)1.1s %(asctime)s %(module)s:%(lineno)d]%(end_color)s %(message)s"  # noqa: E501

@@ -81,7 +81,7 @@ class MetadataRequestV4(MetadataRequestV3):
     def __init__(self, topics=None, allow_topic_autocreation=True):
         """Create a new MetadataRequest
         :param topics: Topics to query. Leave empty for all available topics.
-        :param allow_topic_autocreation: If this and the broker config
+        :param allow_topic_autocreation: If this and the broker conf
             'auto.create.topics.enable' are true, topics that don't exist will be created
             by the broker. Otherwise, no topics will be created by the broker.
         """

@@ -121,7 +121,7 @@ class Broker(object):
             self.connect()
         except SocketDisconnectedError:
             log.warning("Failed to connect to broker at {host}:{port}. Check the "
-                        "`listeners` property in server.config."
+                        "`listeners` property in server.conf."
                         .format(host=self._host, port=self._port))
 
     def __repr__(self):

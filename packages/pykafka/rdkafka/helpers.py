@@ -1,5 +1,5 @@
 def rdk_ssl_config(cluster):
-    """Generate rdkafka config keys from cluster's ssl_config"""
+    """Generate rdkafka conf keys from cluster's ssl_config"""
     if cluster._ssl_config is None:  # plaintext connections
         return {}
     else:

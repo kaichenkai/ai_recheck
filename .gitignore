@@ -7,5 +7,6 @@ venv/
 nohup*
 stats.rtf
 
-# 下载文件
-/file_download
+# 下载文件不上传
+/file_download/excel/.*
+/file_download/images/.*

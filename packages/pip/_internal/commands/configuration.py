@@ -201,7 +201,7 @@ class ConfigurationCommand(Command):
         if len(args) != n:
             msg = (
                 'Got unexpected number of arguments, expected {}. '
-                '(example: "{} config {}")'
+                '(example: "{} conf {}")'
             ).format(n, get_prog(), example)
             raise PipError(msg)
 

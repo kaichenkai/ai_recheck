@@ -36,7 +36,7 @@ class ChapelLexer(RegexLexer):
             (r'//(.*?)\n', Comment.Single),
             (r'/(\\\n)?[*](.|\n)*?[*](\\\n)?/', Comment.Multiline),
 
-            (r'(config|const|in|inout|out|param|ref|type|var)\b',
+            (r'(conf|const|in|inout|out|param|ref|type|var)\b',
              Keyword.Declaration),
             (r'(false|nil|true)\b', Keyword.Constant),
             (r'(bool|complex|imag|int|opaque|range|real|string|uint)\b',

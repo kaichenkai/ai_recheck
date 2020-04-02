@@ -234,7 +234,7 @@ class SessionInterface(object):
     def get_cookie_path(self, app):
         """Returns the path for which the cookie should be valid.  The
         default implementation uses the value from the ``SESSION_COOKIE_PATH``
-        config var if it's set, and falls back to ``APPLICATION_ROOT`` or
+        conf var if it's set, and falls back to ``APPLICATION_ROOT`` or
         uses ``/`` if it's ``None``.
         """
         return app.config["SESSION_COOKIE_PATH"] or app.config["APPLICATION_ROOT"]
@@ -242,7 +242,7 @@ class SessionInterface(object):
     def get_cookie_httponly(self, app):
         """Returns True if the session cookie should be httponly.  This
         currently just returns the value of the ``SESSION_COOKIE_HTTPONLY``
-        config var.
+        conf var.
         """
         return app.config["SESSION_COOKIE_HTTPONLY"]
 
@@ -272,7 +272,7 @@ class SessionInterface(object):
         """Used by session backends to determine if a ``Set-Cookie`` header
         should be set for this session cookie for this response. If the session
         has been modified, the cookie is set. If the session is permanent and
-        the ``SESSION_REFRESH_EACH_REQUEST`` config is true, the cookie is
+        the ``SESSION_REFRESH_EACH_REQUEST`` conf is true, the cookie is
         always set.
 
         This check is usually skipped if the session was deleted.

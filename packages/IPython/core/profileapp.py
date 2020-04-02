@@ -77,9 +77,9 @@ where you can edit ipython_config.py to start configuring IPython.
 _list_examples = "ipython profile list  # list all profiles"
 
 _create_examples = """
-ipython profile create foo         # create profile foo w/ default config files
-ipython profile create foo --reset # restage default config files over current
-ipython profile create foo --parallel # also stage parallel config files
+ipython profile create foo         # create profile foo w/ default conf files
+ipython profile create foo --reset # restage default conf files over current
+ipython profile create foo --parallel # also stage parallel conf files
 """
 
 _main_examples = """
@@ -198,9 +198,9 @@ create_flags.update(base_flags)
 # don't include '--init' flag, which implies running profile create in other apps
 create_flags.pop('init')
 create_flags['reset'] = ({'ProfileCreate': {'overwrite' : True}},
-                        "reset config files in this profile to the defaults.")
+                        "reset conf files in this profile to the defaults.")
 create_flags['parallel'] = ({'ProfileCreate': {'parallel' : True}},
-                        "Include the config files for parallel "
+                        "Include the conf files for parallel "
                         "computing apps (ipengine, ipcontroller, etc.)")
 
 
@@ -216,7 +216,7 @@ class ProfileCreate(BaseIPythonApplication):
         return True
 
     parallel = Bool(False,
-        help="whether to include parallel computing config files"
+        help="whether to include parallel computing conf files"
     ).tag(config=True)
 
     @observe('parallel')
@@ -250,7 +250,7 @@ class ProfileCreate(BaseIPythonApplication):
         try:
             app = import_item(app_path)
         except ImportError:
-            self.log.info("Couldn't import %s, config file will be excluded", name)
+            self.log.info("Couldn't import %s, conf file will be excluded", name)
         except Exception:
             self.log.warning('Unexpected error importing %s', name, exc_info=True)
         return app

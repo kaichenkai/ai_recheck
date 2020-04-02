@@ -4,7 +4,7 @@
 #
 # Adapted from enthought.traits, Copyright (c) Enthought, Inc.,
 # also under the terms of the Modified BSD License.
-"""Tests for traitlets.utils.importstring."""
+"""Tests for traitlets.tools.importstring."""
 
 import os
 from unittest import TestCase

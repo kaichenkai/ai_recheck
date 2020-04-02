@@ -1283,17 +1283,17 @@ class IPCompleter(Completer):
         return comp
 
     def magic_config_matches(self, text:str) -> List[str]:
-        """ Match class names and attributes for %config magic """
+        """ Match class names and attributes for %conf magic """
         texts = text.strip().split()
 
-        if len(texts) > 0 and (texts[0] == 'config' or texts[0] == '%config'):
+        if len(texts) > 0 and (texts[0] == 'conf' or texts[0] == '%conf'):
             # get all configuration classes
             classes = sorted(set([ c for c in self.shell.configurables
                                    if c.__class__.class_traits(config=True)
                                    ]), key=lambda x: x.__class__.__name__)
             classnames = [ c.__class__.__name__ for c in classes ]
 
-            # return all classnames if config or %config is given
+            # return all classnames if conf or %conf is given
             if len(texts) == 1:
                 return classnames
 

@@ -293,7 +293,7 @@ def url_for(endpoint, **values):
     :param _scheme: a string specifying the desired URL scheme. The `_external`
       parameter must be set to ``True`` or a :exc:`ValueError` is raised. The default
       behavior uses the same scheme as the current request, or
-      ``PREFERRED_URL_SCHEME`` from the :ref:`app configuration <config>` if no
+      ``PREFERRED_URL_SCHEME`` from the :ref:`app configuration <conf>` if no
       request context is available. As of Werkzeug 0.10, this also can be set
       to an empty string to build protocol-relative URLs.
     :param _anchor: if provided this is added as anchor to the URL.
@@ -332,7 +332,7 @@ def url_for(endpoint, **values):
             raise RuntimeError(
                 "Application was not able to create a URL adapter for request"
                 " independent URL generation. You might be able to fix this by"
-                " setting the SERVER_NAME config variable."
+                " setting the SERVER_NAME conf variable."
             )
 
         external = values.pop("_external", True)
@@ -512,7 +512,7 @@ def send_file(
        will be removed in Flask 1.0
 
     .. versionchanged:: 0.9
-       cache_timeout pulls its default from application config, when None.
+       cache_timeout pulls its default from application conf, when None.
 
     .. versionchanged:: 0.12
        The filename is no longer automatically inferred from file objects. If
@@ -701,7 +701,7 @@ def safe_join(directory, *pathnames):
 
         @app.route('/wiki/<path:filename>')
         def wiki_page(filename):
-            filename = safe_join(app.config['WIKI_FOLDER'], filename)
+            filename = safe_join(app.conf['WIKI_FOLDER'], filename)
             with open(filename, 'rb') as fd:
                 content = fd.read()  # Read and process the file content...
 
@@ -739,7 +739,7 @@ def send_from_directory(directory, filename, **options):
 
         @app.route('/uploads/<path:filename>')
         def download_file(filename):
-            return send_from_directory(app.config['UPLOAD_FOLDER'],
+            return send_from_directory(app.conf['UPLOAD_FOLDER'],
                                        filename, as_attachment=True)
 
     .. admonition:: Sending files and Performance

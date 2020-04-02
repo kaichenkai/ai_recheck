@@ -204,7 +204,7 @@ class ProcessHandler(object):
 
 
 # Make system() with a functional interface for outside use.  Note that we use
-# getoutput() from the _common utils, which is built on top of popen(). Using
+# getoutput() from the _common tools, which is built on top of popen(). Using
 # pexpect to get subprocess output produces difficult to parse output, since
 # programs think they are talking to a tty and produce highly formatted output
 # (ls is a good example) that makes them hard.

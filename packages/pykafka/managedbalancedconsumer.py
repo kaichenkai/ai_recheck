@@ -176,7 +176,7 @@ class ManagedBalancedConsumer(BalancedConsumer):
             arguments passed to this function are the bytes representations of a
             message's value and partition key, and the returned data should be these
             fields transformed according to the client code's serialization logic.
-            See `pykafka.utils.__init__` for stock implemtations.
+            See `pykafka.tools.__init__` for stock implemtations.
         :type deserializer: function
         :param reset_offset_on_fetch: Whether to update offsets during fetch_offsets.
                Disable for read-only use cases to prevent side-effects.

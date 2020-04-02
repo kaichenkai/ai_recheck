@@ -146,7 +146,7 @@ class PyTestController(TestController):
         self.workingdir = workingdir = TemporaryDirectory()
         self.dirs.append(workingdir)
         self.env['IPTEST_WORKING_DIR'] = workingdir.name
-        # This means we won't get odd effects from our own matplotlib config
+        # This means we won't get odd effects from our own matplotlib conf
         self.env['MPLCONFIGDIR'] = workingdir.name
         # For security reasons (http://bugs.python.org/issue16202), use
         # a temporary directory to which other users have no access.

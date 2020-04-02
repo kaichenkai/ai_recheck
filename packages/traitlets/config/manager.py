@@ -1,4 +1,4 @@
-"""Manager to read and modify config data in JSON files.
+"""Manager to read and modify conf data in JSON files.
 """
 # Copyright (c) IPython Development Team.
 # Distributed under the terms of the Modified BSD License.
@@ -34,9 +34,9 @@ def recursive_update(target, new):
 
 
 class BaseJSONConfigManager(LoggingConfigurable):
-    """General JSON config manager
+    """General JSON conf manager
     
-    Deals with persisting/storing config in a json file
+    Deals with persisting/storing conf in a json file
     """
 
     config_dir = Unicode('.')
@@ -52,7 +52,7 @@ class BaseJSONConfigManager(LoggingConfigurable):
         return os.path.join(self.config_dir, section_name+'.json')
 
     def get(self, section_name):
-        """Retrieve the config data for the specified section.
+        """Retrieve the conf data for the specified section.
 
         Returns the data as a dictionary, or an empty dictionary if the file
         doesn't exist.
@@ -65,7 +65,7 @@ class BaseJSONConfigManager(LoggingConfigurable):
             return {}
 
     def set(self, section_name, data):
-        """Store the given config data.
+        """Store the given conf data.
         """
         filename = self.file_name(section_name)
         self.ensure_config_dir_exists()
@@ -78,9 +78,9 @@ class BaseJSONConfigManager(LoggingConfigurable):
             json.dump(data, f, indent=2)
 
     def update(self, section_name, new_data):
-        """Modify the config section by recursively updating it with new_data.
+        """Modify the conf section by recursively updating it with new_data.
 
-        Returns the modified config data as a dictionary.
+        Returns the modified conf data as a dictionary.
         """
         data = self.get(section_name)
         recursive_update(data, new_data)

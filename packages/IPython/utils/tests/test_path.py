@@ -1,5 +1,5 @@
 # encoding: utf-8
-"""Tests for IPython.utils.path.py"""
+"""Tests for IPython.tools.path.py"""
 
 # Copyright (c) IPython Development Team.
 # Distributed under the terms of the Modified BSD License.
@@ -187,7 +187,7 @@ def test_get_xdg_dir_0():
     env.pop('IPYTHONDIR', None)
     env.pop('XDG_CONFIG_HOME', None)
 
-    nt.assert_equal(path.get_xdg_dir(), os.path.join('somewhere', '.config'))
+    nt.assert_equal(path.get_xdg_dir(), os.path.join('somewhere', '.conf'))
 
 
 @with_environment
@@ -204,7 +204,7 @@ def test_get_xdg_dir_1():
 
 @with_environment
 def test_get_xdg_dir_2():
-    """test_get_xdg_dir_2, check xdg_dir default to ~/.config"""
+    """test_get_xdg_dir_2, check xdg_dir default to ~/.conf"""
     reload(path)
     path.get_home_dir = lambda : HOME_TEST_DIR
     os.name = "posix"
@@ -212,7 +212,7 @@ def test_get_xdg_dir_2():
     env.pop('IPYTHON_DIR', None)
     env.pop('IPYTHONDIR', None)
     env.pop('XDG_CONFIG_HOME', None)
-    cfgdir=os.path.join(path.get_home_dir(), '.config')
+    cfgdir=os.path.join(path.get_home_dir(), '.conf')
     if not os.path.exists(cfgdir):
         os.makedirs(cfgdir)
 
@@ -228,7 +228,7 @@ def test_get_xdg_dir_3():
     env.pop('IPYTHON_DIR', None)
     env.pop('IPYTHONDIR', None)
     env.pop('XDG_CONFIG_HOME', None)
-    cfgdir=os.path.join(path.get_home_dir(), '.config')
+    cfgdir=os.path.join(path.get_home_dir(), '.conf')
     if not os.path.exists(cfgdir):
         os.makedirs(cfgdir)
 

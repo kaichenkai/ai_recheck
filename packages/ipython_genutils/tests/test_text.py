@@ -1,5 +1,5 @@
 # encoding: utf-8
-"""Tests for IPython.utils.text"""
+"""Tests for IPython.tools.text"""
 from __future__ import print_function
 
 # Copyright (c) IPython Development Team.

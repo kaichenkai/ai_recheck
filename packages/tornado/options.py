@@ -52,7 +52,7 @@ the options used throughout your program; they are all automatically loaded
 when the modules are loaded.  However, all modules that define options
 must have been imported before the command line is parsed.
 
-Your ``main()`` method can parse the command line or parse a config file with
+Your ``main()`` method can parse the command line or parse a conf file with
 either `parse_command_line` or `parse_config_file`::
 
     import myapp.db, myapp.server
@@ -89,7 +89,7 @@ instances to define isolated sets of options, such as for subcommands.
 .. versionchanged:: 4.3
    Dashes and underscores are fully interchangeable in option names;
    options can be defined, set, and read with any mix of the two.
-   Dashes are typical for command-line usage while config files require
+   Dashes are typical for command-line usage while conf files require
    underscores.
 """
 
@@ -244,10 +244,10 @@ class OptionParser(object):
         the option is changed.  This can be used to combine command-line
         and file-based options::
 
-            define("config", type=str, help="path to config file",
+            define("conf", type=str, help="path to conf file",
                    callback=lambda path: parse_config_file(path, final=False))
 
-        With this definition, options in the file specified by ``--config`` will
+        With this definition, options in the file specified by ``--conf`` will
         override options set earlier on the command line, but can be overridden
         by later flags.
 
@@ -349,10 +349,10 @@ class OptionParser(object):
         return remaining
 
     def parse_config_file(self, path: str, final: bool = True) -> None:
-        """Parses and loads the config file at the given path.
+        """Parses and loads the conf file at the given path.
 
-        The config file contains Python code that will be executed (so
-        it is **not safe** to use untrusted config files). Anything in
+        The conf file contains Python code that will be executed (so
+        it is **not safe** to use untrusted conf files). Anything in
         the global namespace that matches a defined option will be
         used to set that option's value.
 
@@ -379,7 +379,7 @@ class OptionParser(object):
 
             `tornado.options` is primarily a command-line library.
             Config file support is provided for applications that wish
-            to use it, but applications that prefer config files may
+            to use it, but applications that prefer conf files may
             wish to look at other libraries instead.
 
         .. versionchanged:: 4.1
@@ -387,11 +387,11 @@ class OptionParser(object):
            the system default encoding.
 
         .. versionchanged:: 4.4
-           The special variable ``__file__`` is available inside config
-           files, specifying the absolute path to the config file itself.
+           The special variable ``__file__`` is available inside conf
+           files, specifying the absolute path to the conf file itself.
 
         .. versionchanged:: 5.1
-           Added the ability to set options via strings in config files.
+           Added the ability to set options via strings in conf files.
 
         """
         config = {"__file__": os.path.abspath(path)}
@@ -699,7 +699,7 @@ def parse_command_line(args: List[str] = None, final: bool = True) -> List[str]:
 
 
 def parse_config_file(path: str, final: bool = True) -> None:
-    """Parses global options from a config file.
+    """Parses global options from a conf file.
 
     See `OptionParser.parse_config_file`.
     """

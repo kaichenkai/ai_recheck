@@ -1,5 +1,5 @@
 # encoding: utf-8
-"""Tests for IPython.utils.capture"""
+"""Tests for IPython.tools.capture"""
 
 #-----------------------------------------------------------------------------
 #  Copyright (C) 2013 The IPython Development Team

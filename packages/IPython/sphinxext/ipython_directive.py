@@ -336,7 +336,7 @@ class EmbeddedSphinxShell(object):
         if exec_lines is None:
             exec_lines = []
 
-        # Create config object for IPython
+        # Create conf object for IPython
         config = Config()
         config.HistoryManager.hist_file = ':memory:'
         config.InteractiveShell.autocall = False
@@ -897,7 +897,7 @@ class IPythonDirective(Directive):
         # contains sphinx configuration variables
         config = self.state.document.settings.env.config
 
-        # get config variables to set figure output directory
+        # get conf variables to set figure output directory
         savefig_dir = config.ipython_savefig_dir
         source_dir = self.state.document.settings.env.srcdir
         savefig_dir = os.path.join(source_dir, savefig_dir)
@@ -1059,7 +1059,7 @@ def setup(app):
     # is a good default backend choice.
     app.add_config_value('ipython_mplbackend', 'agg', 'env')
 
-    # If the user sets this config value to `None`, then EmbeddedSphinxShell's
+    # If the user sets this conf value to `None`, then EmbeddedSphinxShell's
     # __init__ method will treat it as [].
     execlines = ['import numpy as np']
     if use_matpltolib:

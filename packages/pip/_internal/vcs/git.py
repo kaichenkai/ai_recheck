@@ -251,7 +251,7 @@ class Git(VersionControl):
     def switch(self, dest, url, rev_options):
         # type: (str, HiddenText, RevOptions) -> None
         self.run_command(
-            make_command('config', 'remote.origin.url', url),
+            make_command('conf', 'remote.origin.url', url),
             cwd=dest,
         )
         cmd_args = make_command('checkout', '-q', rev_options.to_args())
@@ -285,7 +285,7 @@ class Git(VersionControl):
         # We need to pass 1 for extra_ok_returncodes since the command
         # exits with return code 1 if there are no matching lines.
         stdout = cls.run_command(
-            ['config', '--get-regexp', r'remote\..*\.url'],
+            ['conf', '--get-regexp', r'remote\..*\.url'],
             extra_ok_returncodes=(1, ), show_stdout=False, cwd=location,
         )
         remotes = stdout.splitlines()

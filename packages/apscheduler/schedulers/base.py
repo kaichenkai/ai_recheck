@@ -60,7 +60,7 @@ class BaseScheduler(six.with_metaclass(ABCMeta)):
     :ivar int state: current running state of the scheduler (one of the following constants from
         ``apscheduler.schedulers.base``: ``STATE_STOPPED``, ``STATE_RUNNING``, ``STATE_PAUSED``)
 
-    .. seealso:: :ref:`scheduler-config`
+    .. seealso:: :ref:`scheduler-conf`
     """
 
     _trigger_plugins = dict((ep.name, ep) for ep in iter_entry_points('apscheduler.triggers'))

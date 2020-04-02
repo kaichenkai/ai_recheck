@@ -15,7 +15,7 @@ def getlines(filename, module_globals=None):
     """
     Deprecated since IPython 6.0
     """
-    warn(("`IPython.utils.ulinecache.getlines` is deprecated since"
+    warn(("`IPython.tools.ulinecache.getlines` is deprecated since"
           " IPython 6.0 and will be removed in future versions."),
          DeprecationWarning, stacklevel=2)
     return linecache.getlines(filename, module_globals=module_globals)

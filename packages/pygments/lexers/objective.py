@@ -261,7 +261,7 @@ class LogosLexer(ObjectiveCppLexer):
              'logos_classname'),
             (r'(%hook|%group)(\s+)([a-zA-Z$_][\w$]+)',
              bygroups(Keyword, Text, Name.Class)),
-            (r'(%config)(\s*\(\s*)(\w+)(\s*=\s*)(.*?)(\s*\)\s*)',
+            (r'(%conf)(\s*\(\s*)(\w+)(\s*=\s*)(.*?)(\s*\)\s*)',
              bygroups(Keyword, Text, Name.Variable, Text, String, Text)),
             (r'(%ctor)(\s*)(\{)', bygroups(Keyword, Text, Punctuation),
              'function'),

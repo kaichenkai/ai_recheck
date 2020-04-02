@@ -297,7 +297,7 @@ class KafkaInstance(ManagedInstance):
 
         Returns a proc handler for the new broker.
         """
-        # make port config for new broker
+        # make port conf for new broker
         if self.certs is not None:
             port_config = _kafka_ssl_properties.format(
                 port=port,

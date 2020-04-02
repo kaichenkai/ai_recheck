@@ -418,7 +418,7 @@ class InteractiveShell(SingletonConfigurable):
     cache_size = Integer(1000, help=
         """
         Set the size of the output cache.  The default is 1000, you can
-        change it permanently in your config file.  Setting it to 0 completely
+        change it permanently in your conf file.  Setting it to 0 completely
         disables the caching system, and the minimum value accepted is 3 (if
         you provide a value less than 3, it is reset to 0 and a warning is
         issued).  This limit is defined because otherwise you'll spend more
@@ -555,7 +555,7 @@ class InteractiveShell(SingletonConfigurable):
              " and ignored since 5.0, set TerminalInteractiveShell.prompts"
              " object directly.".format(name=name))
         
-        # protect against weird cases where self.config may not exist:
+        # protect against weird cases where self.conf may not exist:
 
     show_rewritten_input = Bool(True,
         help="Show rewritten input, e.g. for autocall."
@@ -626,10 +626,10 @@ class InteractiveShell(SingletonConfigurable):
                  custom_exceptions=((), None), **kwargs):
 
         # This is where traits with a config_key argument are updated
-        # from the values on config.
+        # from the values on conf.
         super(InteractiveShell, self).__init__(**kwargs)
         if 'PromptManager' in self.config:
-            warn('As of IPython 5.0 `PromptManager` config will have no effect'
+            warn('As of IPython 5.0 `PromptManager` conf will have no effect'
                  ' and has been replaced by TerminalInteractiveShell.prompts_class')
         self.configurables = [self]
 
@@ -3281,7 +3281,7 @@ class InteractiveShell(SingletonConfigurable):
         # directly, so that the IPython crash handler doesn't get triggered
         old_excepthook, sys.excepthook = sys.excepthook, self.excepthook
 
-        # we save the original sys.excepthook in the instance, in case config
+        # we save the original sys.excepthook in the instance, in case conf
         # code (such as magics) needs access to it.
         self.sys_excepthook = old_excepthook
         outflag = True  # happens in more places, so it's easier as default

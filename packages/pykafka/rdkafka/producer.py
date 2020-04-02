@@ -25,10 +25,10 @@ class RdKafkaProducer(Producer):
     influenced by several other parameters, including `linger_ms` and `socket_timeout_ms`.
 
     Note also that `linger_ms` becomes the rdkafka-based producer's
-    `queue.buffering.max.ms` config option and thus must be within the acceptable range
+    `queue.buffering.max.ms` conf option and thus must be within the acceptable range
     defined by librdkafka. Several other parameters, including `ack_timeout_ms`,
     `max_retries`, and `retry_backoff_ms`, are used to derive certain librdkafka
-    config values. Certain combinations of values for these parameters can result in
+    conf values. Certain combinations of values for these parameters can result in
     configuration errors from librdkafka.
 
     The `broker_version` argument on `KafkaClient` must be set correctly to use the
@@ -191,7 +191,7 @@ class RdKafkaProducer(Producer):
             # "partitioner"  # dealt with in pykafka
             # "opaque"
         }
-        # librdkafka expects all config values as strings:
+        # librdkafka expects all conf values as strings:
         conf = [(key, str(conf[key])) for key in conf]
         topic_conf = [(key, str(topic_conf[key])) for key in topic_conf]
         return conf, topic_conf

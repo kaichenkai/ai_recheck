@@ -152,7 +152,7 @@ def _find_syntax_node_name(evaluator, access_handle):
     if inspect.ismodule(python_object):
         # We don't need to check names for modules, because there's not really
         # a way to write a module in a module in Python (and also __name__ can
-        # be something like ``email.utils``).
+        # be something like ``email.tools``).
         code_lines = get_cached_code_lines(evaluator.grammar, path)
         return module_node, module_node, path, code_lines
 

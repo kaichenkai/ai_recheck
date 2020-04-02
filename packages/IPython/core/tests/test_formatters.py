@@ -363,7 +363,7 @@ def test_print_method_weird():
 
 
 def test_format_config():
-    """config objects don't pretend to support fancy reprs with lazy attrs"""
+    """conf objects don't pretend to support fancy reprs with lazy attrs"""
     f = HTMLFormatter()
     cfg = Config()
     with capture_output() as captured:

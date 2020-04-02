@@ -60,7 +60,7 @@ class ProfileDir(LoggingConfigurable):
         new = change['new']
         ensure_dir_exists(new)
 
-        # ensure config files exist:
+        # ensure conf files exist:
         self.security_dir = os.path.join(new, self.security_dir_name)
         self.log_dir = os.path.join(new, self.log_dir_name)
         self.startup_dir = os.path.join(new, self.startup_dir_name)
@@ -134,7 +134,7 @@ class ProfileDir(LoggingConfigurable):
         self.check_startup_dir()
 
     def copy_config_file(self, config_file, path=None, overwrite=False):
-        """Copy a default config file into the active profile directory.
+        """Copy a default conf file into the active profile directory.
 
         Default configuration files are kept in :mod:`IPython.core.profile`.
         This function moves these from that location to the working profile

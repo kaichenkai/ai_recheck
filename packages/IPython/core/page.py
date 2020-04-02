@@ -5,7 +5,7 @@ Paging capabilities for IPython.core
 Notes
 -----
 
-For now this uses IPython hooks, so it can't be in IPython.utils.  If we can get
+For now this uses IPython hooks, so it can't be in IPython.tools.  If we can get
 rid of that dependency, we could move it there.
 -----
 """

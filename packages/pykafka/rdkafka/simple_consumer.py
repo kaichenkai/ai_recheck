@@ -285,7 +285,7 @@ class RdKafkaSimpleConsumer(SimpleConsumer):
             ##"offset.store.sync.interval.ms"
             ##"offset.store.method"
             }
-        # librdkafka expects all config values as strings:
+        # librdkafka expects all conf values as strings:
         conf = [(key, str(conf[key])) for key in conf]
         topic_conf = [(key, str(topic_conf[key])) for key in topic_conf]
         return conf, topic_conf

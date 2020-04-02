@@ -1416,7 +1416,7 @@ def set_matplotlib_formats(*formats, **kwargs):
 
         In [1]: set_matplotlib_formats('png', 'jpeg', quality=90)
 
-    To set this in your config files use the following::
+    To set this in your conf files use the following::
 
         c.InlineBackend.figure_formats = {'png', 'jpeg'}
         c.InlineBackend.print_figure_kwargs.update({'quality' : 90})
@@ -1430,7 +1430,7 @@ def set_matplotlib_formats(*formats, **kwargs):
     """
     from IPython.core.interactiveshell import InteractiveShell
     from IPython.core.pylabtools import select_figure_formats
-    # build kwargs, starting with InlineBackend config
+    # build kwargs, starting with InlineBackend conf
     kw = {}
     from ipykernel.pylab.config import InlineBackend
     cfg = InlineBackend.instance()
@@ -1451,7 +1451,7 @@ def set_matplotlib_close(close=True):
 
         In [1]: set_matplotlib_close(False)
 
-    To set this in your config files use the following::
+    To set this in your conf files use the following::
 
         c.InlineBackend.close_figures = False
 

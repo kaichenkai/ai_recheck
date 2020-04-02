@@ -4,7 +4,7 @@ Utilities for working with strings and text.
 
 Inheritance diagram:
 
-.. inheritance-diagram:: IPython.utils.text
+.. inheritance-diagram:: IPython.tools.text
    :parts: 3
 """
 
@@ -72,7 +72,7 @@ class LSString(str):
     p = paths = property(get_paths)
 
 # FIXME: We need to reimplement type specific displayhook and then add this
-# back as a custom printer. This should also be moved outside utils into the
+# back as a custom printer. This should also be moved outside tools into the
 # core.
 
 # def print_lsstring(arg):
@@ -231,7 +231,7 @@ class SList(list):
 
 
 # FIXME: We need to reimplement type specific displayhook and then add this
-# back as a custom printer. This should also be moved outside utils into the
+# back as a custom printer. This should also be moved outside tools into the
 # core.
 
 # def print_slist(arg):

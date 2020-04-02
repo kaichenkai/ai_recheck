@@ -128,14 +128,14 @@ parse_test_output.__test__ = False
 def default_argv():
     """Return a valid default argv for creating testing instances of ipython"""
 
-    return ['--quick', # so no config file is loaded
+    return ['--quick', # so no conf file is loaded
             # Other defaults to minimize side effects on stdout
             '--colors=NoColor', '--no-term-title','--no-banner',
             '--autocall=0']
 
 
 def default_config():
-    """Return a config object with good defaults for testing."""
+    """Return a conf object with good defaults for testing."""
     config = Config()
     config.TerminalInteractiveShell.colors = 'NoColor'
     config.TerminalTerminalInteractiveShell.term_title = False,

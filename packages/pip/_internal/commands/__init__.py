@@ -56,7 +56,7 @@ commands_dict = OrderedDict([
         'pip._internal.commands.check', 'CheckCommand',
         'Verify installed packages have compatible dependencies.',
     )),
-    ('config', CommandInfo(
+    ('conf', CommandInfo(
         'pip._internal.commands.configuration', 'ConfigurationCommand',
         'Manage local and global configuration.',
     )),

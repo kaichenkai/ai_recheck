@@ -458,7 +458,7 @@ class TraitType(BaseDescriptor):
         else:
             self.metadata = self.metadata.copy()
         if config is not None:
-            self.metadata['config'] = config
+            self.metadata['conf'] = config
 
         # We add help to the metadata during a deprecation period so that
         # code that looks for the help string there can find it.
@@ -653,7 +653,7 @@ class TraitType(BaseDescriptor):
 
         This allows convenient metadata tagging when initializing the trait, such as:
 
-        >>> Int(0).tag(config=True, sync=True)
+        >>> Int(0).tag(conf=True, sync=True)
         """
         maybe_constructor_keywords = set(metadata.keys()).intersection({'help','allow_none', 'read_only', 'default_value'})
         if maybe_constructor_keywords:
@@ -1069,7 +1069,7 @@ class HasTraits(six.with_metaclass(MetaHasTraits, HasDescriptors)):
         """Context manager for bundling trait change notifications and cross
         validation.
 
-        Use this when doing multiple trait assignments (init, config), to avoid
+        Use this when doing multiple trait assignments (init, conf), to avoid
         race conditions in trait notifiers requesting other trait values.
         All trait notifications will fire after all values have been assigned.
         """
@@ -2201,7 +2201,7 @@ class Container(Instance):
             Whether to allow the value to be None
 
         **kwargs : any
-            further keys for extensions to the Trait (e.g. config)
+            further keys for extensions to the Trait (e.g. conf)
 
         """
         # allow List([values]):

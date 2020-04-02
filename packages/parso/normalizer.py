@@ -78,7 +78,7 @@ class Normalizer(use_metaclass(_NormalizerMeta)):
         """
         Use it as a class decorator::
 
-            normalizer = Normalizer('grammar', 'config')
+            normalizer = Normalizer('grammar', 'conf')
             @normalizer.register_rule(value='foo')
             class MyRule(Rule):
                 error_code = 42

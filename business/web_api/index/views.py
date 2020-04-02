@@ -1,8 +1,7 @@
 # -*- coding:utf-8 -*-
-import logging
 from . import index_blu
-from flask import render_template, current_app, request, jsonify
-from business.utils.decorator import error_handler
+from flask import render_template, current_app
+from business.common.decorator import error_handler
 
 
 @index_blu.route("/")

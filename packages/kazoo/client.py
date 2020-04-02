@@ -1395,8 +1395,8 @@ class KazooClient(object):
             :exc:`~kazoo.exceptions.UnimplementedError` if not supported.
 
             :exc:`~kazoo.exceptions.NewConfigNoQuorumError` if no quorum of new
-            config is connected and up-to-date with the leader of last
-            commmitted config - try invoking reconfiguration after new servers
+            conf is connected and up-to-date with the leader of last
+            commmitted conf - try invoking reconfiguration after new servers
             are connected and synced.
 
             :exc:`~kazoo.exceptions.ReconfigInProcessError` if another

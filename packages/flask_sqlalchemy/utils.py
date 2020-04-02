@@ -38,7 +38,7 @@ def sqlalchemy_version(op, val):
 def engine_config_warning(config, version, deprecated_config_key, engine_option):
     if config[deprecated_config_key] is not None:
         warnings.warn(
-            'The `{}` config option is deprecated and will be removed in'
+            'The `{}` conf option is deprecated and will be removed in'
             ' v{}.  Use `SQLALCHEMY_ENGINE_OPTIONS[\'{}\']` instead.'
             .format(deprecated_config_key, version, engine_option),
             DeprecationWarning

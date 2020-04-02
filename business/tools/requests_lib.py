@@ -7,6 +7,8 @@ import traceback
 import requests
 from io import BytesIO
 from urllib.parse import urlparse
+
+
 # 下载、上传操作相关
 HTTP_GET_RETRY_NUM = 2                              # 下载重试次数
 HTTP_GET_TIMEOUT = 5                               # 下载图片的超时时间
@@ -40,10 +42,6 @@ def http_post(url, param=None):
                 break
 
         if param:
-            # 把图片数据剔除
-            pic_keys = ["combinedPicData", "carNumPicData", "carImg1Data", "carImg2Data", "carImg3Data", "carImg4Data",
-                        "carImg5Data"]
-            [param.pop(key) for key in pic_keys if key in param.keys()]
             logging.error('exception occurs when post url[%s], param[%s]. [%s]' % (url, param_json, lasterr))
         else:
             logging.error('exception occurs when post url[%s], param[%s]. [%s]' % (url, param_json, lasterr))

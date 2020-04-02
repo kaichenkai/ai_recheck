@@ -88,7 +88,7 @@ class EnvironBuilder(werkzeug.test.EnvironBuilder):
     def json_dumps(self, obj, **kwargs):
         """Serialize ``obj`` to a JSON-formatted string.
 
-        The serialization will be configured according to the config associated
+        The serialization will be configured according to the conf associated
         with this EnvironBuilder's ``app``.
         """
         kwargs.setdefault("app", self.app)

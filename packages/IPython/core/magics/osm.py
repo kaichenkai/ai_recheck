@@ -199,7 +199,7 @@ class OSMagics(Magics):
         with execute access (os.X_OK).
 
         Under Windows, it checks executability as a match against a
-        '|'-separated string of extensions, stored in the IPython config
+        '|'-separated string of extensions, stored in the IPython conf
         variable win_exec_ext.  This defaults to 'exe|com|bat'.
 
         This function also resets the root module cache of module completer,

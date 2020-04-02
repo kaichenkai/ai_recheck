@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
 import os
-from business.constants import HOME_PATH
+from conf.constants import HOME_PATH
 from logging.handlers import TimedRotatingFileHandler
-from logging import Formatter, getLogger, DEBUG, INFO, WARNING, ERROR, CRITICAL, StreamHandler
+from logging import Formatter, getLogger, DEBUG, INFO, WARNING, ERROR, StreamHandler
 
 
 # 日志相关

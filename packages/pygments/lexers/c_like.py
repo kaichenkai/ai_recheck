@@ -507,7 +507,7 @@ class ArduinoLexer(CppLexer):
         'process', 'getBand', 'running', 'beginSD', 'drawBMP', 'lowByte', 'setBand',
         'release', 'bitRead', 'prepare', 'pointTo', 'readRed', 'setMode', 'noFill',
         'remove', 'listen', 'stroke', 'detach', 'attach', 'noTone', 'exists', 'buffer',
-        'height', 'bitSet', 'circle', 'config', 'cursor', 'random', 'IRread', 'setDNS',
+        'height', 'bitSet', 'circle', 'conf', 'cursor', 'random', 'IRread', 'setDNS',
         'endSMS', 'getKey', 'micros', 'millis', 'begin', 'print', 'write', 'ready',
         'flush', 'width', 'isPIN', 'blink', 'clear', 'press', 'mkdir', 'rmdir', 'close',
         'point', 'yield', 'image', 'BSSID', 'click', 'delay', 'read', 'text', 'move',

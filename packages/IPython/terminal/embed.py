@@ -357,18 +357,18 @@ def embed(**kwargs):
         embed()
 
     Full customization can be done by passing a :class:`Config` in as the
-    config argument.
+    conf argument.
     """
-    config = kwargs.get('config')
+    config = kwargs.get('conf')
     header = kwargs.pop('header', u'')
     compile_flags = kwargs.pop('compile_flags', None)
     if config is None:
         config = load_default_config()
         config.InteractiveShellEmbed = config.TerminalInteractiveShell
-        kwargs['config'] = config
+        kwargs['conf'] = config
     using = kwargs.get('using', 'sync')
     if using :
-        kwargs['config'].update({'TerminalInteractiveShell':{'loop_runner':using, 'colors':'NoColor', 'autoawait': using!='sync'}})
+        kwargs['conf'].update({'TerminalInteractiveShell':{'loop_runner':using, 'colors':'NoColor', 'autoawait': using!='sync'}})
     #save ps1/ps2 if defined
     ps1 = None
     ps2 = None

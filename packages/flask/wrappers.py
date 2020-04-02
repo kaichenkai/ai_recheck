@@ -64,7 +64,7 @@ class Request(RequestBase, JSONMixin):
 
     @property
     def max_content_length(self):
-        """Read-only view of the ``MAX_CONTENT_LENGTH`` config key."""
+        """Read-only view of the ``MAX_CONTENT_LENGTH`` conf key."""
         if current_app:
             return current_app.config["MAX_CONTENT_LENGTH"]
 
@@ -125,7 +125,7 @@ class Response(ResponseBase, JSONMixin):
 
     @property
     def max_cookie_size(self):
-        """Read-only view of the :data:`MAX_COOKIE_SIZE` config key.
+        """Read-only view of the :data:`MAX_COOKIE_SIZE` conf key.
 
         See :attr:`~werkzeug.wrappers.BaseResponse.max_cookie_size` in
         Werkzeug's docs.

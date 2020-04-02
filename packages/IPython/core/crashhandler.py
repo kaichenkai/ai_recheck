@@ -76,7 +76,7 @@ You can print a more detailed traceback right now with "%tb", or use "%debug"
 to interactively debug it.
 
 Extra-detailed tracebacks for bug-reporting purposes can be enabled via:
-    {config}Application.verbose_crash=True
+    {conf}Application.verbose_crash=True
 """
 
 
@@ -218,9 +218,9 @@ def crash_handler_lite(etype, evalue, tb):
     from IPython.core.interactiveshell import InteractiveShell
     if InteractiveShell.initialized():
         # we are in a Shell environment, give %magic example
-        config = "%config "
+        config = "%conf "
     else:
-        # we are not in a shell, show generic config
+        # we are not in a shell, show generic conf
         config = "c."
     print(_lite_message_template.format(email=author_email, config=config), file=sys.stderr)
 

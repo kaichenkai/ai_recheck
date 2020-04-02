@@ -35,7 +35,7 @@ def test_unicode_ipdir():
     """Check that IPython starts with non-ascii characters in the IP dir."""
     ipdir = tempfile.mkdtemp(suffix=u"€")
     
-    # Create the config file, so it tries to load it.
+    # Create the conf file, so it tries to load it.
     with open(os.path.join(ipdir, 'ipython_config.py'), "w") as f:
         pass
     
@@ -60,13 +60,13 @@ def test_cli_priority():
         class TestApp(BaseIPythonApplication):
             test = Unicode().tag(config=True)
 
-        # Create the config file, so it tries to load it.
+        # Create the conf file, so it tries to load it.
         with open(os.path.join(td, 'ipython_config.py'), "w") as f:
-            f.write("c.TestApp.test = 'config file'")
+            f.write("c.TestApp.test = 'conf file'")
 
         app = TestApp()
         app.initialize(['--profile-dir', td])
-        nt.assert_equal(app.test, 'config file')
+        nt.assert_equal(app.test, 'conf file')
         app = TestApp()
         app.initialize(['--profile-dir', td, '--TestApp.test=cli'])
         nt.assert_equal(app.test, 'cli')

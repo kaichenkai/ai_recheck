@@ -298,7 +298,7 @@ class pxssh (spawn):
         Set ``ssh_key`` to `True` to force passing the current SSH authentication socket
         to the desired ``hostname``.
 
-        Set ``ssh_config`` to a file path string of an SSH client config file to pass that
+        Set ``ssh_config`` to a file path string of an SSH client conf file to pass that
         file to the client to handle itself. You may set any options you wish in here, however
         doing so will require you to post extra information that you may not want to if you
         run into issues.
@@ -322,7 +322,7 @@ class pxssh (spawn):
             ssh_options = ssh_options + ' ' + self.SSH_OPTS
         if ssh_config is not None:
             if spawn_local_ssh and not os.path.isfile(ssh_config):
-                raise ExceptionPxssh('SSH config does not exist or is not a file.')
+                raise ExceptionPxssh('SSH conf does not exist or is not a file.')
             ssh_options = ssh_options + ' -F ' + ssh_config
         if port is not None:
             ssh_options = ssh_options + ' -p %s'%(str(port))

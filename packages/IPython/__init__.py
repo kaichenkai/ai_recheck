@@ -119,7 +119,7 @@ def start_ipython(argv=None, **kwargs):
         specify this dictionary to initialize the IPython user namespace with particular values.
     kwargs : various, optional
         Any other kwargs will be passed to the Application constructor,
-        such as `config`.
+        such as `conf`.
     """
     from IPython.terminal.ipapp import launch_new_instance
     return launch_new_instance(argv=argv, **kwargs)
@@ -145,7 +145,7 @@ def start_kernel(argv=None, **kwargs):
         specify this dictionary to initialize the IPython user namespace with particular values.
     kwargs : various, optional
         Any other kwargs will be passed to the Application constructor,
-        such as `config`.
+        such as `conf`.
     """
     from IPython.kernel.zmq.kernelapp import launch_new_instance
     return launch_new_instance(argv=argv, **kwargs)

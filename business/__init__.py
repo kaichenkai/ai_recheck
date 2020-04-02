@@ -17,10 +17,10 @@ flask_scheduler = APScheduler()
 def create_app(config_name="prod"):
     """通过不同的配置名称， 初始化其对应配置的应用实例"""
     #
-    from config import config_dict  #
+    from conf.config import config_dict  #
     config = config_dict[config_name]
     # 配置项目日志
-    # setup_log(config)
+    # setup_log(conf)
     # 创建 web 应用
     app = Flask(__name__, static_folder="static/", template_folder="static/")
     # 从 object 中加载配置
@@ -30,7 +30,7 @@ def create_app(config_name="prod"):
     db.init_app(app)
     # 连接 redis
     global redis_store
-    # redis_store = redis.StrictRedis(host=config.REDIS_HOST, port=config.REDIS_PORT)
+    # redis_store = redis.StrictRedis(host=conf.REDIS_HOST, port=conf.REDIS_PORT)
 
     # 注册，开启任务调度
     global flask_scheduler

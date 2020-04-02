@@ -197,7 +197,7 @@ def configure_follower(follower_ident):
 def memoize_important_follower_config(dict_):
     """Store important configuration we will need to send to a follower.
 
-    This invokes in the parent process after normal config is set up.
+    This invokes in the parent process after normal conf is set up.
 
     This is necessary as py.test seems to not be using forking, so we
     start with nothing in memory, *but* it isn't running our argparse
@@ -245,7 +245,7 @@ def post_begin():
     for fn in post_configure:
         fn(options, file_config)
 
-    # late imports, has to happen after config.
+    # late imports, has to happen after conf.
     global util, fixtures, engines, exclusions, assertions
     global warnings, profiling, config, testing
     from sqlalchemy import testing  # noqa
@@ -638,7 +638,7 @@ def _possible_configs_for_cls(cls, reasons=None, sparse=False):
             all_configs.difference_update(non_preferred)
 
     if sparse:
-        # pick only one config from each base dialect
+        # pick only one conf from each base dialect
         # sorted so we get the same backend each time selecting the highest
         # server version info.
         per_dialect = {}

@@ -189,7 +189,7 @@ class Producer(object):
             returns a tuple of (serialized_value, serialized_partition_key). The
             arguments passed to this function are a message's value and partition key,
             and the returned data should be these fields transformed according to the
-            client code's serialization logic.  See `pykafka.utils.__init__` for stock
+            client code's serialization logic.  See `pykafka.tools.__init__` for stock
             implemtations.
         :type serializer: function
         """

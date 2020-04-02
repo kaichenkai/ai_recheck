@@ -263,7 +263,7 @@ class InteractiveShellApp(Configurable):
                     if self.reraise_ipython_extension_failures:
                         raise
                     msg = ("Error in loading extension: {ext}\n"
-                           "Check your config files in {location}".format(
+                           "Check your conf files in {location}".format(
                                ext=ext,
                                location=self.profile_dir.location
                            ))

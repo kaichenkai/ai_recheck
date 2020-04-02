@@ -6844,7 +6844,7 @@ class pyparsing_test:
 
     class reset_pyparsing_context:
         """
-        Context manager to be used when writing unit tests that modify pyparsing config values:
+        Context manager to be used when writing unit tests that modify pyparsing conf values:
          - packrat parsing
          - default whitespace characters.
          - default keyword characters

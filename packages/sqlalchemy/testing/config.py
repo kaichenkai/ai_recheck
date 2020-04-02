@@ -1,4 +1,4 @@
-# testing/config.py
+# testing/conf.py
 # Copyright (C) 2005-2020 the SQLAlchemy authors and contributors
 # <see AUTHORS file>
 #
@@ -115,9 +115,9 @@ class Config(object):
 
     @classmethod
     def register(cls, db, db_opts, options, file_config):
-        """add a config as one of the global configs.
+        """add a conf as one of the global configs.
 
-        If there are no configs set up yet, this config also
+        If there are no configs set up yet, this conf also
         gets set as the "_current".
         """
         cfg = Config(db, db_opts, options, file_config)

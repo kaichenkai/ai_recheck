@@ -1,5 +1,5 @@
 # encoding: utf-8
-"""Tests for IPython.utils.path.py"""
+"""Tests for IPython.tools.path.py"""
 
 # Copyright (c) IPython Development Team.
 # Distributed under the terms of the Modified BSD License.

@@ -45,7 +45,7 @@ pjoin = path.join
 # Enable printing all warnings raise by IPython's modules
 warnings.filterwarnings('ignore', message='.*Matplotlib is building the font cache.*', category=UserWarning, module='.*')
 warnings.filterwarnings('error', message='.*', category=ResourceWarning, module='.*')
-warnings.filterwarnings('error', message=".*{'config': True}.*", category=DeprecationWarning, module='IPy.*')
+warnings.filterwarnings('error', message=".*{'conf': True}.*", category=DeprecationWarning, module='IPy.*')
 warnings.filterwarnings('default', message='.*', category=Warning, module='IPy.*')
 
 warnings.filterwarnings('error', message='.*apply_wrapper.*', category=DeprecationWarning, module='.*')
@@ -144,7 +144,7 @@ have = {'matplotlib': test_for('matplotlib'),
 #-----------------------------------------------------------------------------
 
 test_group_names = ['core',
-                    'extensions', 'lib', 'terminal', 'testing', 'utils',
+                    'extensions', 'lib', 'terminal', 'testing', 'tools',
                    ]
 
 class TestSection(object):
@@ -429,7 +429,7 @@ def run_iptest():
                SubprocessStreamCapturePlugin() ]
     
     # we still have some vestigial doctests in core
-    if (section.name.startswith(('core', 'IPython.core', 'IPython.utils'))):
+    if (section.name.startswith(('core', 'IPython.core', 'IPython.tools'))):
         plugins.append(IPythonDoctest())
         argv.extend([
             '--with-ipdoctest',

@@ -2,7 +2,7 @@
 import os
 import zipfile
 
-from business import constants as cons
+from conf import constants as cons
 
 
 def get_image_path(file_name):

@@ -2,7 +2,7 @@
 
 Some terminology:
 - name
-  As written in config files.
+  As written in conf files.
 - value
   Value associated with a name
 - key
@@ -395,7 +395,7 @@ class Configuration(object):
             config_file and os.path.exists(config_file)
         )
         if should_load_user_config:
-            # The legacy config file is overridden by the new config file
+            # The legacy conf file is overridden by the new conf file
             yield kinds.USER, config_files[kinds.USER]
 
         # finally virtualenv configuration first trumping others

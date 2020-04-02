@@ -39,7 +39,7 @@ class BaseConnection(connection.Connection):
             either an instance of `exceptions.ConnectionClosed` if closed by
             user or broker or exception of another type that describes the cause
             of connection failure.
-        :param pika.adapters.utils.nbio_interface.AbstractIOServices nbio:
+        :param pika.adapters.tools.nbio_interface.AbstractIOServices nbio:
             asynchronous services
         :param bool internal_connection_workflow: True for autonomous connection
             establishment which is default; False for externally-managed
@@ -113,9 +113,9 @@ class BaseConnection(connection.Connection):
                           custom_ioloop=None,
                           workflow=None):
         """Asynchronously create a connection to an AMQP broker using the given
-        configurations. Will attempt to connect using each config in the given
+        configurations. Will attempt to connect using each conf in the given
         order, including all compatible resolved IP addresses of the hostname
-        supplied in each config, until one is established or all attempts fail.
+        supplied in each conf, until one is established or all attempts fail.
 
         See also `_start_connection_workflow()`.
 
@@ -150,7 +150,7 @@ class BaseConnection(connection.Connection):
             `pika.connection.Connection`-based adapter instance each time it is
             called. The factory must instantiate the connection with
             `internal_connection_workflow=False`.
-        :param pika.adapters.utils.nbio_interface.AbstractIOServices nbio:
+        :param pika.adapters.tools.nbio_interface.AbstractIOServices nbio:
         :param connection_workflow.AbstractAMQPConnectionWorkflow | None workflow:
             Pass an instance of an implementation of the
             `connection_workflow.AbstractAMQPConnectionWorkflow` interface;
@@ -388,7 +388,7 @@ class BaseConnection(connection.Connection):
     def _proto_connection_made(self, transport):
         """Introduces transport to protocol after transport is connected.
 
-        :py:class:`.utils.nbio_interface.AbstractStreamProtocol` implementation.
+        :py:class:`.tools.nbio_interface.AbstractStreamProtocol` implementation.
 
         :param nbio_interface.AbstractStreamTransport transport:
         :raises Exception: Exception-based exception on error
@@ -402,7 +402,7 @@ class BaseConnection(connection.Connection):
     def _proto_connection_lost(self, error):
         """Called upon loss or closing of TCP connection.
 
-        :py:class:`.utils.nbio_interface.AbstractStreamProtocol` implementation.
+        :py:class:`.tools.nbio_interface.AbstractStreamProtocol` implementation.
 
         NOTE: `connection_made()` and `connection_lost()` are each called just
         once and in that order. All other callbacks are called between them.
@@ -432,7 +432,7 @@ class BaseConnection(connection.Connection):
 
     def _proto_eof_received(self):  # pylint: disable=R0201
         """Called after the remote peer shuts its write end of the connection.
-        :py:class:`.utils.nbio_interface.AbstractStreamProtocol` implementation.
+        :py:class:`.tools.nbio_interface.AbstractStreamProtocol` implementation.
 
         :returns: A falsy value (including None) will cause the transport to
             close itself, resulting in an eventual `connection_lost()` call
@@ -456,7 +456,7 @@ class BaseConnection(connection.Connection):
     def _proto_data_received(self, data):
         """Called to deliver incoming data from the server to the protocol.
 
-        :py:class:`.utils.nbio_interface.AbstractStreamProtocol` implementation.
+        :py:class:`.tools.nbio_interface.AbstractStreamProtocol` implementation.
 
         :param data: Non-empty data bytes.
         :raises Exception: Exception-based exception on error

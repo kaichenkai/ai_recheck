@@ -213,14 +213,14 @@ def temp_pyfile(src, ext='.py'):
 @undoc
 def atomic_writing(*args, **kwargs):
     """DEPRECATED: moved to notebook.services.contents.fileio"""
-    warn("IPython.utils.io.atomic_writing has moved to notebook.services.contents.fileio since IPython 4.0", DeprecationWarning, stacklevel=2)
+    warn("IPython.tools.io.atomic_writing has moved to notebook.services.contents.fileio since IPython 4.0", DeprecationWarning, stacklevel=2)
     from notebook.services.contents.fileio import atomic_writing
     return atomic_writing(*args, **kwargs)
 
 @undoc
 def raw_print(*args, **kw):
     """DEPRECATED: Raw print to sys.__stdout__, otherwise identical interface to print()."""
-    warn("IPython.utils.io.raw_print has been deprecated since IPython 7.0", DeprecationWarning, stacklevel=2)
+    warn("IPython.tools.io.raw_print has been deprecated since IPython 7.0", DeprecationWarning, stacklevel=2)
 
     print(*args, sep=kw.get('sep', ' '), end=kw.get('end', '\n'),
           file=sys.__stdout__)
@@ -229,7 +229,7 @@ def raw_print(*args, **kw):
 @undoc
 def raw_print_err(*args, **kw):
     """DEPRECATED: Raw print to sys.__stderr__, otherwise identical interface to print()."""
-    warn("IPython.utils.io.raw_print_err has been deprecated since IPython 7.0", DeprecationWarning, stacklevel=2)
+    warn("IPython.tools.io.raw_print_err has been deprecated since IPython 7.0", DeprecationWarning, stacklevel=2)
 
     print(*args, sep=kw.get('sep', ' '), end=kw.get('end', '\n'),
           file=sys.__stderr__)
@@ -242,7 +242,7 @@ rprinte = raw_print_err
 
 @undoc
 def unicode_std_stream(stream='stdout'):
-    """DEPRECATED, moved to nbconvert.utils.io"""
-    warn("IPython.utils.io.unicode_std_stream has moved to nbconvert.utils.io since IPython 4.0", DeprecationWarning, stacklevel=2)
+    """DEPRECATED, moved to nbconvert.tools.io"""
+    warn("IPython.tools.io.unicode_std_stream has moved to nbconvert.tools.io since IPython 4.0", DeprecationWarning, stacklevel=2)
     from nbconvert.utils.io import unicode_std_stream
     return unicode_std_stream(stream)

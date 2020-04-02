@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 from . import job_switch_blu
 from business import response, flask_scheduler
-from business.utils.decorator import error_handler
+from business.common.decorator import error_handler
 
 
 @job_switch_blu.route('/pause/job', methods=['GET'])

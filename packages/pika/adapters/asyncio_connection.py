@@ -92,11 +92,11 @@ class _AsyncioIOServicesAdapter(io_services_utils.SocketConnectionMixin,
                                 nbio_interface.AbstractIOServices,
                                 nbio_interface.AbstractFileDescriptorServices):
     """Implements
-    :py:class:`.utils.nbio_interface.AbstractIOServices` interface
+    :py:class:`.tools.nbio_interface.AbstractIOServices` interface
     on top of `asyncio`.
 
     NOTE:
-    :py:class:`.utils.nbio_interface.AbstractFileDescriptorServices`
+    :py:class:`.tools.nbio_interface.AbstractFileDescriptorServices`
     interface is only required by the mixins.
 
     """
@@ -111,40 +111,40 @@ class _AsyncioIOServicesAdapter(io_services_utils.SocketConnectionMixin,
 
     def get_native_ioloop(self):
         """Implement
-        :py:meth:`.utils.nbio_interface.AbstractIOServices.get_native_ioloop()`.
+        :py:meth:`.tools.nbio_interface.AbstractIOServices.get_native_ioloop()`.
 
         """
         return self._loop
 
     def close(self):
         """Implement
-        :py:meth:`.utils.nbio_interface.AbstractIOServices.close()`.
+        :py:meth:`.tools.nbio_interface.AbstractIOServices.close()`.
 
         """
         self._loop.close()
 
     def run(self):
-        """Implement :py:meth:`.utils.nbio_interface.AbstractIOServices.run()`.
+        """Implement :py:meth:`.tools.nbio_interface.AbstractIOServices.run()`.
 
         """
         self._loop.run_forever()
 
     def stop(self):
-        """Implement :py:meth:`.utils.nbio_interface.AbstractIOServices.stop()`.
+        """Implement :py:meth:`.tools.nbio_interface.AbstractIOServices.stop()`.
 
         """
         self._loop.stop()
 
     def add_callback_threadsafe(self, callback):
         """Implement
-        :py:meth:`.utils.nbio_interface.AbstractIOServices.add_callback_threadsafe()`.
+        :py:meth:`.tools.nbio_interface.AbstractIOServices.add_callback_threadsafe()`.
 
         """
         self._loop.call_soon_threadsafe(callback)
 
     def call_later(self, delay, callback):
         """Implement
-        :py:meth:`.utils.nbio_interface.AbstractIOServices.call_later()`.
+        :py:meth:`.tools.nbio_interface.AbstractIOServices.call_later()`.
 
         """
         return _TimerHandle(self._loop.call_later(delay, callback))
@@ -158,7 +158,7 @@ class _AsyncioIOServicesAdapter(io_services_utils.SocketConnectionMixin,
                     proto=0,
                     flags=0):
         """Implement
-        :py:meth:`.utils.nbio_interface.AbstractIOServices.getaddrinfo()`.
+        :py:meth:`.tools.nbio_interface.AbstractIOServices.getaddrinfo()`.
 
         """
         return self._schedule_and_wrap_in_io_ref(
@@ -172,7 +172,7 @@ class _AsyncioIOServicesAdapter(io_services_utils.SocketConnectionMixin,
 
     def set_reader(self, fd, on_readable):
         """Implement
-        :py:meth:`.utils.nbio_interface.AbstractFileDescriptorServices.set_reader()`.
+        :py:meth:`.tools.nbio_interface.AbstractFileDescriptorServices.set_reader()`.
 
         """
         self._loop.add_reader(fd, on_readable)
@@ -180,7 +180,7 @@ class _AsyncioIOServicesAdapter(io_services_utils.SocketConnectionMixin,
 
     def remove_reader(self, fd):
         """Implement
-        :py:meth:`.utils.nbio_interface.AbstractFileDescriptorServices.remove_reader()`.
+        :py:meth:`.tools.nbio_interface.AbstractFileDescriptorServices.remove_reader()`.
 
         """
         LOGGER.debug('remove_reader(%s)', fd)
@@ -188,7 +188,7 @@ class _AsyncioIOServicesAdapter(io_services_utils.SocketConnectionMixin,
 
     def set_writer(self, fd, on_writable):
         """Implement
-        :py:meth:`.utils.nbio_interface.AbstractFileDescriptorServices.set_writer()`.
+        :py:meth:`.tools.nbio_interface.AbstractFileDescriptorServices.set_writer()`.
 
         """
         self._loop.add_writer(fd, on_writable)
@@ -196,7 +196,7 @@ class _AsyncioIOServicesAdapter(io_services_utils.SocketConnectionMixin,
 
     def remove_writer(self, fd):
         """Implement
-        :py:meth:`.utils.nbio_interface.AbstractFileDescriptorServices.remove_writer()`.
+        :py:meth:`.tools.nbio_interface.AbstractFileDescriptorServices.remove_writer()`.
 
         """
         LOGGER.debug('remove_writer(%s)', fd)

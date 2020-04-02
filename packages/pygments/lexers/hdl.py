@@ -187,7 +187,7 @@ class SystemVerilogLexer(RegexLexer):
                 'accept_on', 'alias', 'always', 'always_comb', 'always_ff', 'always_latch',
                 'and', 'assert', 'assign', 'assume', 'automatic', 'before', 'begin', 'bind', 'bins',
                 'binsof', 'bit', 'break', 'buf', 'bufif0', 'bufif1', 'byte', 'case', 'casex', 'casez',
-                'cell', 'chandle', 'checker', 'class', 'clocking', 'cmos', 'config', 'const', 'constraint',
+                'cell', 'chandle', 'checker', 'class', 'clocking', 'cmos', 'conf', 'const', 'constraint',
                 'context', 'continue', 'cover', 'covergroup', 'coverpoint', 'cross', 'deassign',
                 'default', 'defparam', 'design', 'disable', 'dist', 'do', 'edge', 'else', 'end', 'endcase',
                 'endchecker', 'endclass', 'endclocking', 'endconfig', 'endfunction', 'endgenerate',

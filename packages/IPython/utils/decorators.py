@@ -2,8 +2,8 @@
 """Decorators that don't go anywhere else.
 
 This module contains misc. decorators that don't really go with another module
-in :mod:`IPython.utils`. Beore putting something here please see if it should
-go into another topical module in :mod:`IPython.utils`.
+in :mod:`IPython.tools`. Beore putting something here please see if it should
+go into another topical module in :mod:`IPython.tools`.
 """
 
 #-----------------------------------------------------------------------------

@@ -73,7 +73,7 @@ def unquote_filename(name, win32=(sys.platform=='win32')):
     """ On Windows, remove leading and trailing quotes from filenames.
 
     This function has been deprecated and should not be used any more:
-    unquoting is now taken care of by :func:`IPython.utils.process.arg_split`.
+    unquoting is now taken care of by :func:`IPython.tools.process.arg_split`.
     """
     warn("'unquote_filename' is deprecated since IPython 5.0 and should not "
          "be used anymore", DeprecationWarning, stacklevel=2)
@@ -225,8 +225,8 @@ def get_xdg_dir():
 
     if os.name == 'posix' and sys.platform != 'darwin':
         # Linux, Unix, AIX, etc.
-        # use ~/.config if empty OR not set
-        xdg = env.get("XDG_CONFIG_HOME", None) or os.path.join(get_home_dir(), '.config')
+        # use ~/.conf if empty OR not set
+        xdg = env.get("XDG_CONFIG_HOME", None) or os.path.join(get_home_dir(), '.conf')
         if xdg and _writable_dir(xdg):
             return py3compat.cast_unicode(xdg, fs_encoding)
 

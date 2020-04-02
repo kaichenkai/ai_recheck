@@ -49,7 +49,7 @@ ipython --matplotlib=qt    # enable matplotlib integration with qt4 backend
 ipython --log-level=DEBUG  # set logging to DEBUG
 ipython --profile=foo      # start with profile foo
 
-ipython profile create foo # create profile foo w/ default config files
+ipython profile create foo # create profile foo w/ default conf files
 ipython help profile       # show the help for the profile subcmd
 
 ipython locate             # print the path to the IPython directory
@@ -142,7 +142,7 @@ frontend_flags['classic']=(
 # # quick is harder to implement
 frontend_flags['quick']=(
     {'TerminalIPythonApp' : {'quick' : True}},
-    "Enable quick startup with no config files."
+    "Enable quick startup with no conf files."
 )
 
 frontend_flags['i'] = (
@@ -248,11 +248,11 @@ class TerminalIPythonApp(BaseIPythonApplication, InteractiveShellApp):
     )
     subcommands.update(deprecated_subcommands)
 
-    # *do* autocreate requested profile, but don't create the config file.
+    # *do* autocreate requested profile, but don't create the conf file.
     auto_create=Bool(True)
     # configurables
     quick = Bool(False,
-        help="""Start IPython quickly by skipping the loading of config files."""
+        help="""Start IPython quickly by skipping the loading of conf files."""
     ).tag(config=True)
     @observe('quick')
     def _quick_changed(self, change):
@@ -360,7 +360,7 @@ class TerminalIPythonApp(BaseIPythonApplication, InteractiveShellApp):
                 sys.exit(1)
 
 def load_default_config(ipython_dir=None):
-    """Load the default config file from the default ipython_dir.
+    """Load the default conf file from the default ipython_dir.
 
     This is useful for embedded shells.
     """

@@ -1399,7 +1399,7 @@ python-profiler package from non-free.""")
     @magic_arguments.magic_arguments()
     @magic_arguments.argument('output', type=str, default='', nargs='?',
         help="""The name of the variable in which to store output.
-        This is a utils.io.CapturedIO object with stdout/err attributes
+        This is a tools.io.CapturedIO object with stdout/err attributes
         for the text of the captured output.
 
         CapturedOutput also has a show() method for displaying the output,

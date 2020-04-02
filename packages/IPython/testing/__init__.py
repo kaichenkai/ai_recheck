@@ -20,7 +20,7 @@ def test(**kwargs):
 
     For example::
     
-        IPython.test(testgroups=['lib', 'config', 'utils'], fast=2)
+        IPython.test(testgroups=['lib', 'conf', 'tools'], fast=2)
     
     will run those three sections of the test suite, using two processes.
     """

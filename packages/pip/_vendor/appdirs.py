@@ -38,7 +38,7 @@ if sys.platform.startswith('java'):
         # *sys.platform* style strings.
         system = 'linux2'
 elif sys.platform == 'cli' and os.name == 'nt':
-    # Detect Windows in IronPython to match pip._internal.utils.compat.WINDOWS
+    # Detect Windows in IronPython to match pip._internal.tools.compat.WINDOWS
     # Discussion: <https://github.com/pypa/pip/pull/7501>
     system = 'win32'
 else:
@@ -68,7 +68,7 @@ def user_data_dir(appname=None, appauthor=None, version=None, roaming=False):
             for a discussion of issues.
 
     Typical user data directories are:
-        Mac OS X:               ~/Library/Application Support/<AppName>  # or ~/.config/<AppName>, if the other does not exist
+        Mac OS X:               ~/Library/Application Support/<AppName>  # or ~/.conf/<AppName>, if the other does not exist
         Unix:                   ~/.local/share/<AppName>    # or in $XDG_DATA_HOME, if defined
         Win XP (not roaming):   C:\Documents and Settings\<username>\Application Data\<AppAuthor>\<AppName>
         Win XP (roaming):       C:\Documents and Settings\<username>\Local Settings\Application Data\<AppAuthor>\<AppName>
@@ -93,7 +93,7 @@ def user_data_dir(appname=None, appauthor=None, version=None, roaming=False):
         if appname:
             path = os.path.join(path, appname)
         if not os.path.isdir(path):
-            path = os.path.expanduser('~/.config/')
+            path = os.path.expanduser('~/.conf/')
             if appname:
                 path = os.path.join(path, appname)
     else:
@@ -172,7 +172,7 @@ def site_data_dir(appname=None, appauthor=None, version=None, multipath=False):
 
 
 def user_config_dir(appname=None, appauthor=None, version=None, roaming=False):
-    r"""Return full path to the user-specific config dir for this application.
+    r"""Return full path to the user-specific conf dir for this application.
 
         "appname" is the name of application.
             If None, just the system directory is returned.
@@ -192,18 +192,18 @@ def user_config_dir(appname=None, appauthor=None, version=None, roaming=False):
             <http://technet.microsoft.com/en-us/library/cc766489(WS.10).aspx>
             for a discussion of issues.
 
-    Typical user config directories are:
+    Typical user conf directories are:
         Mac OS X:               same as user_data_dir
-        Unix:                   ~/.config/<AppName>     # or in $XDG_CONFIG_HOME, if defined
+        Unix:                   ~/.conf/<AppName>     # or in $XDG_CONFIG_HOME, if defined
         Win *:                  same as user_data_dir
 
     For Unix, we follow the XDG spec and support $XDG_CONFIG_HOME.
-    That means, by default "~/.config/<AppName>".
+    That means, by default "~/.conf/<AppName>".
     """
     if system in ["win32", "darwin"]:
         path = user_data_dir(appname, appauthor, None, roaming)
     else:
-        path = os.getenv('XDG_CONFIG_HOME', os.path.expanduser("~/.config"))
+        path = os.getenv('XDG_CONFIG_HOME', os.path.expanduser("~/.conf"))
         if appname:
             path = os.path.join(path, appname)
     if appname and version:
@@ -228,11 +228,11 @@ def site_config_dir(appname=None, appauthor=None, version=None, multipath=False)
             would typically be "<major>.<minor>".
             Only applied when appname is present.
         "multipath" is an optional parameter only applicable to *nix
-            which indicates that the entire list of config dirs should be
+            which indicates that the entire list of conf dirs should be
             returned. By default, the first item from XDG_CONFIG_DIRS is
             returned, or '/etc/xdg/<AppName>', if XDG_CONFIG_DIRS is not set
 
-    Typical site config directories are:
+    Typical site conf directories are:
         Mac OS X:   same as site_data_dir
         Unix:       /etc/xdg/<AppName> or $XDG_CONFIG_DIRS[i]/<AppName> for each value in
                     $XDG_CONFIG_DIRS

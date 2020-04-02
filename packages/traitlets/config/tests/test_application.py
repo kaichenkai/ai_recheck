@@ -1,6 +1,6 @@
 # coding: utf-8
 """
-Tests for traitlets.config.application.Application
+Tests for traitlets.conf.application.Application
 """
 
 # Copyright (c) IPython Development Team.
@@ -53,7 +53,7 @@ class MyApp(Application):
     name = Unicode(u'myapp')
     running = Bool(False, help="Is the app running?").tag(config=True)
     classes = List([Bar, Foo])
-    config_file = Unicode(u'', help="Load this config file").tag(config=True)
+    config_file = Unicode(u'', help="Load this conf file").tag(config=True)
 
     warn_tpyo = Unicode(u"yes the name is wrong on purpose", config=True,
             help="Should print a warning if `MyApp.warn-typo=...` command is passed")
@@ -118,8 +118,8 @@ class TestApplication(TestCase):
         self.assertEqual(app.bar.enabled, False)
 
     def test_cli_priority(self):
-        """Test that loading config files does not override CLI options"""
-        name = 'config.py'
+        """Test that loading conf files does not override CLI options"""
+        name = 'conf.py'
         class TestApp(Application):
             value = Unicode().tag(config=True)
             config_file_loaded = Bool().tag(config=True)
@@ -129,7 +129,7 @@ class TestApplication(TestCase):
             config_file = pjoin(td, name)
             with open(config_file, 'w') as f:
                 f.writelines([
-                    "c.TestApp.value = 'config file'\n",
+                    "c.TestApp.value = 'conf file'\n",
                     "c.TestApp.config_file_loaded = True\n"
                 ])
 
@@ -147,7 +147,7 @@ class TestApplication(TestCase):
         # this test is almost entirely redundant with above,
         # but we can keep it around in case of subtle issues creeping into
         # the exact sequence IPython follows.
-        name = 'config.py'
+        name = 'conf.py'
         class TestApp(Application):
             value = Unicode().tag(config=True)
             config_file_loaded = Bool().tag(config=True)
@@ -157,13 +157,13 @@ class TestApplication(TestCase):
             config_file = pjoin(td, name)
             with open(config_file, 'w') as f:
                 f.writelines([
-                    "c.TestApp.value = 'config file'\n",
+                    "c.TestApp.value = 'conf file'\n",
                     "c.TestApp.config_file_loaded = True\n"
                 ])
-            # follow IPython's config-loading sequence to ensure CLI priority is preserved
+            # follow IPython's conf-loading sequence to ensure CLI priority is preserved
             app.parse_command_line(['--v=cli'])
             # this is where IPython makes a mistake:
-            # it assumes app.config will not be modified,
+            # it assumes app.conf will not be modified,
             # and storing a reference is storing a copy
             cli_config = app.config
             assert 'value' in app.config.TestApp
@@ -171,7 +171,7 @@ class TestApplication(TestCase):
             assert app.value == 'cli'
             app.load_config_file(name, path=[td])
             assert app.config_file_loaded
-            # enforce cl-opts override config file opts:
+            # enforce cl-opts override conf file opts:
             # this is where IPython makes a mistake: it assumes
             # that cl_config is a different object, but it isn't.
             app.update_config(cli_config)
@@ -229,7 +229,7 @@ class TestApplication(TestCase):
         self.assertEqual(app.config.MyApp.log_level, logging.WARN)
         app.initialize(["--crit"])
         self.assertEqual(app.log_level, logging.CRITICAL)
-        # this would be app.config.Application.log_level if it failed:
+        # this would be app.conf.Application.log_level if it failed:
         self.assertEqual(app.config.MyApp.log_level, logging.CRITICAL)
 
     def test_flatten_aliases(self):
@@ -241,7 +241,7 @@ class TestApplication(TestCase):
         self.assertEqual(app.config.MyApp.log_level, logging.WARN)
         app.initialize(["--log-level", "CRITICAL"])
         self.assertEqual(app.log_level, logging.CRITICAL)
-        # this would be app.config.Application.log_level if it failed:
+        # this would be app.conf.Application.log_level if it failed:
         self.assertEqual(app.config.MyApp.log_level, "CRITICAL")
 
     def test_extra_args(self):
@@ -286,7 +286,7 @@ class TestApplication(TestCase):
     def test_multi_file(self):
         app = MyApp()
         app.log = logging.getLogger()
-        name = 'config.py'
+        name = 'conf.py'
         with TemporaryDirectory('_1') as td1:
             with open(pjoin(td1, name), 'w') as f1:
                 f1.write("get_config().MyApp.Bar.b = 1")
@@ -305,7 +305,7 @@ class TestApplication(TestCase):
         app = MyApp()
         app.log = logging.getLogger()
         app.log.setLevel(logging.INFO)
-        name = 'config'
+        name = 'conf'
         with TemporaryDirectory('_1') as td:
             with open(pjoin(td, name + '.py'), 'w') as f:
                 f.write("get_config().Bar.b = 1")
@@ -329,7 +329,7 @@ class TestApplication(TestCase):
     def test_log_bad_config(self):
         app = MyApp()
         app.log = logging.getLogger()
-        name = 'config.py'
+        name = 'conf.py'
         with TemporaryDirectory() as td:
             with open(pjoin(td, name), 'w') as f:
                 f.write("syntax error()")
@@ -342,7 +342,7 @@ class TestApplication(TestCase):
         app = MyApp()
         app.raise_config_file_errors = True
         app.log = logging.getLogger()
-        name = 'config.py'
+        name = 'conf.py'
         with TemporaryDirectory() as td:
             with open(pjoin(td, name), 'w') as f:
                 f.write("syntax error()")

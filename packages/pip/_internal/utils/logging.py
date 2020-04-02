@@ -314,8 +314,8 @@ def setup_logging(verbosity, no_color, user_log_file):
         "stderr": "ext://sys.stderr",
     }
     handler_classes = {
-        "stream": "pip._internal.utils.logging.ColorizedStreamHandler",
-        "file": "pip._internal.utils.logging.BetterRotatingFileHandler",
+        "stream": "pip._internal.tools.logging.ColorizedStreamHandler",
+        "file": "pip._internal.tools.logging.BetterRotatingFileHandler",
     }
     handlers = ["console", "console_errors", "console_subprocess"] + (
         ["user_log"] if include_user_log else []
@@ -326,7 +326,7 @@ def setup_logging(verbosity, no_color, user_log_file):
         "disable_existing_loggers": False,
         "filters": {
             "exclude_warnings": {
-                "()": "pip._internal.utils.logging.MaxLevelFilter",
+                "()": "pip._internal.tools.logging.MaxLevelFilter",
                 "level": logging.WARNING,
             },
             "restrict_to_subprocess": {
@@ -334,7 +334,7 @@ def setup_logging(verbosity, no_color, user_log_file):
                 "name": subprocess_logger.name,
             },
             "exclude_subprocess": {
-                "()": "pip._internal.utils.logging.ExcludeLoggerFilter",
+                "()": "pip._internal.tools.logging.ExcludeLoggerFilter",
                 "name": subprocess_logger.name,
             },
         },

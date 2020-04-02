@@ -104,28 +104,28 @@ def test_magic_error_status():
 
 
 def test_config():
-    """ test that config magic does not raise
+    """ test that conf magic does not raise
     can happen if Configurable init is moved too early into
     Magics.__init__ as then a Config object will be registered as a
     magic.
     """
     ## should not raise.
-    _ip.magic('config')
+    _ip.magic('conf')
 
 def test_config_available_configs():
-    """ test that config magic prints available configs in unique and
+    """ test that conf magic prints available configs in unique and
     sorted order. """
     with capture_output() as captured:
-        _ip.magic('config')
+        _ip.magic('conf')
 
     stdout = captured.stdout
     config_classes = stdout.strip().split('\n')[1:]
     nt.assert_list_equal(config_classes, sorted(set(config_classes)))
 
 def test_config_print_class():
-    """ test that config with a classname prints the class's options. """
+    """ test that conf with a classname prints the class's options. """
     with capture_output() as captured:
-        _ip.magic('config TerminalInteractiveShell')
+        _ip.magic('conf TerminalInteractiveShell')
 
     stdout = captured.stdout
     if not re.match("TerminalInteractiveShell.* options", stdout.splitlines()[0]):

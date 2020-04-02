@@ -37,7 +37,7 @@ def get_ipython_dir():
         # not set explicitly, use ~/.ipython
         ipdir = pjoin(home_dir, ipdir_def)
         if xdg_dir:
-            # Several IPython versions (up to 1.x) defaulted to .config/ipython
+            # Several IPython versions (up to 1.x) defaulted to .conf/ipython
             # on Linux. We have decided to go back to using .ipython everywhere
             xdg_ipdir = pjoin(xdg_dir, 'ipython')
 

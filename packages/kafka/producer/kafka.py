@@ -39,7 +39,7 @@ class KafkaProducer(object):
     record to a buffer of pending record sends and immediately returns. This
     allows the producer to batch together individual records for efficiency.
 
-    The 'acks' config controls the criteria under which requests are considered
+    The 'acks' conf controls the criteria under which requests are considered
     complete. The "all" setting will result in blocking on the full commit of
     the record, the slowest but most durable setting.
 
@@ -51,7 +51,7 @@ class KafkaProducer(object):
     ).
 
     The producer maintains buffers of unsent records for each partition. These
-    buffers are of a size specified by the 'batch_size' config. Making this
+    buffers are of a size specified by the 'batch_size' conf. Making this
     larger can result in more batching, but requires more memory (since we will
     generally have one of these buffers for each active partition).
 
@@ -315,7 +315,7 @@ class KafkaProducer(object):
             if key in configs:
                 self.config[key] = configs.pop(key)
 
-        # Only check for extra config keys in top-level class
+        # Only check for extra conf keys in top-level class
         assert not configs, 'Unrecognized configs: %s' % configs
 
         if self.config['client_id'] is None:
@@ -479,7 +479,7 @@ class KafkaProducer(object):
                 'partitioner'.
             key (optional): a key to associate with the message. Can be used to
                 determine which partition to send the message to. If partition
-                is None (and producer's partitioner config is left as default),
+                is None (and producer's partitioner conf is left as default),
                 then messages with the same key will be delivered to the same
                 partition (but if key is None, partition is chosen randomly).
                 Must be type bytes, or be serializable to bytes via configured

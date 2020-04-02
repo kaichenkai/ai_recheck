@@ -144,7 +144,7 @@ class TypoScriptLexer(RegexLexer):
              r'parseFunc|replacement|round|select|split|stdWrap|strPad|tableStyle|'
              r'tags|textStyle|typolink)(?![\w\-])', Name.Function),
             # Toplevel objects and _*
-            (r'(?:(=?\s*<?\s+|^\s*))(cObj|field|config|content|constants|FEData|'
+            (r'(?:(=?\s*<?\s+|^\s*))(cObj|field|conf|content|constants|FEData|'
              r'file|frameset|includeLibs|lib|page|plugin|register|resources|sitemap|'
              r'sitetitle|styles|temp|tt_[^:.\s]*|types|xmlnews|INCLUDE_TYPOSCRIPT|'
              r'_CSS_DEFAULT_STYLE|_DEFAULT_PI_VARS|_LOCAL_LANG)(?![\w\-])',

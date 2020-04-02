@@ -513,7 +513,7 @@ class Magics(Configurable):
         if shell is not None:
             if hasattr(shell, 'configurables'):
                 shell.configurables.append(self)
-            if hasattr(shell, 'config'):
+            if hasattr(shell, 'conf'):
                 kwargs.setdefault('parent', shell)
 
         self.shell = shell
@@ -536,7 +536,7 @@ class Magics(Configurable):
                 else:
                     # it's the real thing
                     tab[magic_name] = meth_name
-        # Configurable **needs** to be initiated at the end or the config
+        # Configurable **needs** to be initiated at the end or the conf
         # magics get screwed up.
         super(Magics, self).__init__(**kwargs)
 
@@ -576,7 +576,7 @@ class Magics(Configurable):
         """Parse options passed to an argument string.
 
         The interface is similar to that of :func:`getopt.getopt`, but it
-        returns a :class:`~IPython.utils.struct.Struct` with the options as keys
+        returns a :class:`~IPython.tools.struct.Struct` with the options as keys
         and the stripped argument string still as a string.
 
         arg_str is quoted as a true sys.argv vector by using shlex.split.

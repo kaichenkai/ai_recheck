@@ -1,5 +1,5 @@
 # encoding: utf-8
-"""Tests for IPython.utils.text"""
+"""Tests for IPython.tools.text"""
 
 #-----------------------------------------------------------------------------
 #  Copyright (C) 2011  The IPython Development Team

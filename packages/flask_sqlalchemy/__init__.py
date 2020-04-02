@@ -277,7 +277,7 @@ def get_debug_queries():
     which makes it possible to easily ensure that the SQL generated is the
     one expected on errors or in unittesting.  If you don't want to enable
     the DEBUG mode for your unittests you can also enable the query
-    recording by setting the ``'SQLALCHEMY_RECORD_QUERIES'`` config variable
+    recording by setting the ``'SQLALCHEMY_RECORD_QUERIES'`` conf variable
     to `True`.  This is automatically enabled if Flask is in testing mode.
 
     The value returned will be a list of named tuples with the following
@@ -576,7 +576,7 @@ class _EngineConnector(object):
         if echo:
             options['echo'] = echo
 
-        # Give the config options set by a developer explicitly priority
+        # Give the conf options set by a developer explicitly priority
         # over decisions FSA makes.
         options.update(self._app.config['SQLALCHEMY_ENGINE_OPTIONS'])
 
@@ -671,7 +671,7 @@ class SQLAlchemy(object):
     The ``engine_options`` parameter, if provided, is a dict of parameters
     to be passed to create engine.  See :func:`~sqlalchemy.create_engine`
     for the standard options.  The values given here will be merged with and
-    override anything set in the ``'SQLALCHEMY_ENGINE_OPTIONS'`` config
+    override anything set in the ``'SQLALCHEMY_ENGINE_OPTIONS'`` conf
     variable or othewise set by this library.
 
     .. versionadded:: 0.10
@@ -837,7 +837,7 @@ class SQLAlchemy(object):
                 'or False to suppress this warning.'
             ))
 
-        # Deprecation warnings for config keys that should be replaced by SQLALCHEMY_ENGINE_OPTIONS.
+        # Deprecation warnings for conf keys that should be replaced by SQLALCHEMY_ENGINE_OPTIONS.
         utils.engine_config_warning(app.config, '3.0', 'SQLALCHEMY_POOL_SIZE', 'pool_size')
         utils.engine_config_warning(app.config, '3.0', 'SQLALCHEMY_POOL_TIMEOUT', 'pool_timeout')
         utils.engine_config_warning(app.config, '3.0', 'SQLALCHEMY_POOL_RECYCLE', 'pool_recycle')
@@ -915,7 +915,7 @@ class SQLAlchemy(object):
 
         if app.config['SQLALCHEMY_NATIVE_UNICODE'] is not None:
             warnings.warn(
-                "The 'SQLALCHEMY_NATIVE_UNICODE' config option is deprecated and will be removed in"
+                "The 'SQLALCHEMY_NATIVE_UNICODE' conf option is deprecated and will be removed in"
                 " v3.0.  Use 'SQLALCHEMY_ENGINE_OPTIONS' instead.",
                 DeprecationWarning
             )
@@ -961,7 +961,7 @@ class SQLAlchemy(object):
             is created.
 
             In most cases, you will want to use ``'SQLALCHEMY_ENGINE_OPTIONS'``
-            config variable or set ``engine_options`` for :func:`SQLAlchemy`.
+            conf variable or set ``engine_options`` for :func:`SQLAlchemy`.
         """
         return sqlalchemy.create_engine(sa_url, **engine_opts)
 

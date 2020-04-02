@@ -153,7 +153,7 @@ class KconfigLexer(RegexLexer):
     """
 
     name = 'Kconfig'
-    aliases = ['kconfig', 'menuconfig', 'linux-config', 'kernel-config']
+    aliases = ['kconfig', 'menuconfig', 'linux-conf', 'kernel-conf']
     # Adjust this if new kconfig file names appear in your environment
     filenames = ['Kconfig', '*Config.in*', 'external.in*',
                  'standard-modules.in']
@@ -179,7 +179,7 @@ class KconfigLexer(RegexLexer):
             (r'\s+', Text),
             (r'#.*?\n', Comment.Single),
             (words((
-                'mainmenu', 'config', 'menuconfig', 'choice', 'endchoice',
+                'mainmenu', 'conf', 'menuconfig', 'choice', 'endchoice',
                 'comment', 'menu', 'endmenu', 'visible if', 'if', 'endif',
                 'source', 'prompt', 'select', 'depends on', 'default',
                 'range', 'option'), suffix=r'\b'),
@@ -285,7 +285,7 @@ class Cfengine3Lexer(RegexLexer):
 
 class ApacheConfLexer(RegexLexer):
     """
-    Lexer for configuration files following the Apache config file
+    Lexer for configuration files following the Apache conf file
     format.
 
     .. versionadded:: 0.6
@@ -538,7 +538,7 @@ class DockerLexer(RegexLexer):
     name = 'Docker'
     aliases = ['docker', 'dockerfile']
     filenames = ['Dockerfile', '*.docker']
-    mimetypes = ['text/x-dockerfile-config']
+    mimetypes = ['text/x-dockerfile-conf']
 
     _keywords = (r'(?:FROM|MAINTAINER|EXPOSE|WORKDIR|USER|STOPSIGNAL)')
     _bash_keywords = (r'(?:RUN|CMD|ENTRYPOINT|ENV|ARG|LABEL|ADD|COPY)')
@@ -728,7 +728,7 @@ class TerminfoLexer(RegexLexer):
 
 class PkgConfigLexer(RegexLexer):
     """
-    Lexer for `pkg-config
+    Lexer for `pkg-conf
     <http://www.freedesktop.org/wiki/Software/pkg-config/>`_
     (see also `manual page <http://linux.die.net/man/1/pkg-config>`_).
 

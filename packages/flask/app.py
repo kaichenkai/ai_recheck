@@ -189,7 +189,7 @@ class Flask(_PackageBoundObject):
                           package or module is assumed to be the instance
                           path.
     :param instance_relative_config: if set to ``True`` relative filenames
-                                     for loading the config are assumed to
+                                     for loading the conf are assumed to
                                      be relative to the instance path instead
                                      of the application root.
     :param root_path: Flask by default will automatically calculate the path
@@ -228,13 +228,13 @@ class Flask(_PackageBoundObject):
     #: .. versionadded:: 0.10
     app_ctx_globals_class = _AppCtxGlobals
 
-    #: The class that is used for the ``config`` attribute of this app.
+    #: The class that is used for the ``conf`` attribute of this app.
     #: Defaults to :class:`~flask.Config`.
     #:
     #: Example use cases for a custom class:
     #:
-    #: 1. Default values for certain config options.
-    #: 2. Access to config values through attributes in addition to keys.
+    #: 1. Default values for certain conf options.
+    #: 2. Access to conf values through attributes in addition to keys.
     #:
     #: .. versionadded:: 0.11
     config_class = Config
@@ -247,7 +247,7 @@ class Flask(_PackageBoundObject):
     #: If this is enabled and PROPAGATE_EXCEPTIONS is not changed from the
     #: default it's implicitly enabled.
     #:
-    #: This attribute can also be configured from the config with the
+    #: This attribute can also be configured from the conf with the
     #: ``TESTING`` configuration key.  Defaults to ``False``.
     testing = ConfigAttribute("TESTING")
 
@@ -255,13 +255,13 @@ class Flask(_PackageBoundObject):
     #: sign cookies and other things. Set this to a complex random value
     #: when you want to use the secure cookie for instance.
     #:
-    #: This attribute can also be configured from the config with the
+    #: This attribute can also be configured from the conf with the
     #: :data:`SECRET_KEY` configuration key. Defaults to ``None``.
     secret_key = ConfigAttribute("SECRET_KEY")
 
     #: The secure cookie uses this for the name of the session cookie.
     #:
-    #: This attribute can also be configured from the config with the
+    #: This attribute can also be configured from the conf with the
     #: ``SESSION_COOKIE_NAME`` configuration key.  Defaults to ``'session'``
     session_cookie_name = ConfigAttribute("SESSION_COOKIE_NAME")
 
@@ -269,7 +269,7 @@ class Flask(_PackageBoundObject):
     #: date of a permanent session.  The default is 31 days which makes a
     #: permanent session survive for roughly one month.
     #:
-    #: This attribute can also be configured from the config with the
+    #: This attribute can also be configured from the conf with the
     #: ``PERMANENT_SESSION_LIFETIME`` configuration key.  Defaults to
     #: ``timedelta(days=31)``
     permanent_session_lifetime = ConfigAttribute(
@@ -279,7 +279,7 @@ class Flask(_PackageBoundObject):
     #: A :class:`~datetime.timedelta` which is used as default cache_timeout
     #: for the :func:`send_file` functions. The default is 12 hours.
     #:
-    #: This attribute can also be configured from the config with the
+    #: This attribute can also be configured from the conf with the
     #: ``SEND_FILE_MAX_AGE_DEFAULT`` configuration key. This configuration
     #: variable can also be set with an integer value used as seconds.
     #: Defaults to ``timedelta(hours=12)``
@@ -293,7 +293,7 @@ class Flask(_PackageBoundObject):
     #:
     #: .. versionadded:: 0.2
     #:
-    #: This attribute can also be configured from the config with the
+    #: This attribute can also be configured from the conf with the
     #: ``USE_X_SENDFILE`` configuration key.  Defaults to ``False``.
     use_x_sendfile = ConfigAttribute("USE_X_SENDFILE")
 
@@ -434,7 +434,7 @@ class Flask(_PackageBoundObject):
 
         #: The configuration dictionary as :class:`Config`.  This behaves
         #: exactly like a regular dictionary but supports additional methods
-        #: to load a config from files.
+        #: to load a conf from files.
         self.config = self.make_config(instance_relative_config)
 
         #: A dictionary of all view functions registered.  The keys will
@@ -698,10 +698,10 @@ class Flask(_PackageBoundObject):
         return self._got_first_request
 
     def make_config(self, instance_relative=False):
-        """Used to create the config attribute by the Flask constructor.
+        """Used to create the conf attribute by the Flask constructor.
         The `instance_relative` parameter is passed in from the constructor
         of Flask (there named `instance_relative_config`) and indicates if
-        the config should be relative to the instance path or the root path
+        the conf should be relative to the instance path or the root path
         of the application.
 
         .. versionadded:: 0.8
@@ -748,7 +748,7 @@ class Flask(_PackageBoundObject):
         not set, it will be enabled in debug mode.
 
         .. versionadded:: 1.0
-            This property was added but the underlying config and behavior
+            This property was added but the underlying conf and behavior
             already existed.
         """
         rv = self.config["TEMPLATES_AUTO_RELOAD"]
@@ -818,7 +818,7 @@ class Flask(_PackageBoundObject):
 
     def update_template_context(self, context):
         """Update the template context with some commonly used variables.
-        This injects request, session, config and g into the template
+        This injects request, session, conf and g into the template
         context as well as everything template context processors want
         to inject.  Note that the as of Flask 0.6, the original values
         in the context will not be overridden if a context processor
@@ -855,7 +855,7 @@ class Flask(_PackageBoundObject):
 
     #: What environment the app is running in. Flask and extensions may
     #: enable behaviors based on the environment, such as enabling debug
-    #: mode. This maps to the :data:`ENV` config key. This is set by the
+    #: mode. This maps to the :data:`ENV` conf key. This is set by the
     #: :envvar:`FLASK_ENV` environment variable and may not behave as
     #: expected if set in code.
     #:
@@ -869,7 +869,7 @@ class Flask(_PackageBoundObject):
         """Whether debug mode is enabled. When using ``flask run`` to start
         the development server, an interactive debugger will be shown for
         unhandled exceptions, and the server will be reloaded when code
-        changes. This maps to the :data:`DEBUG` config key. This is
+        changes. This maps to the :data:`DEBUG` conf key. This is
         enabled when :attr:`env` is ``'development'`` and is overridden
         by the ``FLASK_DEBUG`` environment variable. It may not behave as
         expected if set in code.
@@ -917,10 +917,10 @@ class Flask(_PackageBoundObject):
 
         :param host: the hostname to listen on. Set this to ``'0.0.0.0'`` to
             have the server available externally as well. Defaults to
-            ``'127.0.0.1'`` or the host in the ``SERVER_NAME`` config variable
+            ``'127.0.0.1'`` or the host in the ``SERVER_NAME`` conf variable
             if present.
         :param port: the port of the webserver. Defaults to ``5000`` or the
-            port defined in the ``SERVER_NAME`` config variable if present.
+            port defined in the ``SERVER_NAME`` conf variable if present.
         :param debug: if given, enable or disable debug mode. See
             :attr:`debug`.
         :param load_dotenv: Load the nearest :file:`.env` and :file:`.flaskenv`

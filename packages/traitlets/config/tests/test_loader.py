@@ -1,5 +1,5 @@
 # encoding: utf-8
-"""Tests for traitlets.config.loader"""
+"""Tests for traitlets.conf.loader"""
 
 # Copyright (c) IPython Development Team.
 # Distributed under the terms of the Modified BSD License.

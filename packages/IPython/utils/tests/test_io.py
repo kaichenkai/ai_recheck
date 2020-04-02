@@ -58,14 +58,14 @@ class TeeTestCase(unittest.TestCase):
 def test_io_init():
     """Test that io.stdin/out/err exist at startup"""
     for name in ('stdin', 'stdout', 'stderr'):
-        cmd = "from IPython.utils import io;print(io.%s.__class__)"%name
+        cmd = "from IPython.tools import io;print(io.%s.__class__)"%name
         p = Popen([sys.executable, '-c', cmd],
                     stdout=PIPE)
         p.wait()
         classname = p.stdout.read().strip().decode('ascii')
         # __class__ is a reference to the class object in Python 3, so we can't
         # just test for string equality.
-        assert 'IPython.utils.io.IOStream' in classname, classname
+        assert 'IPython.tools.io.IOStream' in classname, classname
 
 def test_IOStream_init():
     """IOStream initializes from a file-like object missing attributes. """

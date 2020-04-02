@@ -482,7 +482,7 @@ def create_engine(*args, **kwargs):
 def engine_from_config(configuration, prefix="sqlalchemy.", **kwargs):
     """Create a new Engine instance using a configuration dictionary.
 
-    The dictionary is typically produced from a config file.
+    The dictionary is typically produced from a conf file.
 
     The keys of interest to ``engine_from_config()`` should be prefixed, e.g.
     ``sqlalchemy.url``, ``sqlalchemy.echo``, etc.  The 'prefix' argument
@@ -497,7 +497,7 @@ def engine_from_config(configuration, prefix="sqlalchemy.", **kwargs):
     expected type based on string values.    The set of arguments
     is extensible per-dialect using the ``engine_config_types`` accessor.
 
-    :param configuration: A dictionary (typically produced from a config file,
+    :param configuration: A dictionary (typically produced from a conf file,
         but this is not a requirement).  Items whose keys start with the value
         of 'prefix' will have that prefix stripped, and will then be passed to
         :ref:`create_engine`.

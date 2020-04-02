@@ -719,7 +719,7 @@ def soft_unicode(s):
     from markupsafe import soft_unicode
 
     warnings.warn(
-        "'jinja2.utils.soft_unicode' will be removed in version 3.0."
+        "'jinja2.tools.soft_unicode' will be removed in version 3.0."
         " Use 'markupsafe.soft_unicode' instead.",
         DeprecationWarning,
         stacklevel=2,

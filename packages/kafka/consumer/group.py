@@ -282,7 +282,7 @@ class KafkaConsumer(six.Iterator):
             if key in configs:
                 self.config[key] = configs.pop(key)
 
-        # Only check for extra config keys in top-level class
+        # Only check for extra conf keys in top-level class
         assert not configs, 'Unrecognized configs: %s' % configs
 
         deprecated = {'smallest': 'earliest', 'largest': 'latest'}

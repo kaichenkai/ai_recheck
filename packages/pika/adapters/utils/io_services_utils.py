@@ -88,10 +88,10 @@ def _retry_on_sigint(func):
 
 class SocketConnectionMixin(object):
     """Implements
-    `pika.adapters.utils.nbio_interface.AbstractIOServices.connect_socket()`
+    `pika.adapters.tools.nbio_interface.AbstractIOServices.connect_socket()`
     on top of
-    `pika.adapters.utils.nbio_interface.AbstractFileDescriptorServices` and
-    basic `pika.adapters.utils.nbio_interface.AbstractIOServices`.
+    `pika.adapters.tools.nbio_interface.AbstractFileDescriptorServices` and
+    basic `pika.adapters.tools.nbio_interface.AbstractIOServices`.
 
     """
 
@@ -706,7 +706,7 @@ class _AsyncTransportBase(  # pylint: disable=W0223
         """
 
         :param socket.socket | ssl.SSLSocket sock: connected socket
-        :param pika.adapters.utils.nbio_interface.AbstractStreamProtocol protocol:
+        :param pika.adapters.tools.nbio_interface.AbstractStreamProtocol protocol:
             corresponding protocol in this transport/protocol pairing; the
             protocol already had its `connection_made()` method called.
         :param AbstractIOServices | AbstractFileDescriptorServices nbio:
@@ -736,7 +736,7 @@ class _AsyncTransportBase(  # pylint: disable=W0223
     def get_protocol(self):
         """Return the protocol linked to this transport.
 
-        :rtype: pika.adapters.utils.nbio_interface.AbstractStreamProtocol
+        :rtype: pika.adapters.tools.nbio_interface.AbstractStreamProtocol
         """
         return self._protocol
 
@@ -990,7 +990,7 @@ class _AsyncPlaintextTransport(_AsyncTransportBase):
         """
 
         :param socket.socket sock: non-blocking connected socket
-        :param pika.adapters.utils.nbio_interface.AbstractStreamProtocol protocol:
+        :param pika.adapters.tools.nbio_interface.AbstractStreamProtocol protocol:
             corresponding protocol in this transport/protocol pairing; the
             protocol already had its `connection_made()` method called.
         :param AbstractIOServices | AbstractFileDescriptorServices nbio:
@@ -1122,7 +1122,7 @@ class _AsyncSSLTransport(_AsyncTransportBase):
         """
 
         :param ssl.SSLSocket sock: non-blocking connected socket
-        :param pika.adapters.utils.nbio_interface.AbstractStreamProtocol protocol:
+        :param pika.adapters.tools.nbio_interface.AbstractStreamProtocol protocol:
             corresponding protocol in this transport/protocol pairing; the
             protocol already had its `connection_made()` method called.
         :param AbstractIOServices | AbstractFileDescriptorServices nbio:

@@ -39,9 +39,9 @@ class SslConfig(object):
     may monkey-patch `self._wrap_socket` (see `_legacy_wrap_socket()` for an
     example) before passing the `SslConfig` to `KafkaClient` init, like so:
 
-        config = SslConfig(cafile='/your/ca/file')
-        config._wrap_socket = config._legacy_wrap_socket()
-        client = KafkaClient('localhost:<ssl-port>', ssl_config=config)
+        conf = SslConfig(cafile='/your/ca/file')
+        conf._wrap_socket = conf._legacy_wrap_socket()
+        client = KafkaClient('localhost:<ssl-port>', ssl_config=conf)
 
     Alternatively, completely supplanting this class with your own is also
     simple: if you are not going to be using the `pykafka.rdkafka` classes,

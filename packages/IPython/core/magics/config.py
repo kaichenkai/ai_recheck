@@ -36,13 +36,13 @@ class ConfigMagics(Magics):
     def config(self, s):
         """configure IPython
 
-            %config Class[.trait=value]
+            %conf Class[.trait=value]
 
-        This magic exposes most of the IPython config system. Any
+        This magic exposes most of the IPython conf system. Any
         Configurable class should be able to be configured with the simple
         line::
 
-            %config Class.trait=value
+            %conf Class.trait=value
 
         Where `value` will be resolved in the user's namespace, if it is an
         expression or variable name.
@@ -50,10 +50,10 @@ class ConfigMagics(Magics):
         Examples
         --------
 
-        To see what classes are available for config, pass no arguments::
+        To see what classes are available for conf, pass no arguments::
 
-            In [1]: %config
-            Available objects for config:
+            In [1]: %conf
+            Available objects for conf:
                 TerminalInteractiveShell
                 HistoryManager
                 PrefilterManager
@@ -64,7 +64,7 @@ class ConfigMagics(Magics):
         To view what is configurable on a given class, just pass the class
         name::
 
-            In [2]: %config IPCompleter
+            In [2]: %conf IPCompleter
             IPCompleter options
             -----------------
             IPCompleter.omit__names=<Enum>
@@ -95,13 +95,13 @@ class ConfigMagics(Magics):
 
         but the real use is in setting values::
 
-            In [3]: %config IPCompleter.greedy = True
+            In [3]: %conf IPCompleter.greedy = True
 
         and these values are read from the user_ns if they are variables::
 
             In [4]: feeling_greedy=False
 
-            In [5]: %config IPCompleter.greedy = feeling_greedy
+            In [5]: %conf IPCompleter.greedy = feeling_greedy
 
         """
         from traitlets.config.loader import Config
@@ -116,12 +116,12 @@ class ConfigMagics(Magics):
         line = s.strip()
         if not line:
             # print available configurable names
-            print("Available objects for config:")
+            print("Available objects for conf:")
             for name in classnames:
                 print("    ", name)
             return
         elif line in classnames:
-            # `%config TerminalInteractiveShell` will print trait info for
+            # `%conf TerminalInteractiveShell` will print trait info for
             # TerminalInteractiveShell
             c = configurables[classnames.index(line)]
             cls = c.__class__
@@ -134,7 +134,7 @@ class ConfigMagics(Magics):
             cls, attr = line.split('.')
             return getattr(configurables[classnames.index(cls)],attr)
         elif '=' not in line:
-            msg = "Invalid config statement: %r, "\
+            msg = "Invalid conf statement: %r, "\
                   "should be `Class.trait = value`."
             
             ll = line.lower()

@@ -52,7 +52,7 @@ HashedPartitioner = LegacyPartitioner
 def murmur2(data):
     """Pure-python Murmur2 implementation.
 
-    Based on java client, see org.apache.kafka.common.utils.Utils.murmur2
+    Based on java client, see org.apache.kafka.common.tools.Utils.murmur2
 
     Args:
         data (bytes): opaque bytes

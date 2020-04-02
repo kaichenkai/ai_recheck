@@ -132,7 +132,7 @@ def parse_info(response):
 
 SENTINEL_STATE_TYPES = {
     'can-failover-its-master': int,
-    'config-epoch': int,
+    'conf-epoch': int,
     'down-after-milliseconds': int,
     'failover-timeout': int,
     'info-refresh': int,
@@ -902,7 +902,7 @@ class Redis(object):
         return self.execute_command('CONFIG GET', pattern)
 
     def config_set(self, name, value):
-        "Set config item ``name`` with ``value``"
+        "Set conf item ``name`` with ``value``"
         return self.execute_command('CONFIG SET', name, value)
 
     def config_resetstat(self):
@@ -910,7 +910,7 @@ class Redis(object):
         return self.execute_command('CONFIG RESETSTAT')
 
     def config_rewrite(self):
-        "Rewrite config file with the minimal change to reflect running config"
+        "Rewrite conf file with the minimal change to reflect running conf"
         return self.execute_command('CONFIG REWRITE')
 
     def dbsize(self):

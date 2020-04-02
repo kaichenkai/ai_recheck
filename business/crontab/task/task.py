@@ -11,9 +11,9 @@ import threading
 from sqlalchemy import func
 # from flask import current_app
 from multiprocessing import Queue
-from queue import Empty as QueueEmpty
-from business.utils.time_func import now_time
-from business import db, constants as cons, create_app
+from business.common.time_func import now_time
+from business import db, create_app
+from conf import constants as cons
 from business.models import WfRecord, SectorDataCount
 
 img_counts = 0
@@ -33,7 +33,6 @@ def sdk_request(a, b):
 
         if img_counts >= cons.MAX_IMAGE_NUM:
             logging.info("image processing number reached 40w")
-            print("image processing number reached 40w")
             # scheduler.pause_job('job2')
             return
 
@@ -49,7 +48,9 @@ def sdk_request(a, b):
             return
             # records = query.all()
         if not records:
+            # 没有查询到记录
             logging.info('no records to recog')
+            return
         else:
             tmp = []
             ex_tmp = []
@@ -111,7 +112,6 @@ def sdk_request(a, b):
                     # 一天限制40w数量图片
                     if img_counts >= cons.MAX_IMAGE_NUM:
                         logging.info("image processing number reached 40w")
-                        print("image processing number reached 40w")
                         # scheduler.pause_job('job2')
                         break
             # 如果还有数据, 且没有超过授权数量, 继续放数据(用来放少于8条的数据)
@@ -272,9 +272,10 @@ def all_date_count(a, b):
             record = db.session.query(WfRecord).first()
             if record:
                 break
-        #
+        # 第一条数据的录入时间
         first_time = record.entry_time.strftime("%Y-%m-%d")
         next_day = first_time
+        # 昨天
         today = (datetime.datetime.now() - datetime.timedelta(days=1)).strftime("%Y-%m-%d")
 
         print('+++++++++ all_date_count', today, next_day)
@@ -289,6 +290,7 @@ def all_date_count(a, b):
 def yesterday_count(a, b):
     app = create_app()
     with app.app_context():
+        # 昨天日期
         yesterday = (datetime.datetime.now() - datetime.timedelta(days=1)).strftime("%Y-%m-%d")
         result = get_count(yesterday)
         insert_date_count(result)
@@ -296,20 +298,18 @@ def yesterday_count(a, b):
 
 def get_count(date):
     result = {}
-
+    # 昨天零点时间
     start_time = date + ' 00:00:00'
-    end_time = \
-        (datetime.datetime.strptime(date, '%Y-%m-%d') + datetime.timedelta(days=1)).strftime(
-            "%Y-%m-%d") + ' 00:00:00'
-
+    # 下一天的零点时间
+    end_time = (datetime.datetime.strptime(date, '%Y-%m-%d') + datetime.timedelta(days=1)).strftime("%Y-%m-%d") + ' 00:00:00'
+    # 昨天日期
     result['date'] = date
-
+    # （1：正片；2：废片；3：全部）
     for manual_check_status in (3, 2, 1):
         query = db.session.query(WfRecord)
 
-        query = query \
-            .filter(WfRecord.entry_time >= start_time) \
-            .filter(WfRecord.entry_time < end_time)
+        query = query.filter(WfRecord.entry_time >= start_time) \
+                     .filter(WfRecord.entry_time < end_time)
 
         if manual_check_status != 3:
             query = query.filter(WfRecord.manual_check_status == manual_check_status)
@@ -336,19 +336,18 @@ def get_count(date):
             .with_entities(WfRecord.correct_sector_code, func.count(WfRecord.id)) \
             .all()
 
-        m1_total = query \
-            .filter(WfRecord.sdk_reason_code == 1) \
-            .filter(WfRecord.manual_check_status == 1) \
-            .group_by(WfRecord.correct_sector_code) \
-            .with_entities(WfRecord.correct_sector_code, func.count(WfRecord.id)) \
-            .all()
-
-        m2_total = query \
-            .filter(WfRecord.sdk_reason_code == 1) \
-            .filter(WfRecord.manual_check_status == 2) \
-            .group_by(WfRecord.correct_sector_code) \
-            .with_entities(WfRecord.correct_sector_code, func.count(WfRecord.id)) \
-            .all()
+        # 人工复核正片
+        m1_total = query.filter(WfRecord.sdk_reason_code == 1) \
+                        .filter(WfRecord.manual_check_status == 1) \
+                        .group_by(WfRecord.correct_sector_code) \
+                        .with_entities(WfRecord.correct_sector_code, func.count(WfRecord.id)) \
+                        .all()
+        # 人工复核废片
+        m2_total = query.filter(WfRecord.sdk_reason_code == 1) \
+                        .filter(WfRecord.manual_check_status == 2) \
+                        .group_by(WfRecord.correct_sector_code) \
+                        .with_entities(WfRecord.correct_sector_code, func.count(WfRecord.id)) \
+                        .all()
 
         result.setdefault(manual_check_status, [])
 

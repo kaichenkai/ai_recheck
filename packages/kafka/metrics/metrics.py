@@ -37,11 +37,11 @@ class Metrics(object):
     def __init__(self, default_config=None, reporters=None,
                  enable_expiration=False):
         """
-        Create a metrics repository with a default config, given metric
+        Create a metrics repository with a default conf, given metric
         reporters and the ability to expire eligible sensors
 
         Arguments:
-            default_config (MetricConfig, optional): The default config
+            default_config (MetricConfig, optional): The default conf
             reporters (list of AbstractMetricsReporter, optional):
                 The metrics reporters
             enable_expiration (bool, optional): true if the metrics instance
@@ -127,7 +127,7 @@ class Metrics(object):
         Arguments:
             name (str): The name of the sensor
             config (MetricConfig, optional): A default configuration to use
-                for this sensor for metrics that don't have their own config
+                for this sensor for metrics that don't have their own conf
             inactive_sensor_expiration_time_seconds (int, optional):
                 If no value if recorded on the Sensor for this duration of
                 time, it is eligible for removal

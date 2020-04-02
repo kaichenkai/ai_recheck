@@ -29,7 +29,7 @@ def setup_readline(namespace_module=__main__):
     ``$HOME/.pythonrc.py``), you can add this piece of code::
 
         try:
-            from jedi.utils import setup_readline
+            from jedi.tools import setup_readline
             setup_readline()
         except ImportError:
             # Fallback to the stdlib readline completer if it is installed.

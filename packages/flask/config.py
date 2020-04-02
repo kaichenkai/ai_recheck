@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    flask.config
+    flask.conf
     ~~~~~~~~~~~~
 
     Implements the configuration related objects.
@@ -20,7 +20,7 @@ from ._compat import string_types
 
 
 class ConfigAttribute(object):
-    """Makes an attribute forward to the config"""
+    """Makes an attribute forward to the conf"""
 
     def __init__(self, name, get_converter=None):
         self.__name__ = name
@@ -41,11 +41,11 @@ class ConfigAttribute(object):
 class Config(dict):
     """Works exactly like a dict but provides ways to fill it from files
     or special dictionaries.  There are two common patterns to populate the
-    config.
+    conf.
 
-    Either you can fill the config from a config file::
+    Either you can fill the conf from a conf file::
 
-        app.config.from_pyfile('yourconfig.cfg')
+        app.conf.from_pyfile('yourconfig.cfg')
 
     Or alternatively you can define the configuration options in the
     module that calls :meth:`from_object` or provide an import path to
@@ -55,29 +55,29 @@ class Config(dict):
 
         DEBUG = True
         SECRET_KEY = 'development key'
-        app.config.from_object(__name__)
+        app.conf.from_object(__name__)
 
     In both cases (loading from any Python file or loading from modules),
-    only uppercase keys are added to the config.  This makes it possible to use
-    lowercase values in the config file for temporary values that are not added
-    to the config or to define the config keys in the same file that implements
+    only uppercase keys are added to the conf.  This makes it possible to use
+    lowercase values in the conf file for temporary values that are not added
+    to the conf or to define the conf keys in the same file that implements
     the application.
 
     Probably the most interesting way to load configurations is from an
     environment variable pointing to a file::
 
-        app.config.from_envvar('YOURAPPLICATION_SETTINGS')
+        app.conf.from_envvar('YOURAPPLICATION_SETTINGS')
 
     In this case before launching the application you have to set this
     environment variable to the file you want to use.  On Linux and OS X
     use the export statement::
 
-        export YOURAPPLICATION_SETTINGS='/path/to/config/file'
+        export YOURAPPLICATION_SETTINGS='/path/to/conf/file'
 
     On windows use `set` instead.
 
     :param root_path: path to which files are read relative from.  When the
-                      config object is created by the application, this is
+                      conf object is created by the application, this is
                       the application's :attr:`~flask.Flask.root_path`.
     :param defaults: an optional dictionary of default values
     """
@@ -91,12 +91,12 @@ class Config(dict):
         a configuration file.  This is basically just a shortcut with nicer
         error messages for this line of code::
 
-            app.config.from_pyfile(os.environ['YOURAPPLICATION_SETTINGS'])
+            app.conf.from_pyfile(os.environ['YOURAPPLICATION_SETTINGS'])
 
         :param variable_name: name of the environment variable
         :param silent: set to ``True`` if you want silent failure for missing
                        files.
-        :return: bool. ``True`` if able to load config, ``False`` otherwise.
+        :return: bool. ``True`` if able to load conf, ``False`` otherwise.
         """
         rv = os.environ.get(variable_name)
         if not rv:
@@ -111,11 +111,11 @@ class Config(dict):
         return self.from_pyfile(rv, silent=silent)
 
     def from_pyfile(self, filename, silent=False):
-        """Updates the values in the config from a Python file.  This function
+        """Updates the values in the conf from a Python file.  This function
         behaves as if the file was imported as module with the
         :meth:`from_object` function.
 
-        :param filename: the filename of the config.  This can either be an
+        :param filename: the filename of the conf.  This can either be an
                          absolute filename or a filename relative to the
                          root path.
         :param silent: set to ``True`` if you want silent failure for missing
@@ -125,7 +125,7 @@ class Config(dict):
            `silent` parameter.
         """
         filename = os.path.join(self.root_path, filename)
-        d = types.ModuleType("config")
+        d = types.ModuleType("conf")
         d.__file__ = filename
         try:
             with open(filename, mode="rb") as config_file:
@@ -152,20 +152,20 @@ class Config(dict):
 
         Example of module-based configuration::
 
-            app.config.from_object('yourapplication.default_config')
+            app.conf.from_object('yourapplication.default_config')
             from yourapplication import default_config
-            app.config.from_object(default_config)
+            app.conf.from_object(default_config)
 
         Nothing is done to the object before loading. If the object is a
         class and has ``@property`` attributes, it needs to be
         instantiated before being passed to this method.
 
         You should not use this function to load the actual configuration but
-        rather configuration defaults.  The actual config should be loaded
+        rather configuration defaults.  The actual conf should be loaded
         with :meth:`from_pyfile` and ideally from a location not within the
         package because the package might be installed system wide.
 
-        See :ref:`config-dev-prod` for an example of class-based configuration
+        See :ref:`conf-dev-prod` for an example of class-based configuration
         using :meth:`from_object`.
 
         :param obj: an import name or object
@@ -177,7 +177,7 @@ class Config(dict):
                 self[key] = getattr(obj, key)
 
     def from_json(self, filename, silent=False):
-        """Updates the values in the config from a JSON file. This function
+        """Updates the values in the conf from a JSON file. This function
         behaves as if the JSON object was a dictionary and passed to the
         :meth:`from_mapping` function.
 
@@ -202,7 +202,7 @@ class Config(dict):
         return self.from_mapping(obj)
 
     def from_mapping(self, *mapping, **kwargs):
-        """Updates the config like :meth:`update` ignoring items with non-upper
+        """Updates the conf like :meth:`update` ignoring items with non-upper
         keys.
 
         .. versionadded:: 0.11
@@ -228,10 +228,10 @@ class Config(dict):
         """Returns a dictionary containing a subset of configuration options
         that match the specified namespace/prefix. Example usage::
 
-            app.config['IMAGE_STORE_TYPE'] = 'fs'
-            app.config['IMAGE_STORE_PATH'] = '/var/app/images'
-            app.config['IMAGE_STORE_BASE_URL'] = 'http://img.website.com'
-            image_store_config = app.config.get_namespace('IMAGE_STORE_')
+            app.conf['IMAGE_STORE_TYPE'] = 'fs'
+            app.conf['IMAGE_STORE_PATH'] = '/var/app/images'
+            app.conf['IMAGE_STORE_BASE_URL'] = 'http://img.website.com'
+            image_store_config = app.conf.get_namespace('IMAGE_STORE_')
 
         The resulting dictionary `image_store_config` would look like::
 

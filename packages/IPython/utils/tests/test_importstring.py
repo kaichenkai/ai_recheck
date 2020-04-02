@@ -1,4 +1,4 @@
-"""Tests for IPython.utils.importstring."""
+"""Tests for IPython.tools.importstring."""
 
 #-----------------------------------------------------------------------------
 #  Copyright (C) 2013  The IPython Development Team

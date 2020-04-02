@@ -10,7 +10,7 @@ class TestBuildEnvironment(KazooTestCase):
     def setUp(self):
         KazooTestCase.setUp(self)
         if not os.environ.get('TRAVIS'):
-            raise SkipTest('Only run build config tests on Travis.')
+            raise SkipTest('Only run build conf tests on Travis.')
 
     def test_zookeeper_version(self):
         server_version = self.client.server_version()

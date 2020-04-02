@@ -4,7 +4,7 @@ import json
 import datetime
 from sqlalchemy import func, distinct
 from business import db
-from business import constants as cons
+from conf import constants as cons
 from business.models import WfRecord as WfRecord, SectorDataCount
 
 

@@ -32,7 +32,7 @@ class WfRecord(BaseModel, db.Model):
 
     img_url = db.Column(db.String(256), nullable=False)                         # 车辆图片 url
     img_path = db.Column(db.String(256), nullable=False)                        # 车辆图片本地路径
-    report_status = db.Column(db.SmallInteger, default=0)                       # 数据上报状态, 0:未上报， 1:成功， -1:失败
+    report_status = db.Column(db.SmallInteger, default=0)                       # 数据上报状态, 0:未上报， 1:成功， 2:失败
 
     recog_status = db.Column(db.SmallInteger, default=0)                        # 数据识别状态, 0未识别，1识别中，2识别成功 ,3识别异常, 4没有图片
     recog_data = db.Column(db.Text, default="")                                 # sdk识别结果

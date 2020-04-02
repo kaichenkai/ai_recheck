@@ -124,7 +124,7 @@ class AMQPConnector(object):
             `pika.connection.Connection`-based adapter instance each time it is
             called. The factory must instantiate the connection with
             `internal_connection_workflow=False`.
-        :param pika.adapters.utils.nbio_interface.AbstractIOServices nbio:
+        :param pika.adapters.tools.nbio_interface.AbstractIOServices nbio:
 
         """
         self._conn_factory = conn_factory
@@ -501,7 +501,7 @@ class AbstractAMQPConnectionWorkflow(pika.compat.AbstractBase):
 
         :param sequence connection_configs: A sequence of one or more
             `pika.connection.Parameters`-based objects. Will attempt to connect
-            using each config in the given order.
+            using each conf in the given order.
         :param callable connector_factory: call it without args to obtain a new
             instance of `AMQPConnector` for each connection attempt.
             See `AMQPConnector` for details.
@@ -541,8 +541,8 @@ class AMQPConnectionWorkflow(AbstractAMQPConnectionWorkflow):
 
     The workflow:
         while not success and retries remain:
-            1. For each given config (pika.connection.Parameters object):
-                A. Perform DNS resolution of the config's host.
+            1. For each given conf (pika.connection.Parameters object):
+                A. Perform DNS resolution of the conf's host.
                 B. Attempt to establish TCP/[SSL]/AMQP for each resolved address
                    until one succeeds, in which case we're done.
             2. If all configs failed but retries remain, resume from beginning
@@ -563,7 +563,7 @@ class AMQPConnectionWorkflow(AbstractAMQPConnectionWorkflow):
     def __init__(self, _until_first_amqp_attempt=False):
         """
         :param int | float retry_pause: Non-negative number of seconds to wait
-            before retrying the config sequence. Meaningful only if retries is
+            before retrying the conf sequence. Meaningful only if retries is
             greater than 0. Defaults to 2 seconds.
         :param bool _until_first_amqp_attempt: INTERNAL USE ONLY; ends workflow
             after first AMQP handshake attempt, regardless of outcome (success
@@ -611,7 +611,7 @@ class AMQPConnectionWorkflow(AbstractAMQPConnectionWorkflow):
         directly because `AbstractIOServices` is private to Pika
         implementation and its interface may change without notice.
 
-        :param pika.adapters.utils.nbio_interface.AbstractIOServices nbio:
+        :param pika.adapters.tools.nbio_interface.AbstractIOServices nbio:
 
         """
         self._nbio = nbio
@@ -758,7 +758,7 @@ class AMQPConnectionWorkflow(AbstractAMQPConnectionWorkflow):
             0 if first else self._retry_pause, self._try_next_config_async)
 
     def _try_next_config_async(self):
-        """Attempt to connect using the next Parameters config. If there are no
+        """Attempt to connect using the next Parameters conf. If there are no
         more configs, start a new cycle.
 
         """
@@ -808,14 +808,14 @@ class AMQPConnectionWorkflow(AbstractAMQPConnectionWorkflow):
 
     def _try_next_resolved_address(self):
         """Try connecting using next resolved address. If there aren't any left,
-        continue with next Parameters config.
+        continue with next Parameters conf.
 
         """
         try:
             addr_record = next(self._addrinfo_iter)
         except StopIteration:
             _LOG.debug(
-                '_try_next_resolved_address: continuing with next config.')
+                '_try_next_resolved_address: continuing with next conf.')
             self._try_next_config_async()
             return
 

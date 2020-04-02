@@ -1,5 +1,5 @@
 # encoding: utf-8
-"""Tests for traitlets.config.configurable"""
+"""Tests for traitlets.conf.configurable"""
 
 # Copyright (c) IPython Development Team.
 # Distributed under the terms of the Modified BSD License.
@@ -28,7 +28,7 @@ from ...tests._warnings import expected_warnings
 class MyConfigurable(Configurable):
     a = Integer(1, help="The integer a.").tag(config=True)
     b = Float(1.0, help="The integer b.").tag(config=True)
-    c = Unicode('no config')
+    c = Unicode('no conf')
 
 
 mc_help=u"""MyConfigurable options
@@ -122,12 +122,12 @@ class TestConfigurable(TestCase):
         c = MyConfigurable(a=3, config=config)
         self.assertEqual(c.a, 3)
         self.assertEqual(c.b, config.MyConfigurable.b)
-        self.assertEqual(c.c, 'no config')
+        self.assertEqual(c.c, 'no conf')
 
     def test_override2(self):
         config = Config()
         config.Foo.a = 1
-        config.Bar.b = 'or'  # Up above b is config=False, so this won't do it.
+        config.Bar.b = 'or'  # Up above b is conf=False, so this won't do it.
         config.Bar.c = 10.0
         with expected_warnings(['`b` not recognized']):
             c = Bar(config=config)
@@ -363,7 +363,7 @@ class TestConfigContainers(TestCase):
         self.assertEqual(m.a, 15)
     
     def test_update_self(self):
-        """update_config with same config object still triggers config_changed"""
+        """update_config with same conf object still triggers config_changed"""
         c = Config()
         c.MyConfigurable.a = 5
         m = MyConfigurable(config=c)

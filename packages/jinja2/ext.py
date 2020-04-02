@@ -477,9 +477,9 @@ class DebugExtension(Extension):
 
     .. code-block:: text
 
-        {'context': {'cycler': <class 'jinja2.utils.Cycler'>,
+        {'context': {'cycler': <class 'jinja2.tools.Cycler'>,
                      ...,
-                     'namespace': <class 'jinja2.utils.Namespace'>},
+                     'namespace': <class 'jinja2.tools.Namespace'>},
          'filters': ['abs', 'attr', 'batch', 'capitalize', 'center', 'count', 'd',
                      ..., 'urlencode', 'urlize', 'wordcount', 'wordwrap', 'xmlattr'],
          'tests': ['!=', '<', '<=', '==', '>', '>=', 'callable', 'defined',

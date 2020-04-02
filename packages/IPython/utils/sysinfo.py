@@ -32,7 +32,7 @@ def pkg_commit_hash(pkg_path):
 
     We get the commit hash from (in order of preference):
 
-    * IPython.utils._sysinfo.commit
+    * IPython.tools._sysinfo.commit
     * git output, if we are in a git repository
 
     If these fail, we return a not-found placeholder tuple

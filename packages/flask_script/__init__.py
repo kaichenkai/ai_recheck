@@ -114,15 +114,15 @@ class Manager(object):
 
         The arguments are then passed to your function, e.g.::
 
-            def create_my_app(config=None):
+            def create_my_app(conf=None):
                 app = Flask(__name__)
-                if config:
-                    app.config.from_pyfile(config)
+                if conf:
+                    app.conf.from_pyfile(conf)
 
                 return app
 
             manager = Manager(create_my_app)
-            manager.add_option("-c", "--config", dest="config", required=False)
+            manager.add_option("-c", "--conf", dest="conf", required=False)
             @manager.command
             def mycommand(app):
                 app.do_something()
@@ -368,15 +368,15 @@ class Manager(object):
         args = []
         for handle in func_stack:
 
-            # get only safe config options
+            # get only safe conf options
             config_keys = [action.dest for action in handle.parser._actions
                                if handle is last_func or action.__class__ in safe_actions]
 
-            # pass only safe app config keys
+            # pass only safe app conf keys
             config = dict((k, v) for k, v in iteritems(kwargs)
                           if k in config_keys)
 
-            # remove application config keys from handle kwargs
+            # remove application conf keys from handle kwargs
             kwargs = dict((k, v) for k, v in iteritems(kwargs)
                           if k not in config_keys)
 
