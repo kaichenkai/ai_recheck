@@ -1,0 +1,30 @@
+# For a quick start check out our HTTP Requests collection (Tools|HTTP Client|Open HTTP Requests Collection).
+#
+# Following HTTP Request Live Templates are available:
+# * 'gtrp' and 'gtr' create a GET request with or without query parameters;
+# * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
+# * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
+
+# 数据入口
+POST http://10.10.19.250:5000/data/entry
+Content-Type: application/json
+
+{
+  "record_id": "x123456789",
+  "car_plate_type": "01",
+  "car_plate_number": "鄂A-12345",
+  "illegal_time": "2020-03-30 10:10:10",
+  "illegal_addr": "未知",
+  "illegal_code": "1208",
+  "device_code": "deviceCode222222222",
+  "entry_time": "2020-03-30 10:10:10",
+  "office_code": "110",
+  "office_name": "采集机关名称",
+  "entry_person": "录入人A",
+  "img_url": "http://10.10.19.250/2.png"
+}
+
+### "dispose_time": "2020-03-30 10:10:"
+### "dispose_time": "2020-03-30 10:10:10",
+###  "recog_data": {"Code": 0, "EvenName": "正片", "PlateRect": [3932, 3660, 332, 148], "EvenCode": 0, "CarRect": [2752, 2358, 2752, 2358], "Licence": "粤CVY613", "FaceRect": [2752, 2358, 2752, 2358], "Message": "succ", "PlateScores": [99, 99, 99, 99, 99, 99, 99], "PlateType": -1}
+###

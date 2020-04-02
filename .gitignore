@@ -1,0 +1,11 @@
+#
+.idea
+__pycache__/
+*.py[cod]
+venv/
+/log_file
+nohup*
+stats.rtf
+
+# 下载文件
+/file_download
