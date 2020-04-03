@@ -7,11 +7,10 @@ from logging import Formatter, getLogger, DEBUG, INFO, WARNING, ERROR, StreamHan
 
 
 # 日志相关
-DEBUG_BACK_COUNT = 30                                # debug日志rotate存留天数
-INFO_BACK_COUNT = 30                                 # info日志rotate存留天数
-WARNING_BACK_COUNT = 30                              # warning日志rotate存留天数
-ERROR_BACK_COUNT = 30                                # error日志rotate存留天数
-CRITICAL_BACK_COUNT = 30                             # critical日志rotate存留天数
+DEBUG_BACK_COUNT = 10                                # debug日志rotate存留天数
+INFO_BACK_COUNT = 10                                 # info日志rotate存留天数
+WARNING_BACK_COUNT = 10                              # warning日志rotate存留天数
+ERROR_BACK_COUNT = 10                                # error日志rotate存留天数
 
 
 def logging_path(log_dir):
@@ -23,20 +22,20 @@ def logging_path(log_dir):
 
 def setup_log(config, log_path=logging_path('ai_recheck')):
     formatter = Formatter('%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s')
-
-    debug = TimedRotatingFileHandler(filename=os.path.join(log_path, 'debug.log'), when="D", interval=DEBUG_BACK_COUNT)
+    # 一天保存一份日志(interval), 保存 n 天(backupCount)
+    debug = TimedRotatingFileHandler(filename=os.path.join(log_path, 'debug.log'), when="M", interval=1, backupCount=DEBUG_BACK_COUNT)
     debug.setLevel(DEBUG)
     debug.setFormatter(formatter)
 
-    info = TimedRotatingFileHandler(filename=os.path.join(log_path, 'info.log'), when="D", interval=INFO_BACK_COUNT)
+    info = TimedRotatingFileHandler(filename=os.path.join(log_path, 'info.log'), when="D", interval=1, backupCount=INFO_BACK_COUNT)
     info.setLevel(INFO)
     info.setFormatter(formatter)
 
-    warning = TimedRotatingFileHandler(filename=os.path.join(log_path, 'warning.log'), when="D", interval=WARNING_BACK_COUNT)
+    warning = TimedRotatingFileHandler(filename=os.path.join(log_path, 'warning.log'), when="D", interval=1, backupCount=WARNING_BACK_COUNT)
     warning.setLevel(WARNING)
     warning.setFormatter(formatter)
 
-    error = TimedRotatingFileHandler(filename=os.path.join(log_path, 'error.log'), when="D", interval=ERROR_BACK_COUNT)
+    error = TimedRotatingFileHandler(filename=os.path.join(log_path, 'error.log'), when="D", interval=1, backupCount=ERROR_BACK_COUNT)
     error.setLevel(ERROR)
     error.setFormatter(formatter)
 
