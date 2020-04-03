@@ -8,5 +8,5 @@ nohup*
 stats.rtf
 
 # 下载文件不上传
-/file_download/excel/.*
-/file_download/images/.*
+/file_download/excel/[wW]*
+/file_download/images/[wW]*
