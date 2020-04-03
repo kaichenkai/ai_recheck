@@ -1,0 +1,28 @@
+.imageBox {
+  position: relative;
+  overflow: hidden;
+}
+
+.imageBox:hover .right, .imageBox:hover .left  {
+  visibility: visible;
+}
+
+.img {
+  width: 100%;
+}
+
+.right {
+  visibility: hidden;
+  position: absolute;
+  right: 24px;
+  top: 24px;
+  cursor: pointer;
+}
+
+.left {
+  visibility: hidden;
+  position: absolute;
+  left: 24px;
+  top: 24px;
+  cursor: pointer;
+}
