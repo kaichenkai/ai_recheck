@@ -17,8 +17,8 @@ class CrontabConfig(object):  # 创建配置，用类
             'func': sdk_request,  # 方法名
             'args': (1, 2),  # 入参
             # 'trigger': 'interval',  # interval表示循环任务
-            # 'seconds': 5,
-            'trigger': IntervalTrigger(seconds=5),  # interval表示循环任务
+            # 'seconds': 3,
+            'trigger': IntervalTrigger(seconds=3),  # interval表示循环任务
             'max_instances': 1  # 默认1
         },
 
@@ -42,7 +42,8 @@ class CrontabConfig(object):  # 创建配置，用类
             # 'hour': 0,
             # 'minute': 0,
             # 'second': 0
-            'trigger': CronTrigger(hour=0, minute=0, second=0)
+            # 不能够 00:00:00 时统计, 可能有误差
+            'trigger': CronTrigger(hour=1, minute=0, second=0)
         },
         {
             # 识别数据上报
@@ -50,8 +51,8 @@ class CrontabConfig(object):  # 创建配置，用类
             'func': recog_data_report,  # 方法名
             'args': (1, 2),  # 入参
             # 'trigger': 'interval',  # interval表示循环任务
-            # 'seconds': 5,
-            'trigger': IntervalTrigger(seconds=5),  # interval表示循环任务
+            # 'seconds': 3,
+            'trigger': IntervalTrigger(seconds=3),  # interval表示循环任务
             'max_instances': 1  # 默认1
         },
         {
