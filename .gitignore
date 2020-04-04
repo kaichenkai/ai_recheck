@@ -1,5 +1,35 @@
 #
 .idea
+
+
+# front_end
+
+# dependencies
+/node_modules
+/npm-debug.log*
+/yarn-error.log
+/yarn.lock
+/package-lock.json
+
+# production
+/dist
+
+# misc
+.DS_Store
+
+# umi
+.umi
+.umi-production
+
+# dist
+dist.rar
+/front_end/dist/.*
+
+# node_modules
+/front_end/node_module/.*
+
+
+# service_end
 __pycache__/
 *.py[cod]
 venv/
@@ -10,3 +40,4 @@ stats.rtf
 # 下载文件不上传
 /service_end/file_download/excel/[wW]*
 /service_end/file_download/images/[wW]*
+
