@@ -268,25 +268,25 @@ def add_data(tmp, ex_tmp):
         db.session.commit()
 
 
-def all_date_count(a, b):
-    app = create_app()
-    with app.app_context():
-        # 项目一开始没有数据, 防止报错
-        while True:
-            record = db.session.query(WfRecord).first()
-            if record:
-                break
-        # 第一条数据的录入时间
-        first_time = record.entry_time.strftime("%Y-%m-%d")
-        next_day = first_time
-        # 昨天
-        today = (datetime.datetime.now() - datetime.timedelta(days=1)).strftime("%Y-%m-%d")
-
-        print('+++++++++ all_date_count', today, next_day)
-        while today != next_day:
-            result = get_count(next_day)
-            insert_date_count(result)
-            next_day = (datetime.datetime.strptime(next_day, '%Y-%m-%d') + datetime.timedelta(days=1)).strftime("%Y-%m-%d")
+# def all_date_count(a, b):
+#     app = create_app()
+#     with app.app_context():
+#         # 项目一开始没有数据, 防止报错
+#         while True:
+#             record = db.session.query(WfRecord).first()
+#             if record:
+#                 break
+#         # 第一条数据的录入时间
+#         first_time = record.entry_time.strftime("%Y-%m-%d")
+#         next_day = first_time
+#         # 前天
+#         today = (datetime.datetime.now() - datetime.timedelta(days=1)).strftime("%Y-%m-%d")
+#
+#         print('+++++++++ all_date_count', today, next_day)
+#         while today != next_day:
+#             result = get_count(next_day)
+#             insert_date_count(result)
+#             next_day = (datetime.datetime.strptime(next_day, '%Y-%m-%d') + datetime.timedelta(days=1)).strftime("%Y-%m-%d")
 
             # print '+++++++++ all_date_count', today, next_day
 
@@ -312,31 +312,40 @@ def get_count(date):
     for manual_check_status in (3, 2, 1):
         query = db.session.query(WfRecord)
 
-        query = query.filter(WfRecord.entry_time >= start_time) \
-                     .filter(WfRecord.entry_time < end_time)
+        # query = query.filter(WfRecord.entry_time >= start_time) \
+        #              .filter(WfRecord.entry_time < end_time)
 
         if manual_check_status != 3:
             query = query.filter(WfRecord.manual_check_status == manual_check_status)
 
-        time_total = query.group_by(WfRecord.correct_sector_code) \
-            .with_entities(WfRecord.correct_sector_code, func.count(WfRecord.id)) \
-            .all()
+        # 录入量
+        entry_total = query.filter(WfRecord.entry_time >= start_time) \
+                           .filter(WfRecord.entry_time < end_time) \
+                           .group_by(WfRecord.correct_sector_code) \
+                           .with_entities(WfRecord.correct_sector_code, func.count(WfRecord.id)) \
+                           .all()
 
         # 分析量
-        ana_total = query.filter(WfRecord.recog_status > 0) \
-            .group_by(WfRecord.correct_sector_code) \
-            .with_entities(WfRecord.correct_sector_code, func.count(WfRecord.id)) \
-            .all()
+        recog_total = query.filter(WfRecord.sdk_recog_time >= start_time) \
+                           .filter(WfRecord.sdk_recog_time < end_time) \
+                           .filter(WfRecord.recog_status > 0) \
+                           .group_by(WfRecord.correct_sector_code) \
+                           .with_entities(WfRecord.correct_sector_code, func.count(WfRecord.id)) \
+                           .all()
 
         # 上报量
-        report_total = query.filter(WfRecord.report_status == WfRecord.REPORT_SUCCESS) \
+        report_total = query.filter(WfRecord.report_time >= start_time) \
+                            .filter(WfRecord.report_time < end_time) \
+                            .filter(WfRecord.report_status == WfRecord.REPORT_SUCCESS) \
                             .group_by(WfRecord.correct_sector_code) \
                             .with_entities(WfRecord.correct_sector_code, func.count(WfRecord.id)) \
                             .all()
-
-        query = query.filter(WfRecord.recog_status == 2) \
-            .filter(WfRecord.sdk_reason_code > 0) \
-            .filter(WfRecord.car_plate_number != WfRecord.sdk_car_plate_number)
+        #
+        query = query.filter(WfRecord.sdk_recog_time >= start_time) \
+                     .filter(WfRecord.sdk_recog_time < end_time) \
+                     .filter(WfRecord.recog_status == 2) \
+                     .filter(WfRecord.sdk_reason_code > 0) \
+                     .filter(WfRecord.car_plate_number != WfRecord.sdk_car_plate_number)
 
         if not cons.NO_CAR_DISPLAY:
             query = query.filter(WfRecord.sdk_reason_code != 5)
@@ -362,15 +371,15 @@ def get_count(date):
 
         result.setdefault(manual_check_status, [])
 
-        t_map = {i[0]: i[1] for i in time_total}
-        a_map = {i[0]: i[1] for i in ana_total}
+        entry_map = {i[0]: i[1] for i in entry_total}
+        recog_map = {i[0]: i[1] for i in recog_total}
         report_map = {i[0]: i[1] for i in report_total}
         e_map = {i[0]: i[1] for i in err_total}
 
         m1_map = {i[0]: i[1] for i in m1_total}
         m2_map = {i[0]: i[1] for i in m2_total}
 
-        result[manual_check_status].extend([t_map, a_map, report_map, e_map, m1_map, m2_map])
+        result[manual_check_status].extend([entry_map, recog_map, report_map, e_map, m1_map, m2_map])
     return result
 
 

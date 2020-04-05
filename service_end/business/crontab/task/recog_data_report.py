@@ -4,14 +4,13 @@ import json
 import logging
 import datetime
 from business import db, create_app
+from business.common.time_func import now_time
+from business.tools.requests_lib import http_post
 from business.models import WfRecord
 from conf import constants as cons
 
 
 # 识别数据上报任务
-from business.tools.requests_lib import http_post
-
-
 def recog_data_report(a, b):
     app = create_app()
     with app.app_context():
@@ -71,6 +70,7 @@ def recog_data_report(a, b):
                     report_status = cons.REPORT_SUCCESS
                     logging.info('send to service done! result:True, record_id:[{}], illegal_code:[{}], cost_time:[{}]ms'
                                  .format(record.record_id, record.illegal_code, cost_time))
-                # update report status
+                # update report status and time
                 record.report_status = report_status
+                record.report_time = now_time()
                 db.session.commit()

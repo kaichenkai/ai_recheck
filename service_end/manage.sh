@@ -20,7 +20,7 @@ start()
         if [[ $path != '.' ]];then
             cd $path
         fi
-        nohup gunicorn -w 2 -b "0.0.0.0:5000" manage:app >nohup.out 2>&1 &
+        nohup gunicorn -w 1 -b "0.0.0.0:5000" manage:app >nohup.out 2>&1 &
         # nohup /home/seemmo/share/python/centos/python3.6.6/bin/python3 manage:app runserver -h "0.0.0.0" -p 5000 >nohup.out 2>&1 &
         # nohup python3 # python3 manage:app runserver -h "127.0.0.1" -p 5000 >nohup.out 2>&1 &
         while true

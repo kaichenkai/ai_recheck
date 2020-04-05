@@ -32,8 +32,8 @@ def data_entry():
     # 将图片保存在本地
     image_bytes = data_dict["image_bytes"]
 
-    # 根据违法日志分目录存储
-    illegal_time = data_dict["illegal_time"]
+    # 根据录入时间分目录存储
+    illegal_time = data_dict["entry_time"]
     date_folder = illegal_time.split(" ")[0]
 
     # 判断目录是否存在，不存在则创建目录

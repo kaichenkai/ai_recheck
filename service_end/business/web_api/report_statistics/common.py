@@ -173,7 +173,7 @@ def create_results(start_time, end_time, manual_check_status, current=None, page
     # pageSize = data.get('pageSize', 24)
     # start_time = data.get('start_time', "")
     # end_time = data.get('end_time', "")
-    time_total = []
+    entry_total = []
     err_total = []
     if pageSize:
         csector_list = cons.SECTOR_MAP.keys()[current:current + pageSize]
@@ -181,10 +181,10 @@ def create_results(start_time, end_time, manual_check_status, current=None, page
         csector_list = cons.SECTOR_MAP.keys()
     #
     query = db.session.query(WfRecord)
-    if start_time and end_time:
-        query = query \
-            .filter(WfRecord.entry_time >= start_time) \
-            .filter(WfRecord.entry_time <= end_time)
+    # if start_time and end_time:
+    # query = query \
+    #         .filter(WfRecord.entry_time >= start_time) \
+    #         .filter(WfRecord.entry_time <= end_time)
 
     # for i in csector_list:
     #    v = sector_map.get(i)
@@ -195,29 +195,36 @@ def create_results(start_time, end_time, manual_check_status, current=None, page
     if manual_check_status != 3:
         query = query.filter(WfRecord.manual_check_status == manual_check_status)
 
-    time_total = query.group_by(WfRecord.correct_sector_code) \
-        .with_entities(WfRecord.correct_sector_code, func.count(WfRecord.id)) \
-        .offset(current).limit(pageSize) \
-        .all()
+    entry_total = query.filter(WfRecord.entry_time >= start_time) \
+                       .filter(WfRecord.entry_time <= end_time) \
+                       .group_by(WfRecord.correct_sector_code) \
+                       .with_entities(WfRecord.correct_sector_code, func.count(WfRecord.id)) \
+                       .offset(current).limit(pageSize) \
+                       .all()
 
     # 分析量
-    ana_total = query.filter(WfRecord.recog_status > 0) \
-        .group_by(WfRecord.correct_sector_code) \
-        .with_entities(WfRecord.correct_sector_code, func.count(WfRecord.id)) \
-        .offset(current).limit(pageSize) \
-        .all()
+    recog_total = query.filter(WfRecord.sdk_recog_time >= start_time) \
+                       .filter(WfRecord.sdk_recog_time <= end_time) \
+                       .filter(WfRecord.recog_status > 0) \
+                       .group_by(WfRecord.correct_sector_code) \
+                       .with_entities(WfRecord.correct_sector_code, func.count(WfRecord.id)) \
+                       .offset(current).limit(pageSize) \
+                       .all()
 
     # 上报量
-    # today report count
-    report_count = query.filter(WfRecord.report_status == WfRecord.REPORT_SUCCESS) \
-        .group_by(WfRecord.correct_sector_code) \
-        .with_entities(WfRecord.correct_sector_code, func.count(WfRecord.id)) \
-        .offset(current).limit(pageSize) \
-        .all()
+    report_count = query.filter(WfRecord.report_time >= start_time) \
+                        .filter(WfRecord.report_time <= end_time) \
+                        .filter(WfRecord.report_status == WfRecord.REPORT_SUCCESS) \
+                        .group_by(WfRecord.correct_sector_code) \
+                        .with_entities(WfRecord.correct_sector_code, func.count(WfRecord.id)) \
+                        .offset(current).limit(pageSize) \
+                        .all()
 
-    query = query.filter(WfRecord.recog_status == 2) \
-        .filter(WfRecord.sdk_reason_code > 0) \
-        .filter(WfRecord.car_plate_number != WfRecord.sdk_car_plate_number)
+    query = query.filter(WfRecord.sdk_recog_time >= start_time) \
+                 .filter(WfRecord.sdk_recog_time <= end_time) \
+                 .filter(WfRecord.recog_status == 2) \
+                 .filter(WfRecord.sdk_reason_code > 0) \
+                 .filter(WfRecord.car_plate_number != WfRecord.sdk_car_plate_number)
 
     if not cons.NO_CAR_DISPLAY:
         query = query.filter(WfRecord.sdk_reason_code != 5)
@@ -231,58 +238,56 @@ def create_results(start_time, end_time, manual_check_status, current=None, page
     #               .with_entities(func.count(WfRecord.id)).scalar()
     #    err_total.append([v,tmp])
     err_total = query.filter(WfRecord.sdk_reason_code == 1) \
-        .group_by(WfRecord.correct_sector_code) \
-        .with_entities(WfRecord.correct_sector_code, func.count(WfRecord.id)) \
-        .offset(current).limit(pageSize) \
-        .all()
+                     .group_by(WfRecord.correct_sector_code) \
+                     .with_entities(WfRecord.correct_sector_code, func.count(WfRecord.id)) \
+                     .offset(current).limit(pageSize) \
+                     .all()
 
-    m1_total = query \
-        .filter(WfRecord.sdk_reason_code == 1) \
-        .filter(WfRecord.manual_check_status == 1) \
-        .group_by(WfRecord.correct_sector_code) \
-        .with_entities(WfRecord.correct_sector_code, func.count(WfRecord.id)) \
-        .offset(current).limit(pageSize) \
-        .all()
+    m1_total = query.filter(WfRecord.sdk_reason_code == 1) \
+                    .filter(WfRecord.manual_check_status == 1) \
+                    .group_by(WfRecord.correct_sector_code) \
+                    .with_entities(WfRecord.correct_sector_code, func.count(WfRecord.id)) \
+                    .offset(current).limit(pageSize) \
+                    .all()
 
-    m2_total = query \
-        .filter(WfRecord.sdk_reason_code == 1) \
-        .filter(WfRecord.manual_check_status == 2) \
-        .group_by(WfRecord.correct_sector_code) \
-        .with_entities(WfRecord.correct_sector_code, func.count(WfRecord.id)) \
-        .offset(current).limit(pageSize) \
-        .all()
+    m2_total = query.filter(WfRecord.sdk_reason_code == 1) \
+                    .filter(WfRecord.manual_check_status == 2) \
+                    .group_by(WfRecord.correct_sector_code) \
+                    .with_entities(WfRecord.correct_sector_code, func.count(WfRecord.id)) \
+                    .offset(current).limit(pageSize) \
+                    .all()
 
     total = len(db.session.query(distinct(WfRecord.correct_sector_code)).all())
 
     # total = len(sector_list)
     # print time_total
     result = []
-    t_map = {i[0]: i[1] for i in time_total}
-    e_map = {i[0]: i[1] for i in err_total}
-    a_map = {i[0]: i[1] for i in ana_total}
+    entry_map = {i[0]: i[1] for i in entry_total}
+    recog_map = {i[0]: i[1] for i in recog_total}
     report_map = {i[0]: i[1] for i in report_count}
 
+    e_map = {i[0]: i[1] for i in err_total}
     m1_map = {i[0]: i[1] for i in m1_total}
     m2_map = {i[0]: i[1] for i in m2_total}
 
     inserts = 0
+    ana_counts = 0
+    report_counts = 0  # 上报量
     errs = 0
     m1s = 0
     m2s = 0
-    ana_counts = 0
-    report_counts = 0  # 上报量
 
-    for k, v in t_map.items():
-        result.append({"name": cons.SECTOR_MAP.get(k, "无名称或未录入"), "correct_sector_code": k, "insert_count": v, "ana_count": a_map.get(k, 0),
+    for k, v in entry_map.items():
+        result.append({"name": cons.SECTOR_MAP.get(k, "无名称或未录入"), "correct_sector_code": k, "insert_count": v, "ana_count": recog_map.get(k, 0),
                        "report_count": report_map.get(k, 0),
                        "err_count": e_map.get(k, 0), "m1_count": m1_map.get(k, 0), "m2_count": m2_map.get(k, 0),
                        "m2_p": get_lv_bai(m2_map.get(k, 0), e_map.get(k, 0)),
-                       "recall": get_lv(m2_map.get(k, 0), a_map.get(k, 0)), "jianchu": get_lv(e_map.get(k, 0), v)})
+                       "recall": get_lv(m2_map.get(k, 0), recog_map.get(k, 0)), "jianchu": get_lv(e_map.get(k, 0), v)})
         inserts += v
         errs += e_map.get(k, 0)
         m1s += m1_map.get(k, 0)
         m2s += m2_map.get(k, 0)
-        ana_counts += a_map.get(k, 0)
+        ana_counts += recog_map.get(k, 0)
         report_counts += report_map.get(k, 0)
 
     result_data = {"result": result, "total": "总计", "inserts": inserts, "ana_counts": ana_counts, "report_total": report_counts, "errs": errs, "m1s": m1s, "m2s": m2s,
