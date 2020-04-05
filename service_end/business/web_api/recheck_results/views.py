@@ -13,7 +13,7 @@ from flask import send_from_directory
 from .common import get_image_path
 from . import reckeck_results_blu
 from business import response
-from business.common.time_func import date_interval, to_string
+from business.common.time_func import date_interval, to_string, now_time
 from business.common.decorator import error_handler
 from conf import constants as cons
 from business import db
@@ -200,7 +200,9 @@ def update_manual_status():
     # 查询的同时直接更新
     # [(s.query(WfRecord).filter(WfRecord.id == id).update({"manual_check_status": manual_check_status})) for id in ids]
     for id in ids:
-        db.session.query(WfRecord).filter(WfRecord.id == id).update({"manual_check_status": manual_check_status})
+        record = db.session.query(WfRecord).filter(WfRecord.id == id).first()
+        record.manual_check_status = manual_check_status
+        record.dispose_time = now_time()
     # 手动提交事务
     db.session.commit()
 

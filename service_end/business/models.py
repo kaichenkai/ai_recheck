@@ -30,12 +30,13 @@ class WfRecord(BaseModel, db.Model):
     office_name = db.Column(db.String(128), default="")                         # 采集机关名称
     entry_person = db.Column(db.String(30), nullable=False)                     # 数据录入人
     entry_time = db.Column(db.DateTime, nullable=False)                         # 录入时间
-    dispose_time = db.Column(db.DateTime)                                       # 数据处理时间
     manual_check_status = db.Column(db.SmallInteger, default=0)                 # 人工复核状态，0未复审，1复审有效，2复审无效
+    dispose_time = db.Column(db.DateTime)                                       # 数据复核时间
 
     img_url = db.Column(db.String(256), nullable=False)                         # 车辆图片 url
     img_path = db.Column(db.String(256), nullable=False)                        # 车辆图片本地路径
     report_status = db.Column(db.SmallInteger, default=0)                       # 数据上报状态, 0:未上报， 1:成功， 2:失败
+    report_time = db.Column(db.DateTime)                                        # 数据上报时间
 
     recog_status = db.Column(db.SmallInteger, default=0)                        # 数据识别状态, 0未识别，1识别中，2识别成功 ,3识别异常, 4没有图片
     recog_data = db.Column(db.Text, default="")                                 # sdk识别结果
