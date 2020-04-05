@@ -16,7 +16,8 @@ const { Option } = Select;
 
 const rangeConfig = {
   rules: [{ type: 'array' }],
-  initialValue: [moment().startOf('day').subtract(1, "days"), moment().endOf('day').subtract(1, "days")]
+  // initialValue: [moment().startOf('day').subtract(1, "days"), moment().endOf('day').subtract(1, "days")]
+  initialValue: [moment().startOf('day').subtract(0, "days"), moment().endOf('day').subtract(0, "days")]
 };
 
 const TimeSelect = ({ form, onSubmit }) => (

@@ -15,7 +15,8 @@ const { Option } = Select;
 const manual_check_status = [{ name: "全部", value: 3 }, { name: "正片", value: 1 }, { name: "废片", value: 2 }]
 const rangeConfig = {
   rules: [{ type: 'array' }],
-  initialValue: [moment().startOf('day').subtract(1, "days"), moment().endOf('day').subtract(1, "days")]
+  // initialValue: [moment().startOf('day').subtract(1, "days"), moment().endOf('day').subtract(1, "days")]
+  initialValue: [moment().startOf('day').subtract(0, "days"), moment().endOf('day').subtract(0, "days")]
 };
 
 const TimeSelect = ({ form, onSubmit }) => (
@@ -27,7 +28,7 @@ const TimeSelect = ({ form, onSubmit }) => (
       }
     });
   }} >
-    <Form.Item label="录入时间">
+    <Form.Item label="查询时间">
       {form.getFieldDecorator('time_range', rangeConfig)(
         <RangePicker className={styles.timePicker} showTime format="YYYY-MM-DD HH:mm:ss" />,
       )}
