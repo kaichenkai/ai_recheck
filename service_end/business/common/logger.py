@@ -23,7 +23,7 @@ def logging_path(log_dir):
 def setup_log(config, log_path=logging_path('ai_recheck')):
     formatter = Formatter('%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s')
     # 一天保存一份日志(interval), 保存 n 天(backupCount)
-    debug = TimedRotatingFileHandler(filename=os.path.join(log_path, 'debug.log'), when="M", interval=1, backupCount=DEBUG_BACK_COUNT)
+    debug = TimedRotatingFileHandler(filename=os.path.join(log_path, 'debug.log'), when="D", interval=1, backupCount=DEBUG_BACK_COUNT)
     debug.setLevel(DEBUG)
     debug.setFormatter(formatter)
 

@@ -2,7 +2,7 @@
 # author: wct fxy
 check()
 {
-    if (($(ps aux|grep manage.py|grep -v grep|wc -l) == 0));then
+    if (($(ps aux|grep manage:app|grep -v grep|wc -l) == 0));then
         # stopped
         return 1;
     else
@@ -20,8 +20,9 @@ start()
         if [[ $path != '.' ]];then
             cd $path
         fi
-        nohup /home/seemmo/share/python/centos/python3.6.6/bin/python3 manage.py runserver -h "0.0.0.0" -p 5000 >nohup.out 2>&1 &
-        # nohup python3 # python3 manage.py runserver -h "127.0.0.1" -p 5000 >nohup.out 2>&1 &
+        nohup gunicorn -w 2 -b "0.0.0.0:5000" manage:app >nohup.out 2>&1 &
+        # nohup /home/seemmo/share/python/centos/python3.6.6/bin/python3 manage:app runserver -h "0.0.0.0" -p 5000 >nohup.out 2>&1 &
+        # nohup python3 # python3 manage:app runserver -h "127.0.0.1" -p 5000 >nohup.out 2>&1 &
         while true
         do
             check
@@ -45,7 +46,7 @@ fstop()
         echo "flask server has been stopped!!!"
     else
         echo -n 'flask server force to stop.....'
-        ps aux|grep manage.py|grep -v grep|awk '{print $2}'|xargs kill -9
+        ps aux|grep manage:app|grep -v grep|awk '{print $2}'|xargs kill -9
         while true
         do
             check
@@ -68,7 +69,7 @@ stop()
     else
         echo -n 'flask server to stop.....'
         spid=1
-        tp_list=($(ps aux|grep manage.py|grep -v grep|awk '{print $2}'|xargs))
+        tp_list=($(ps aux|grep manage:app|grep -v grep|awk '{print $2}'|xargs))
         for tpid in ${tp_list[@]}
         do
             if ((spid == 1));then
