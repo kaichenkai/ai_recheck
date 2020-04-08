@@ -76,11 +76,7 @@ class BasicConfig(CrontabConfig):
 
     # mysql 配置
     SQLALCHEMY_DATABASE_URI = "mysql+pymysql://seemmo:123456@10.10.4.171:3306/wf_carinfo"
-
-
-
-    # SQLALCHEMY_DATABASE_URI = "mysql://ssro:nrm2018xyz@192.168.1.235:3306/geo_explor"
-    # SQLALCHEMY_DATABASE_URI = "mysql://seemmo:123456@10.10.4.171:3306/wf_carinfo"
+    # SQLALCHEMY_DATABASE_URI = "mysql+pymysql://ssro:nrm2018xyz@192.168.1.235:3306/geo_explor"
     SQLALCHEMY_TRACK_MODIFICATIONS = False  # 设置为数据库不跟踪
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True  # 在请求结束时，SQLAlchemy 会自动执行一次 db.session.commit()操作
 
