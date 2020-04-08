@@ -268,25 +268,25 @@ def add_data(tmp, ex_tmp):
         db.session.commit()
 
 
-# def all_date_count(a, b):
-#     app = create_app()
-#     with app.app_context():
-#         # 项目一开始没有数据, 防止报错
-#         while True:
-#             record = db.session.query(WfRecord).first()
-#             if record:
-#                 break
-#         # 第一条数据的录入时间
-#         first_time = record.entry_time.strftime("%Y-%m-%d")
-#         next_day = first_time
-#         # 前天
-#         today = (datetime.datetime.now() - datetime.timedelta(days=1)).strftime("%Y-%m-%d")
-#
-#         print('+++++++++ all_date_count', today, next_day)
-#         while today != next_day:
-#             result = get_count(next_day)
-#             insert_date_count(result)
-#             next_day = (datetime.datetime.strptime(next_day, '%Y-%m-%d') + datetime.timedelta(days=1)).strftime("%Y-%m-%d")
+def all_date_count(a, b):
+    app = create_app()
+    with app.app_context():
+        # 项目一开始没有数据, 防止报错
+        while True:
+            record = db.session.query(WfRecord).first()
+            if record:
+                break
+        # 第一条数据的录入时间
+        first_time = record.create_time.strftime("%Y-%m-%d")
+        # next_day = first_time
+        # 今天统计昨天
+        today = (datetime.datetime.now() - datetime.timedelta(days=1)).strftime("%Y-%m-%d")
+
+        print('+++++++++ all_date_count', today, first_time)
+        while today != next_day:
+            result = get_count(next_day)
+            insert_date_count(result)
+            next_day = (datetime.datetime.strptime(next_day, '%Y-%m-%d') + datetime.timedelta(days=1)).strftime("%Y-%m-%d")
 
             # print '+++++++++ all_date_count', today, next_day
 
@@ -312,15 +312,15 @@ def get_count(date):
     for manual_check_status in (3, 2, 1):
         query = db.session.query(WfRecord)
 
-        # query = query.filter(WfRecord.entry_time >= start_time) \
-        #              .filter(WfRecord.entry_time < end_time)
+        # query = query.filter(WfRecord.create_time >= start_time) \
+        #              .filter(WfRecord.create_time < end_time)
 
         if manual_check_status != 3:
             query = query.filter(WfRecord.manual_check_status == manual_check_status)
 
         # 录入量
-        entry_total = query.filter(WfRecord.entry_time >= start_time) \
-                           .filter(WfRecord.entry_time < end_time) \
+        entry_total = query.filter(WfRecord.create_time >= start_time) \
+                           .filter(WfRecord.create_time < end_time) \
                            .group_by(WfRecord.correct_sector_code) \
                            .with_entities(WfRecord.correct_sector_code, func.count(WfRecord.id)) \
                            .all()

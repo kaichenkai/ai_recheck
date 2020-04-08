@@ -29,7 +29,8 @@ class WfRecord(BaseModel, db.Model):
     correct_sector_code = db.Column(db.String(4), nullable=False)               # 采集机关code前4位
     office_name = db.Column(db.String(128), default="")                         # 采集机关名称
     entry_person = db.Column(db.String(30), nullable=False)                     # 数据录入人
-    entry_time = db.Column(db.DateTime, nullable=False)                         # 录入时间
+    # 弃用
+    #  = db.Column(db.DateTime, nullable=False)                         # 录入时间
     manual_check_status = db.Column(db.SmallInteger, default=0)                 # 人工复核状态，0未复审，1复审有效，2复审无效
     dispose_time = db.Column(db.DateTime)                                       # 数据复核时间
 

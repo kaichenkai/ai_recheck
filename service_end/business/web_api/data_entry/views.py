@@ -33,7 +33,7 @@ def data_entry():
     image_bytes = data_dict["image_bytes"]
 
     # 根据录入时间分目录存储
-    illegal_time = data_dict["entry_time"]
+    illegal_time = data_dict["illegal_time"]
     date_folder = illegal_time.split(" ")[0]
 
     # 判断目录是否存在，不存在则创建目录
@@ -78,10 +78,10 @@ def data_verify(data_dict):
 
     # all_key_list = ["XH", "HPZL", "HPHM", "WFSJ", "WFDZ", "WFXW", "SBBH", "LRSJ", "CLSJ", "CJJG", "CJJGMC", "LRR", "JLLX", "CLTP"]
     all_key_list = ["record_id", "car_plate_type", "car_plate_number", "illegal_time", "illegal_addr", "illegal_code",
-                    "device_code", "entry_time", "dispose_time", "office_code", "office_name", "entry_person", "img_url"]
+                    "device_code", "dispose_time", "office_code", "office_name", "entry_person", "img_url"]
 
     required_key_list = ["record_id", "car_plate_type", "car_plate_number", "illegal_time", "illegal_addr", "illegal_code",
-                         "device_code", "entry_time", "office_code", "office_name", "entry_person", "img_url"]
+                         "device_code", "office_code", "office_name", "entry_person", "img_url"]
 
     for key in data_dict.keys():
         # 是否有未定义参数
@@ -138,12 +138,13 @@ def data_verify(data_dict):
         error_str = "illegal_code 的值为 1~10 长度的 String 类型"
         return None, error_str
 
-    entry_time = data_dict["entry_time"]
-    try:
-        time.strptime(entry_time, default_format)
-    except Exception as e:
-        error_str = "entry_time 格式有误, 请参考: YYYY-MM-DD HH:mm:ss"
-        return None, error_str
+    # 弃用
+    #  = data_dict[""]
+    # try:
+    #     time.strptime(, default_format)
+    # except Exception as e:
+    #     error_str = " 格式有误, 请参考: YYYY-MM-DD HH:mm:ss"
+    #     return None, error_str
 
     if data_dict.get("dispose_time"):
         dispose_time = data_dict["dispose_time"]

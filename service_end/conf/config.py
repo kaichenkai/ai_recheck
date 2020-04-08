@@ -3,7 +3,7 @@ import logging
 from apscheduler.triggers.cron import CronTrigger
 from apscheduler.triggers.interval import IntervalTrigger
 from apscheduler.triggers.date import DateTrigger
-from business.crontab.task.task import sdk_request, yesterday_count
+from business.crontab.task.task import sdk_request, yesterday_count, all_date_count
 from business.crontab.task.recog_data_report import recog_data_report
 from business.crontab.task.stale_record_clean import stale_record_clean
 
@@ -21,15 +21,15 @@ class CrontabConfig(object):  # 创建配置，用类
             'trigger': IntervalTrigger(seconds=3),  # interval表示循环任务
             'max_instances': 1  # 默认1
         },
-        # {
+        {
             # 所有日期统计, 程序开启时执行一次
-            # 'id': 'all_date_count',
-            # 'func': all_date_count,  # 方法名
-            # 'args': (1, 2),  # 入参
+            'id': 'all_date_count',
+            'func': all_date_count,  # 方法名
+            'args': (1, 2),  # 入参
             # 'trigger': 'date',  # date表示一次任务
-            # 'trigger': DateTrigger()
+            'trigger': DateTrigger(),
             # 'run_date': datetime.datetime.now(),  # 默认
-        # },
+        },
         {
             # 第一次使用此定时器时总会执行两次，一直不知道为什么，后来发现，python 的flask框架在debug模式下会多开一个线程监测项目变化，所以每次会跑两遍，可以将debug选项改为False
             # 昨日数据统计, 每天 00:00:00 执行一次

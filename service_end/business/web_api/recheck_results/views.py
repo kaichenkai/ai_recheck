@@ -52,7 +52,7 @@ def get_results():
     query = db.session.query(WfRecord.id, WfRecord.record_id, WfRecord.car_plate_type,
                              WfRecord.car_plate_number, WfRecord.sdk_car_plate_number,
                              WfRecord.sdk_car_plate_type, WfRecord.sdk_reason_code,
-                             WfRecord.entry_time, WfRecord.img_url, WfRecord.img_path,
+                             WfRecord.create_time, WfRecord.img_url, WfRecord.img_path,
                              WfRecord.sdk_plate_rect, WfRecord.manual_check_status,
                              WfRecord.illegal_code, WfRecord.sdk_recog_time, WfRecord.recog_data)\
                       .filter(WfRecord.recog_status == 2)
@@ -68,11 +68,11 @@ def get_results():
     # 过滤查询时间
     if start_time and end_time:
         query = query \
-            .filter(WfRecord.entry_time >= start_time) \
-            .filter(WfRecord.entry_time <= end_time)
+            .filter(WfRecord.create_time >= start_time) \
+            .filter(WfRecord.create_time <= end_time)
         s_query = s_query \
-            .filter(WfRecord.entry_time >= start_time) \
-            .filter(WfRecord.entry_time <= end_time)
+            .filter(WfRecord.create_time >= start_time) \
+            .filter(WfRecord.create_time <= end_time)
 
     if recog_start_time and recog_end_time:
         query = query \
@@ -225,7 +225,7 @@ def download_result():
     query = db.session.query(WfRecord.record_id, WfRecord.car_plate_type,
                              WfRecord.car_plate_number, WfRecord.sdk_car_plate_number,
                              WfRecord.sdk_car_plate_type, WfRecord.sdk_reason_code,
-                             WfRecord.entry_time, WfRecord.img_url, WfRecord.img_path) \
+                             WfRecord.create_time, WfRecord.img_url, WfRecord.img_path) \
                       .filter(WfRecord.recog_status == 2) \
                       .filter(WfRecord.sdk_reason_code > 0) \
                       .filter(WfRecord.car_plate_number != WfRecord.sdk_car_plate_number)
@@ -240,8 +240,8 @@ def download_result():
 
     if start_time and end_time:
         query = query \
-            .filter(WfRecord.entry_time >= start_time) \
-            .filter(WfRecord.entry_time <= end_time)
+            .filter(WfRecord.create_time >= start_time) \
+            .filter(WfRecord.create_time <= end_time)
 
     if recog_start_time and recog_end_time:
         query = query \

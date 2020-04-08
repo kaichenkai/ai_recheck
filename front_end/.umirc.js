@@ -33,23 +33,23 @@ export default {
   // 配置代理
   proxy: {
     '/api': {
-      target: 'http://10.10.19.250:5000',
-      // target: 'http://127.0.0.1:5000',
+      // target: 'http://10.10.19.250:5000',
+      target: 'http://127.0.0.1:5000',
       changeOrigin: true
     },
     '/pause': {
-      target: 'http://10.10.19.250:5000',
-      // target: 'http://127.0.0.1:5000',
+      // target: 'http://10.10.19.250:5000',
+      target: 'http://127.0.0.1:5000',
       changeOrigin: true
     },
     '/restart': {
-      target: 'http://10.10.19.250:5000',
-      // target: 'http://127.0.0.1:5000',
+      // target: 'http://10.10.19.250:5000',
+      target: 'http://127.0.0.1:5000',
       changeOrigin: true
     },
     '/favicon.ico': {
-      target: 'http://10.10.19.250:5000',
-      // target: 'http://127.0.0.1:5000',
+      // target: 'http://10.10.19.250:5000',
+      target: 'http://127.0.0.1:5000',
       changeOrigin: true
     },
   }

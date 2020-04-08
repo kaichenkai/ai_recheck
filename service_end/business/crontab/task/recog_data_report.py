@@ -23,7 +23,7 @@ def recog_data_report(a, b):
         # query data
         record_list = db.session.query(WfRecord) \
             .filter(WfRecord.report_status.in_([0, 2]),
-                    WfRecord.entry_time > start_time,
+                    WfRecord.create_time > start_time,
                     WfRecord.recog_status == 2) \
             .limit(cons.QUERY_INTERVAL).all()
         if not record_list:

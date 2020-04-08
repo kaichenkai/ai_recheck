@@ -183,8 +183,8 @@ def create_results(start_time, end_time, manual_check_status, current=None, page
     query = db.session.query(WfRecord)
     # if start_time and end_time:
     # query = query \
-    #         .filter(WfRecord.entry_time >= start_time) \
-    #         .filter(WfRecord.entry_time <= end_time)
+    #         .filter(WfRecord.create_time >= start_time) \
+    #         .filter(WfRecord.create_time <= end_time)
 
     # for i in csector_list:
     #    v = sector_map.get(i)
@@ -195,8 +195,8 @@ def create_results(start_time, end_time, manual_check_status, current=None, page
     if manual_check_status != 3:
         query = query.filter(WfRecord.manual_check_status == manual_check_status)
 
-    entry_total = query.filter(WfRecord.entry_time >= start_time) \
-                       .filter(WfRecord.entry_time <= end_time) \
+    entry_total = query.filter(WfRecord.create_time >= start_time) \
+                       .filter(WfRecord.create_time <= end_time) \
                        .group_by(WfRecord.correct_sector_code) \
                        .with_entities(WfRecord.correct_sector_code, func.count(WfRecord.id)) \
                        .offset(current).limit(pageSize) \
@@ -323,12 +323,12 @@ def create_results_info(start_time, end_time, office_name, manual_check_status, 
                              WfRecord.illegal_time, WfRecord.img_url, WfRecord.img_path,
                              WfRecord.sdk_plate_rect, WfRecord.manual_check_status,
                              WfRecord.illegal_code, WfRecord.sdk_recog_time, WfRecord.recog_data,
-                             WfRecord.entry_time,
+                             WfRecord.create_time,
                              WfRecord.entry_person, WfRecord.office_code)
     if start_time and end_time:
         query = query \
-            .filter(WfRecord.entry_time >= start_time) \
-            .filter(WfRecord.entry_time <= end_time)
+            .filter(WfRecord.create_time >= start_time) \
+            .filter(WfRecord.create_time <= end_time)
     # 前页导出所有废片
     if not office_name:
         query = query.filter(WfRecord.recog_status == 2) \

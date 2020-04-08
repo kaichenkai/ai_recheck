@@ -17,7 +17,6 @@ Content-Type: application/json
   "illegal_addr": "未知",
   "illegal_code": "1208",
   "device_code": "deviceCode222222222",
-  "entry_time": "2020-03-30 10:10:10",
   "office_code": "110",
   "office_name": "采集机关名称",
   "entry_person": "录入人A",

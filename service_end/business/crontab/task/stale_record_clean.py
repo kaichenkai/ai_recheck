@@ -23,7 +23,7 @@ def stale_record_clean(a, b):
         del_count = 0
         start_time = time.time()
         while True:
-            del_record_list = db.session.query(WfRecord).filter(WfRecord.entry_time < clean_time).limit(cons.DEL_INTERVAL).all()
+            del_record_list = db.session.query(WfRecord).filter(WfRecord.create_time < clean_time).limit(cons.DEL_INTERVAL).all()
             #
             if not del_record_list:
                 break
