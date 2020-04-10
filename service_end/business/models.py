@@ -57,8 +57,8 @@ class SectorDataCount(BaseModel, db.Model):
     __tablename__ = 'sector_date_count'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    sector_code = db.Column(db.String)
-    date = db.Column(db.String)
+    sector_code = db.Column(db.String(20))
+    date = db.Column(db.Date)
     manual_check_status = db.Column(db.Integer, nullable=False)
     insert_count = db.Column(db.Integer, default=0)
     ana_count = db.Column(db.Integer, default=0)

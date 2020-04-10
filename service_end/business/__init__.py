@@ -25,9 +25,14 @@ def create_app(config_name="prod"):
     app = Flask(__name__, static_folder="static/", template_folder="static/")
     # 从 object 中加载配置
     app.config.from_object(config)
-    # 初始化 mysql
+
+    # 将 db 注册到app中
     global db
+    # 初始化 mysql
     db.init_app(app)
+    # 创建所有表
+    db.create_all(app=app)
+
     # 连接 redis
     global redis_store
     # redis_store = redis.StrictRedis(host=conf.REDIS_HOST, port=conf.REDIS_PORT)

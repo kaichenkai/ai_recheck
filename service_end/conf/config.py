@@ -41,7 +41,7 @@ class CrontabConfig(object):  # 创建配置，用类
             # 'minute': 0,
             # 'second': 0
             # 不能够 00:00:00 时统计, 可能有误差
-            'trigger': CronTrigger(hour=1, minute=0, second=0)
+            'trigger': CronTrigger(hour=8, minute=0, second=0)
         },
         {
             # 识别数据上报
