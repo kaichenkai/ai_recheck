@@ -54,7 +54,7 @@ class CrontabConfig(object):  # 创建配置，用类
             'max_instances': 1  # 默认1
         },
         {
-            # 定时清理陈旧的数据, 每天 00:00:00 执行一次
+            # 定时清理过期数据, 每天 00:00:00 执行一次
             'id': 'stale_record_clean',
             'func': stale_record_clean,  # 方法名
             'args': (1, 2),  # 入参
