@@ -29,7 +29,7 @@ def to_mstimestamp(string, format=default_format):
     return int(time.mktime(time.strptime(string, format))) * 1000
 
 
-def today(format='%Y-%m-%d'):
+def to_day(format='%Y-%m-%d'):
     return timestamp2str(time.time(), format)
 
 

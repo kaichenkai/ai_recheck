@@ -11,7 +11,7 @@ import threading
 from sqlalchemy import func
 # from flask import current_app
 from multiprocessing import Queue, Process
-from business.common.time_func import now_time
+from business.common.time_func import now_time, to_day
 from business import db, create_app
 from conf import constants as cons
 from business.models import WfRecord, SectorDataCount
@@ -79,7 +79,7 @@ def sdk_request(a, b):
                     logging.exception('sdk_request{}'.format(e))
                     w_id = r[0]
                     w = db.session.query(WfRecord).filter(WfRecord.id == w_id).first()
-                    # TODO 识别异常
+                    # TODO 识别异常 打开图片失败
                     w.recog_status = 3
                     # db.session.add(w)
                     db.session.commit()
@@ -271,24 +271,21 @@ def add_data(tmp, ex_tmp):
 def all_date_count(a, b):
     app = create_app()
     with app.app_context():
-        # 项目一开始没有数据, 防止报错
-        while True:
-            record = db.session.query(WfRecord).first()
-            if record:
-                break
-        # 第一条数据的录入时间
-        first_time = record.create_time.strftime("%Y-%m-%d")
-        # next_day = first_time
-        # 今天统计昨天
-        today = (datetime.datetime.now() - datetime.timedelta(days=1)).strftime("%Y-%m-%d")
+        #
+        record = db.session.query(WfRecord).first()
+        if record:
+            # 第一条数据的录入时间
+            first_date = record.create_time.strftime("%Y-%m-%d")
+            next_date = first_date
+            # today = (datetime.datetime.now() - datetime.timedelta(days=1)).strftime("%Y-%m-%d")
+            current_date = to_day()
 
-        print('+++++++++ all_date_count', today, first_time)
-        while today != next_day:
-            result = get_count(next_day)
-            insert_date_count(result)
-            next_day = (datetime.datetime.strptime(next_day, '%Y-%m-%d') + datetime.timedelta(days=1)).strftime("%Y-%m-%d")
-
-            # print '+++++++++ all_date_count', today, next_day
+            print('+++++++++ all_date_count', next_date, current_date)
+            while next_date < current_date:
+                result = get_count(next_date)
+                insert_date_count(result)
+                next_date = (datetime.datetime.strptime(next_date, '%Y-%m-%d') + datetime.timedelta(days=1)).strftime("%Y-%m-%d")
+                # print '+++++++++ all_date_count', today, next_date
 
 
 def yesterday_count(a, b):
