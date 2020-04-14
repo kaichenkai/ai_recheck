@@ -1,4 +1,5 @@
 # -*- coding:utf-8 -*-
+import pytz
 import logging
 from apscheduler.triggers.cron import CronTrigger
 from apscheduler.triggers.interval import IntervalTrigger
@@ -41,7 +42,7 @@ class CrontabConfig(object):  # 创建配置，用类
             # 'minute': 0,
             # 'second': 0
             # 不能够 00:00:00 时统计, 可能有误差
-            'trigger': CronTrigger(hour=8, minute=0, second=0)
+            'trigger': CronTrigger(hour=8, minute=0, second=0, timezone=pytz.utc)
         },
         {
             # 识别数据上报
@@ -62,7 +63,7 @@ class CrontabConfig(object):  # 创建配置，用类
             # 'hour': 0,
             # 'minute': 0,
             # 'second': 0,
-            'trigger': CronTrigger(hour=0, minute=0, second=0)
+            'trigger': CronTrigger(hour=0, minute=0, second=0, timezone=pytz.utc)  # 需要指定时区
         }
     ]
 
