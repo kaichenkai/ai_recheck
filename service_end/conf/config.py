@@ -19,7 +19,7 @@ class CrontabConfig(object):  # 创建配置，用类
             'args': (1, 2),  # 入参
             # 'trigger': 'interval',  # interval表示循环任务
             # 'seconds': 3,
-            'trigger': IntervalTrigger(seconds=3),  # interval表示循环任务
+            'trigger': IntervalTrigger(seconds=3, timezone=pytz.utc),  # interval表示循环任务
             'max_instances': 1  # 默认1
         },
         {
@@ -28,7 +28,7 @@ class CrontabConfig(object):  # 创建配置，用类
             'func': all_date_count,  # 方法名
             'args': (1, 2),  # 入参
             # 'trigger': 'date',  # date表示一次任务
-            'trigger': DateTrigger(),
+            'trigger': DateTrigger(timezone=pytz.utc),
             # 'run_date': datetime.datetime.now(),  # 默认
         },
         {
@@ -42,7 +42,7 @@ class CrontabConfig(object):  # 创建配置，用类
             # 'minute': 0,
             # 'second': 0
             # 不能够 00:00:00 时统计, 可能有误差
-            'trigger': CronTrigger(hour=8, minute=0, second=0, timezone=pytz.utc)
+            'trigger': CronTrigger(hour=0, minute=0, second=0, timezone=pytz.utc)   # 每天北京时间 8:00 统计
         },
         {
             # 识别数据上报
@@ -51,7 +51,7 @@ class CrontabConfig(object):  # 创建配置，用类
             'args': (1, 2),  # 入参
             # 'trigger': 'interval',  # interval表示循环任务
             # 'seconds': 3,
-            'trigger': IntervalTrigger(seconds=3),  # interval表示循环任务
+            'trigger': IntervalTrigger(seconds=3, timezone=pytz.utc),  # interval表示循环任务
             'max_instances': 1  # 默认1
         },
         {
