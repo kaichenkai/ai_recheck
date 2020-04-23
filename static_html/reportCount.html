@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="css/reportCount.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <header id="header">
+        <!--左边-->
+        <div class="header-left">
+            <h3>通报统计</h3>
+        </div>
+        <!--右边-->
+        <div class="header-right">
+<!--            <a href="" class="glyphicon glyphicon-apple"></a>-->
+            <button>导出废片</button>
+            <button>导出统计</button>
+            <span>|</span>
+            <a href="#">返回主页</a>
+        </div>
+    </header>
+
+    <section id="section">
+        <div class="row">
+            <!--左边: 条件查询-->
+            <div class="condition-query col-xs-3">
+                <label>查询时间: <input type="datetime-local"></label>
+                <label>
+                    审核状态:
+                    <select name="checkStatus">
+                        <option value="" selected>全部</option>
+                        <option value="1">正片</option>
+                        <option value="2">废片</option>
+                    </select>
+                </label>
+            </div>
+            <!--右边: 数据展示-->
+            <div class="content col-xs-9">
+<!--                <div class="title">-->
+<!--                    <ul>-->
+<!--                        <li class="a">编号</li>-->
+<!--                        <li class="b">采集机关</li>-->
+<!--                        <li class="c">录入量</li>-->
+<!--                        <li class="d">分析量</li>-->
+<!--                        <li class="e">上报量</li>-->
+<!--                        <li class="f">疑似错误量</li>-->
+<!--                        <li class="g">正片量</li>-->
+<!--                        <li class="h">废片量</li>-->
+<!--                        <li class="i">准确率</li>-->
+<!--                        <li class="j">召回率</li>-->
+<!--                        <li class="k">检出率</li>-->
+<!--&lt;!&ndash;                        滚动条&ndash;&gt;-->
+<!--                        <li class="l">a</li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--                <div class="data">-->
+<!--                    <ul >-->
+<!--                    <li class="a">1</li>-->
+<!--                    <li class="b">中裕广恒</li>-->
+<!--                    <li class="c">5883</li>-->
+<!--                    <li class="d">5885</li>-->
+<!--                    <li class="e">5885</li>-->
+<!--                    <li class="f">60</li>-->
+<!--                    <li class="g">1</li>-->
+<!--                    <li class="h">1</li>-->
+<!--                    <li class="i">1.7%</li>-->
+<!--                    <li class="j">1.7‱</li>-->
+<!--                    <li class="k">102.0‱</li>-->
+<!--                    <li class="l"></li>-->
+<!--                </ul>   <ul >-->
+<!--                    <li class="a">1</li>-->
+<!--                    <li class="b">中裕广恒</li>-->
+<!--                    <li class="c">5883</li>-->
+<!--                    <li class="d">5885</li>-->
+<!--                    <li class="e">5885</li>-->
+<!--                    <li class="f">60</li>-->
+<!--                    <li class="g">1</li>-->
+<!--                    <li class="h">1</li>-->
+<!--                    <li class="i">1.7%</li>-->
+<!--                    <li class="j">1.7‱</li>-->
+<!--                    <li class="k">102.0‱</li>-->
+<!--                    <li class="l"></li>-->
+<!--                </ul>  -->
+
+                <table class="table table-hover">
+                    <thead class="">
+                        <tr>
+                            <th class="a">编号</th>
+                            <th class="b">采集机关</th>
+                            <th class="c">录入量</th>
+                            <th class="d">分析量</th>
+                            <th class="e">上报量</th>
+                            <th class="f">疑似错误量</th>
+                            <th class="g">正片量</th>
+                            <th class="h">废片量</th>
+                            <th class="i">准确率</th>
+                            <th class="j">召回率</th>
+                            <th class="k">检出率</th>
+                        </tr>
+                    </thead>
+                    <tbody class="">
+                        <tr>
+                            <td class="a">1</td>
+                            <td class="b">中裕广恒</td>
+                            <td class="c">5883</td>
+                            <td class="d">5885</td>
+                            <td class="e">5885</td>
+                            <td class="f">60</td>
+                            <td class="g">1</td>
+                            <td class="h">1</td>
+                            <td class="i">1.7%</td>
+                            <td class="j">1.7‱</td>
+                            <td class="k">102.0‱</td>
+                        </tr>
+                       <tr>
+                            <td class="a">1</td>
+                            <td class="b">中裕广恒</td>
+                            <td class="c">5883</td>
+                            <td class="d">5885</td>
+                            <td class="e">5885</td>
+                            <td class="f">60</td>
+                            <td class="g">1</td>
+                            <td class="h">1</td>
+                            <td class="i">1.7%</td>
+                            <td class="j">1.7‱</td>
+                            <td class="k">102.0‱</td>
+                        </tr>   <tr>
+                            <td class="a">1</td>
+                            <td class="b">中裕广恒</td>
+                            <td class="c">5883</td>
+                            <td class="d">5885</td>
+                            <td class="e">5885</td>
+                            <td class="f">60</td>
+                            <td class="g">1</td>
+                            <td class="h">1</td>
+                            <td class="i">1.7%</td>
+                            <td class="j">1.7‱</td>
+                            <td class="k">102.0‱</td>
+                        </tr>   <tr>
+                            <td class="a">1</td>
+                            <td class="b">中裕广恒</td>
+                            <td class="c">5883</td>
+                            <td class="d">5885</td>
+                            <td class="e">5885</td>
+                            <td class="f">60</td>
+                            <td class="g">1</td>
+                            <td class="h">1</td>
+                            <td class="i">1.7%</td>
+                            <td class="j">1.7‱</td>
+                            <td class="k">102.0‱</td>
+                        </tr>   <tr>
+                            <td class="a">1</td>
+                            <td class="b">中裕广恒</td>
+                            <td class="c">5883</td>
+                            <td class="d">5885</td>
+                            <td class="e">5885</td>
+                            <td class="f">60</td>
+                            <td class="g">1</td>
+                            <td class="h">1</td>
+                            <td class="i">1.7%</td>
+                            <td class="j">1.7‱</td>
+                            <td class="k">102.0‱</td>
+                        </tr>   <tr>
+                            <td class="a">1</td>
+                            <td class="b">中裕广恒</td>
+                            <td class="c">5883</td>
+                            <td class="d">5885</td>
+                            <td class="e">5885</td>
+                            <td class="f">60</td>
+                            <td class="g">1</td>
+                            <td class="h">1</td>
+                            <td class="i">1.7%</td>
+                            <td class="j">1.7‱</td>
+                            <td class="k">102.0‱</td>
+                        </tr>   <tr>
+                            <td class="a">1</td>
+                            <td class="b">中裕广恒</td>
+                            <td class="c">5883</td>
+                            <td class="d">5885</td>
+                            <td class="e">5885</td>
+                            <td class="f">60</td>
+                            <td class="g">1</td>
+                            <td class="h">1</td>
+                            <td class="i">1.7%</td>
+                            <td class="j">1.7‱</td>
+                            <td class="k">102.0‱</td>
+                        </tr>   <tr>
+                            <td class="a">1</td>
+                            <td class="b">中裕广恒</td>
+                            <td class="c">5883</td>
+                            <td class="d">5885</td>
+                            <td class="e">5885</td>
+                            <td class="f">60</td>
+                            <td class="g">1</td>
+                            <td class="h">1</td>
+                            <td class="i">1.7%</td>
+                            <td class="j">1.7‱</td>
+                            <td class="k">102.0‱</td>
+                        </tr>   <tr>
+                            <td class="a">1</td>
+                            <td class="b">中裕广恒</td>
+                            <td class="c">5883</td>
+                            <td class="d">5885</td>
+                            <td class="e">5885</td>
+                            <td class="f">60</td>
+                            <td class="g">1</td>
+                            <td class="h">1</td>
+                            <td class="i">1.7%</td>
+                            <td class="j">1.7‱</td>
+                            <td class="k">102.0‱</td>
+                        </tr>   <tr>
+                            <td class="a">1</td>
+                            <td class="b">中裕广恒</td>
+                            <td class="c">5883</td>
+                            <td class="d">5885</td>
+                            <td class="e">5885</td>
+                            <td class="f">60</td>
+                            <td class="g">1</td>
+                            <td class="h">1</td>
+                            <td class="i">1.7%</td>
+                            <td class="j">1.7‱</td>
+                            <td class="k">102.0‱</td>
+                        </tr>   <tr>
+                            <td class="a">1</td>
+                            <td class="b">中裕广恒</td>
+                            <td class="c">5883</td>
+                            <td class="d">5885</td>
+                            <td class="e">5885</td>
+                            <td class="f">60</td>
+                            <td class="g">1</td>
+                            <td class="h">1</td>
+                            <td class="i">1.7%</td>
+                            <td class="j">1.7‱</td>
+                            <td class="k">102.0‱</td>
+                        </tr>   <tr>
+                            <td class="a">1</td>
+                            <td class="b">中裕广恒</td>
+                            <td class="c">5883</td>
+                            <td class="d">5885</td>
+                            <td class="e">5885</td>
+                            <td class="f">60</td>
+                            <td class="g">1</td>
+                            <td class="h">1</td>
+                            <td class="i">1.7%</td>
+                            <td class="j">1.7‱</td>
+                            <td class="k">102.0‱</td>
+                        </tr>   <tr>
+                            <td class="a">1</td>
+                            <td class="b">中裕广恒</td>
+                            <td class="c">5883</td>
+                            <td class="d">5885</td>
+                            <td class="e">5885</td>
+                            <td class="f">60</td>
+                            <td class="g">1</td>
+                            <td class="h">1</td>
+                            <td class="i">1.7%</td>
+                            <td class="j">1.7‱</td>
+                            <td class="k">102.0‱</td>
+                        </tr>   <tr>
+                            <td class="a">1</td>
+                            <td class="b">中裕广恒</td>
+                            <td class="c">5883</td>
+                            <td class="d">5885</td>
+                            <td class="e">5885</td>
+                            <td class="f">60</td>
+                            <td class="g">1</td>
+                            <td class="h">1</td>
+                            <td class="i">1.7%</td>
+                            <td class="j">1.7‱</td>
+                            <td class="k">102.0‱</td>
+                        </tr>   <tr>
+                            <td class="a">1</td>
+                            <td class="b">中裕广恒</td>
+                            <td class="c">5883</td>
+                            <td class="d">5885</td>
+                            <td class="e">5885</td>
+                            <td class="f">60</td>
+                            <td class="g">1</td>
+                            <td class="h">1</td>
+                            <td class="i">1.7%</td>
+                            <td class="j">1.7‱</td>
+                            <td class="k">102.0‱</td>
+                        </tr>   <tr>
+                            <td class="a">1</td>
+                            <td class="b">中裕广恒</td>
+                            <td class="c">5883</td>
+                            <td class="d">5885</td>
+                            <td class="e">5885</td>
+                            <td class="f">60</td>
+                            <td class="g">1</td>
+                            <td class="h">1</td>
+                            <td class="i">1.7%</td>
+                            <td class="j">1.7‱</td>
+                            <td class="k">102.0‱</td>
+                        </tr>   <tr>
+                            <td class="a">1</td>
+                            <td class="b">中裕广恒</td>
+                            <td class="c">5883</td>
+                            <td class="d">5885</td>
+                            <td class="e">5885</td>
+                            <td class="f">60</td>
+                            <td class="g">1</td>
+                            <td class="h">1</td>
+                            <td class="i">1.7%</td>
+                            <td class="j">1.7‱</td>
+                            <td class="k">102.0‱</td>
+                        </tr>   <tr>
+                            <td class="a">1</td>
+                            <td class="b">中裕广恒</td>
+                            <td class="c">5883</td>
+                            <td class="d">5885</td>
+                            <td class="e">5885</td>
+                            <td class="f">60</td>
+                            <td class="g">1</td>
+                            <td class="h">1</td>
+                            <td class="i">1.7%</td>
+                            <td class="j">1.7‱</td>
+                            <td class="k">102.0‱</td>
+                        </tr>   <tr>
+                            <td class="a">1</td>
+                            <td class="b">中裕广恒</td>
+                            <td class="c">5883</td>
+                            <td class="d">5885</td>
+                            <td class="e">5885</td>
+                            <td class="f">60</td>
+                            <td class="g">1</td>
+                            <td class="h">1</td>
+                            <td class="i">1.7%</td>
+                            <td class="j">1.7‱</td>
+                            <td class="k">102.0‱</td>
+                        </tr>   <tr>
+                            <td class="a">1</td>
+                            <td class="b">中裕广恒</td>
+                            <td class="c">5883</td>
+                            <td class="d">5885</td>
+                            <td class="e">5885</td>
+                            <td class="f">60</td>
+                            <td class="g">1</td>
+                            <td class="h">1</td>
+                            <td class="i">1.7%</td>
+                            <td class="j">1.7‱</td>
+                            <td class="k">102.0‱</td>
+                        </tr>   <tr>
+                            <td class="a">1</td>
+                            <td class="b">中裕广恒</td>
+                            <td class="c">5883</td>
+                            <td class="d">5885</td>
+                            <td class="e">5885</td>
+                            <td class="f">60</td>
+                            <td class="g">1</td>
+                            <td class="h">1</td>
+                            <td class="i">1.7%</td>
+                            <td class="j">1.7‱</td>
+                            <td class="k">102.0‱</td>
+                        </tr>   <tr>
+                            <td class="a">1</td>
+                            <td class="b">中裕广恒</td>
+                            <td class="c">5883</td>
+                            <td class="d">5885</td>
+                            <td class="e">5885</td>
+                            <td class="f">60</td>
+                            <td class="g">1</td>
+                            <td class="h">1</td>
+                            <td class="i">1.7%</td>
+                            <td class="j">1.7‱</td>
+                            <td class="k">102.0‱</td>
+                        </tr>   <tr>
+                            <td class="a">1</td>
+                            <td class="b">中裕广恒</td>
+                            <td class="c">5883</td>
+                            <td class="d">5885</td>
+                            <td class="e">5885</td>
+                            <td class="f">60</td>
+                            <td class="g">1</td>
+                            <td class="h">1</td>
+                            <td class="i">1.7%</td>
+                            <td class="j">1.7‱</td>
+                            <td class="k">102.0‱</td>
+                        </tr>   <tr>
+                            <td class="a">1</td>
+                            <td class="b">中裕广恒</td>
+                            <td class="c">5883</td>
+                            <td class="d">5885</td>
+                            <td class="e">5885</td>
+                            <td class="f">60</td>
+                            <td class="g">1</td>
+                            <td class="h">1</td>
+                            <td class="i">1.7%</td>
+                            <td class="j">1.7‱</td>
+                            <td class="k">102.0‱</td>
+                        </tr>   <tr>
+                            <td class="a">1</td>
+                            <td class="b">中裕广恒</td>
+                            <td class="c">5883</td>
+                            <td class="d">5885</td>
+                            <td class="e">5885</td>
+                            <td class="f">60</td>
+                            <td class="g">1</td>
+                            <td class="h">1</td>
+                            <td class="i">1.7%</td>
+                            <td class="j">1.7‱</td>
+                            <td class="k">102.0‱</td>
+                        </tr>   <tr>
+                            <td class="a">1</td>
+                            <td class="b">中裕广恒</td>
+                            <td class="c">5883</td>
+                            <td class="d">5885</td>
+                            <td class="e">5885</td>
+                            <td class="f">60</td>
+                            <td class="g">1</td>
+                            <td class="h">1</td>
+                            <td class="i">1.7%</td>
+                            <td class="j">1.7‱</td>
+                            <td class="k">102.0‱</td>
+                        </tr>   <tr>
+                            <td class="a">1</td>
+                            <td class="b">中裕广恒</td>
+                            <td class="c">5883</td>
+                            <td class="d">5885</td>
+                            <td class="e">5885</td>
+                            <td class="f">60</td>
+                            <td class="g">1</td>
+                            <td class="h">1</td>
+                            <td class="i">1.7%</td>
+                            <td class="j">1.7‱</td>
+                            <td class="k">102.0‱</td>
+                        </tr>   <tr>
+                            <td class="a">1</td>
+                            <td class="b">中裕广恒</td>
+                            <td class="c">5883</td>
+                            <td class="d">5885</td>
+                            <td class="e">5885</td>
+                            <td class="f">60</td>
+                            <td class="g">1</td>
+                            <td class="h">1</td>
+                            <td class="i">1.7%</td>
+                            <td class="j">1.7‱</td>
+                            <td class="k">102.0‱</td>
+                        </tr>   <tr>
+                            <td class="a">1</td>
+                            <td class="b">中裕广恒</td>
+                            <td class="c">5883</td>
+                            <td class="d">5885</td>
+                            <td class="e">5885</td>
+                            <td class="f">60</td>
+                            <td class="g">1</td>
+                            <td class="h">1</td>
+                            <td class="i">1.7%</td>
+                            <td class="j">1.7‱</td>
+                            <td class="k">102.0‱</td>
+                        </tr>   <tr>
+                            <td class="a">1</td>
+                            <td class="b">中裕广恒</td>
+                            <td class="c">5883</td>
+                            <td class="d">5885</td>
+                            <td class="e">5885</td>
+                            <td class="f">60</td>
+                            <td class="g">1</td>
+                            <td class="h">1</td>
+                            <td class="i">1.7%</td>
+                            <td class="j">1.7‱</td>
+                            <td class="k">102.0‱</td>
+                        </tr>   <tr>
+                            <td class="a">1</td>
+                            <td class="b">中裕广恒</td>
+                            <td class="c">5883</td>
+                            <td class="d">5885</td>
+                            <td class="e">5885</td>
+                            <td class="f">60</td>
+                            <td class="g">1</td>
+                            <td class="h">1</td>
+                            <td class="i">1.7%</td>
+                            <td class="j">1.7‱</td>
+                            <td class="k">102.0‱</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <!--页脚-->
+    </footer>
+
+    <!--<script src="/umi.js"></script>-->
+    <!-- 由于 Bootstrap 的 JS 插件依赖 JQuery, 所以需要导入 JQuery-->
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <!-- 引入所有的 Bootstrap 的 JS 插件 -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <!-- 引入自己的 JS 代码 -->
+    <script src="js/index.js"></script>
+</body>
+</html>

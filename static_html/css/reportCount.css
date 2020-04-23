@@ -1,0 +1,92 @@
+/*reportCount 样式*/
+
+* {
+    margin: 0;
+    border: 0;
+    padding: 0;
+    list-style: none;
+    box-sizing: border-box;
+}
+
+ul, li {
+    color: rgba(0,0,0,.85);
+    text-align: left;
+}
+
+tr {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+
+/*头部*/
+#header {
+    width: 100%;
+    height: 61px;
+    /*background-color: skyblue;*/
+    border-bottom: 1px solid #e8e8e8;
+}
+/*头部左边*/
+#header .header-left {
+    float: left;
+}
+#header .header-left h3 {
+    margin: 17px 30px;
+}
+/*头部右边*/
+#header .header-right {
+    width: 450px;
+    height: 60px;
+    float: right;
+    text-align: center;
+    line-height: 60px;
+}
+#header .header-right button {
+    width: 120px;
+    height: 30px;
+    border-radius: 5px;
+    vertical-align: middle;
+    line-height: 30px;
+}
+#header .header-right button, #header .header-right a {
+    margin: 0 6px;
+}
+#header .header-right a:hover {
+    text-decoration: none;
+}
+
+/*条件查询*/
+#section .condition-query {
+    /*margin-top: 20px;*/
+
+    /*position: relative;*/
+    /*top: 20px;*/
+    /*left: 50px;*/
+}
+
+
+/*列表内容*/
+#section .row {
+    width: 96%;
+    margin: 50px auto;
+}
+#section .row .content {
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    padding: 0 15px;
+}
+#section .row .content table tr th {
+    font-size: 14px;
+}
+#section .row .content table tbody {
+
+}
+
+#section .row .content table tbody tr:last-child {
+    font-weight: bolder;
+    /*background-color: skyblue;*/
+}
+#section .row .content tr th,
+#section .row .content tr td{
+    padding: 15px 5px;
+    /*background-color: skyblue;*/
+}
