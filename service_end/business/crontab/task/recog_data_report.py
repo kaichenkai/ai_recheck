@@ -38,6 +38,7 @@ def recog_data_report(a, b):
                 result = "false"
             #
             data_dict = {
+                "msgid": record.msgid,
                 "sbbh": record.device_code,
                 "wfxw": record.illegal_code,
                 "wfsj": str(record.illegal_time),

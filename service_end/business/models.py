@@ -12,8 +12,8 @@ class BaseModel(object):
 class WfRecord(BaseModel, db.Model):
     __tablename__ = 'wf_record'
     # constants
-    REPORT_SUCCESS = 1
-    REPORT_FAILED = 2
+    REPORT_SUCCESS = 1  # 发布成功
+    REPORT_FAILED = 2   # 失败
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     record_id = db.Column(db.String(50), unique=True, nullable=False)           # 唯一记录ID  不允许有空值
