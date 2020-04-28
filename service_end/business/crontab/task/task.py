@@ -85,18 +85,19 @@ def sdk_request(a, b):
                     db.session.commit()
                     continue
 
-                else:
-                    if not b64_str:
-                        w_id = r[0]
-                        w = db.session.query(WfRecord).filter(WfRecord.id == w_id).first()
-                        # TODO 没有图片的情况
-                        w.recog_status = 4
-                        # db.session.add(w)
-                        db.session.commit()
-                        continue
-                    images.append(b64_str)
-                    cal_params.append(cal_param)
-                    rs.append(r)
+                if not b64_str:
+                    logging.error("no b64_str")
+                    w_id = r[0]
+                    w = db.session.query(WfRecord).filter(WfRecord.id == w_id).first()
+                    # TODO 没有图片的情况
+                    w.recog_status = 4
+                    # db.session.add(w)
+                    db.session.commit()
+                    continue
+                images.append(b64_str)
+                cal_params.append(cal_param)
+                rs.append(r)
+
                 # 如果数据大于 8 条, 一次只放 8 条数据
                 data_len = len(images)
                 if data_len >= 8:
