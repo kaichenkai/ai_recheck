@@ -54,7 +54,9 @@ def get_results():
                              WfRecord.sdk_car_plate_type, WfRecord.sdk_reason_code,
                              WfRecord.create_time, WfRecord.img_url, WfRecord.img_path,
                              WfRecord.sdk_plate_rect, WfRecord.manual_check_status,
-                             WfRecord.illegal_code, WfRecord.sdk_recog_time, WfRecord.recog_data)\
+                             WfRecord.illegal_code, WfRecord.sdk_recog_time, WfRecord.recog_data,
+                             WfRecord.entry_person, WfRecord.recog_status, WfRecord.report_status,
+                             WfRecord.report_time) \
                       .filter(WfRecord.recog_status == 2)
     # .filter(WfRecord.sdk_reason_code>0)\
     # .filter(WfRecord.car_plate_number != WfRecord.sdk_car_plate_number)
@@ -138,6 +140,10 @@ def get_results():
             'manual_check_status': r[11],
             'src_illegal_action': r[12],
             'sdk_recog_time': str(r[13]),
+            'entry_person': r[15],  # 2020-05-25 add by chenkai
+            'recog_status': r[16],
+            'report_status': r[17],
+            'report_time': str(r[18]),
             'plate_scores': plate_scores,
         })
     result_data = {"result": result, "time_total": time_total}
