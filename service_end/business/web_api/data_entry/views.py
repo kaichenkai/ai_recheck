@@ -25,7 +25,7 @@ def data_entry():
         logging.error("json data parse failed, error:[{}]".format(e))
         return invalid(detail="json 数据解析失败, 请检查数据内容")
     # 数据校验
-    structure_data, error_str = data_verify(data_dict)
+    data_dict, error_str = data_verify(data_dict)
     if error_str:
         return invalid(detail=error_str)
 
